@@ -1,6 +1,6 @@
 {
-    "name": "kenjis/ci3to4migration-helper",
-    "description": "",
+    "name": "kenjis/ci3-to-4-migration-helper",
+    "description": "Help migration from CodeIgniter3 to CodeIgniter4",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0"
+        "php": "^7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
@@ -22,14 +22,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Kenjis\\Ci3To4MigrationHelper\\": "src/"
+            "Kenjis\\CI3Compatible\\": "src/CI3Compatible"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Kenjis\\Ci3To4MigrationHelper\\": [
-                "tests/",
-                "tests/Fake"
+            "Kenjis\\CI3Compatible\\": [
+                "tests/CI3Compatible",
+                "tests/CI3Compatible/Fake"
             ]
         }
     },
