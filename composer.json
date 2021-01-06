@@ -18,8 +18,15 @@
         "phpstan/phpstan": "^0.12",
         "vimeo/psalm": "^4.1",
         "phpmetrics/phpmetrics": "^2.7",
-        "doctrine/coding-standard": "^8.1"
+        "doctrine/coding-standard": "^8.1",
+        "codeigniter4/codeigniter4": "dev-develop"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/codeigniter4/codeigniter4"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Kenjis\\CI3Compatible\\": "src/CI3Compatible"
