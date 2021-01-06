@@ -37,6 +37,10 @@
             "Kenjis\\CI3Compatible\\": [
                 "tests/CI3Compatible",
                 "tests/CI3Compatible/Fake"
+            ],
+            "App\\": [
+                "tests/App",
+                "vendor/codeigniter4/codeigniter4/app"
             ]
         }
     },
