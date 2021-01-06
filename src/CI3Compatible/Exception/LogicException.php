@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kenjis\Ci3To4MigrationHelper\Exception;
+namespace Kenjis\CI3Compatible\Exception;
 
 class LogicException extends \LogicException
 {
