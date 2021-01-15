@@ -30,7 +30,10 @@
     "autoload": {
         "psr-4": {
             "Kenjis\\CI3Compatible\\": "src/CI3Compatible"
-        }
+        },
+        "files": [
+            "src/CI3Compatible/bootstrap.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
