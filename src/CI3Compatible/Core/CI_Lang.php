@@ -6,4 +6,5 @@ namespace Kenjis\CI3Compatible\Core;
 
 class CI_Lang
 {
+    // @TODO
 }
