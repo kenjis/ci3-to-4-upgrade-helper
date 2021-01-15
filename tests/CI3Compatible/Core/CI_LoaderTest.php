@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core;
 
 use App\Models\News_model;
+use Kenjis\CI3Compatible\Core\Loader\CoreLoader;
 use Kenjis\CI3Compatible\Database\CI_DB;
 use Kenjis\CI3Compatible\Library\CI_Form_validation;
 use Kenjis\CI3Compatible\TestCase;
@@ -21,6 +22,7 @@ class CI_LoaderTest extends TestCase
     {
         parent::setUp();
 
+        $coreLoader = new CoreLoader();
         $this->loader = new CI_Loader();
         $this->controller = new CI_Controller();
         $this->loader->setController($this->controller);

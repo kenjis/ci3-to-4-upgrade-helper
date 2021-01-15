@@ -10,6 +10,9 @@ use function strtolower;
 
 class CoreLoader
 {
+    /** @var CoreLoader */
+    private static $instance;
+
     /** @var array */
     private $coreClasses = [
         // name w/o prefix => instance
@@ -27,10 +30,19 @@ class CoreLoader
 
     public function __construct()
     {
+        self::$instance = $this;
+
         $this->resolver = new CoreResolver();
+
+        $this->load();
     }
 
-    public function load(): void
+    public static function getInstance(): self
+    {
+        return self::$instance;
+    }
+
+    private function load(): void
     {
         foreach ($this->coreClasses as $class => $instance) {
             $classname = $this->resolver->resolve($class);

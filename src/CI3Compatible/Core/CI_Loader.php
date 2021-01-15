@@ -13,9 +13,6 @@ use Kenjis\CI3Compatible\Core\Loader\ModelLoader;
 
 class CI_Loader
 {
-    /** @var CI_Loader */
-    private static $instance;
-
     /** @var CoreLoader */
     private $coreLoader;
 
@@ -33,15 +30,7 @@ class CI_Loader
 
     public function __construct()
     {
-        self::$instance = $this;
-
-        $this->coreLoader = new CoreLoader();
-        $this->coreLoader->load();
-    }
-
-    public static function getInstance(): self
-    {
-        return self::$instance;
+        $this->coreLoader = CoreLoader::getInstance();
     }
 
     public function setController(CI_Controller $controller): void

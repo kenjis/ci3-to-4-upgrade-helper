@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-use Kenjis\CI3Compatible\Core\CI_Loader;
+use Kenjis\CI3Compatible\Core\Loader\CoreLoader;
 
-$loader = new CI_Loader();
+$coreLoader = new CoreLoader();

@@ -24,7 +24,7 @@ class CI_Controller extends BaseController
     {
         self::$instance =& $this;
 
-        $this->load = CI_Loader::getInstance();
+        $this->load = new CI_Loader();
         $this->load->setController($this);
     }
 
