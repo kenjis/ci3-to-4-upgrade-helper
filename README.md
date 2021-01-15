@@ -1,4 +1,8 @@
-# kenjis/ci3to4migration-helper
+# CodeIgniter 3 to 4 Migration Helper
+
+## Requirements
+
+- CodeIgniter 4.0.5-dev or later
 
 ## Installation
 
@@ -11,4 +15,3 @@
     composer cs-fix            // Fix the coding style
     composer sa                // Run static analysys tools
     composer run-script --list // List all commands
-    
