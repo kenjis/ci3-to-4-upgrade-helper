@@ -12,6 +12,7 @@ class CoreLoader
 {
     /** @var array */
     private $coreClasses = [
+        // name w/o prefix => instance
         'Benchmark' => null,
         'Input' => null,
         'Lang' => null,
