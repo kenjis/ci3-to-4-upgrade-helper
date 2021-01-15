@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core;
 
 use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
-use Kenjis\CI3Compatible\Core\Loader\CoreLoader;
 use Kenjis\CI3Compatible\Core\Loader\DatabaseLoader;
 use Kenjis\CI3Compatible\Core\Loader\HelperLoader;
 use Kenjis\CI3Compatible\Core\Loader\LibraryLoader;

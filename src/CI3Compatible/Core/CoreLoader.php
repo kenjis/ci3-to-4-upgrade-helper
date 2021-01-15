@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Kenjis\CI3Compatible\Core\Loader;
+namespace Kenjis\CI3Compatible\Core;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\CoreResolver;
+use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
 
 use function strtolower;
 
