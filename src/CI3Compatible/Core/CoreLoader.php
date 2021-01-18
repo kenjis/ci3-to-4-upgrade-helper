@@ -18,6 +18,7 @@ class CoreLoader
     private $coreClasses = [
         // name w/o prefix => instance
         'Benchmark' => null,
+        'Config' => null,
         'Input' => null,
         'Lang' => null,
         'Output' => null,
