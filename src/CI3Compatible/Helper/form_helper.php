@@ -22,6 +22,7 @@ if (! function_exists('validation_errors')) {
         if ($prefix !== '' || $suffix !== '') {
             throw new NotSupportedException(
                 '$prefix and $suffix are not supported.'
+                . ' Create custom views to display errors.'
                 . ' See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.'
             );
         }
