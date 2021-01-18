@@ -15,7 +15,10 @@ class LibraryResolver
     private $ci3LibraryNamespace = 'Kenjis\CI3Compatible\Library';
 
     /** @var string[] */
-    private $ci3Libraries = ['form_validation'];
+    private $ci3Libraries = [
+        'session',
+        'form_validation',
+    ];
 
     /** @var string */
     private $prefix = 'CI_';
