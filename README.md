@@ -26,11 +26,49 @@ See <https://codeigniter4.github.io/CodeIgniter4/installation/index.html>.
 $ composer require kenjis/ci3-to-4-migration-helper:1.x-dev
 ```
 
-### Routing
+### Config
+
+#### config.php
+
+1. Migrate `application/config/config.php` to `app/Config/App.php` manually. You can set your own values like base_url with `.env` file.
+
+#### Routing
 
 1. Migrate `application/config/routes.php` to `app/Config/Routes.php` manually.
 
 See <https://codeigniter4.github.io/CodeIgniter4/incoming/routing.html#setting-your-own-routing-rules>.
+
+#### Custom Config Files
+
+1. Convert custom config files to Config classes manually.
+
+See <https://codeigniter4.github.io/CodeIgniter4/general/configuration.html#creating-configuration-files>.
+
+#### Other Config Files
+
+1. Migrate remaining `application/config/*.php` to `app/Config/*.php` manually. You can set your own values like database password with `.env` file.
+
+#### app/Config/View.php
+
+1. If you use `$this->config` in view files, you need to add the following code.
+
+```diff
+--- a/app/Config/View.php
++++ b/app/Config/View.php
+@@ -3,9 +3,12 @@
+ namespace Config;
+ 
+ use CodeIgniter\Config\View as BaseView;
++use Kenjis\CI3Compatible\Traits\View\ThisConfigInView;
+ 
+ class View extends BaseView
+ {
++   use ThisConfigInView;
++
+    /**
+     * When false, the view method will clear the data between each
+     * call. This keeps your data safe and ensures there is no accidental
+```
 
 ### Hooks
 
