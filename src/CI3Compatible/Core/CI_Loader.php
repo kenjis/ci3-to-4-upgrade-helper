@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core;
 
+use Config\Services;
 use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
 use Kenjis\CI3Compatible\Core\Loader\DatabaseLoader;
 use Kenjis\CI3Compatible\Core\Loader\HelperLoader;
@@ -30,6 +31,8 @@ class CI_Loader
     public function __construct()
     {
         $this->coreLoader = CoreLoader::getInstance();
+
+        $this->coreLoader->setLoader($this);
     }
 
     public function setController(CI_Controller $controller): void
@@ -64,11 +67,19 @@ class CI_Loader
      */
     public function view(string $view, array $vars = [], bool $return = false)
     {
+        $this->injectCoreClassesToView();
+
         if ($return) {
             return view($view, $vars);
         }
 
         echo view($view, $vars);
+    }
+
+    private function injectCoreClassesToView(): void
+    {
+        $view = Services::renderer();
+        $this->coreLoader->inject($view);
     }
 
     /**
