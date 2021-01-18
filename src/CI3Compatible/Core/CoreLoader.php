@@ -30,6 +30,9 @@ class CoreLoader
     /** @var CoreResolver */
     private $resolver;
 
+    /** @var CI_Loader */
+    private $loader;
+
     public function __construct()
     {
         self::$instance = $this;
@@ -59,5 +62,10 @@ class CoreLoader
             $property = strtolower($name);
             $injector->inject($property, $instance);
         }
+    }
+
+    public function setLoader(CI_Loader $loader): void
+    {
+        $this->loader = $loader;
     }
 }
