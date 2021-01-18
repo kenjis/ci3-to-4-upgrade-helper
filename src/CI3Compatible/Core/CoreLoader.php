@@ -6,6 +6,7 @@ namespace Kenjis\CI3Compatible\Core;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\CoreResolver;
 use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
+use ReflectionObject;
 
 use function strtolower;
 
@@ -56,11 +57,35 @@ class CoreLoader
         }
     }
 
+    /**
+     * Inject Core Classes w/o CI_Loader to Controller
+     */
     public function injectToController(ControllerPropertyInjector $injector): void
     {
         foreach ($this->coreClasses as $name => $instance) {
             $property = strtolower($name);
             $injector->inject($property, $instance);
+        }
+    }
+
+    /**
+     * Inject Core Classes
+     */
+    public function inject(object $obj): void
+    {
+        $reflection = new ReflectionObject($obj);
+
+        foreach ($this->coreClasses as $name => $instance) {
+            $property = strtolower($name);
+
+            // Skip if the property exists
+            if (! $reflection->hasProperty($property)) {
+                $obj->$property = $instance;
+            }
+        }
+
+        if (! $reflection->hasProperty('load')) {
+            $obj->load = $this->loader;
         }
     }
 
