@@ -5,6 +5,35 @@ declare(strict_types=1);
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
+if (! function_exists('form_error')) {
+    /**
+     * Form Error
+     *
+     * Returns the error for a specific form field. This is a helper for the
+     * form validation class.
+     *
+     * @param   string
+     * @param   string
+     * @param   string
+     *
+     * @return  string
+     */
+    function form_error($field = '', $prefix = '', $suffix = ''): string
+    {
+        if ($prefix !== '' || $suffix !== '') {
+            throw new NotSupportedException(
+                '$prefix and $suffix are not supported.'
+                . ' Create custom views to display errors.'
+                . ' See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.'
+            );
+        }
+
+        return Services::validation()->showError($field);
+    }
+}
+
+// ------------------------------------------------------------------------
+
 if (! function_exists('validation_errors')) {
     /**
      * Validation Error String

@@ -33,4 +33,19 @@ class form_helperTest extends TestCase
 
         validation_errors('<div>', '</div>');
     }
+
+    public function test_form_error(): void
+    {
+        $validation =  Services::validation();
+        $validation->reset();
+        $validation->setRule('username', 'Username', 'required');
+        $data = [];
+        $validation->run($data);
+
+        $errorHtml = form_error('username');
+        $this->assertStringContainsString(
+            'The Username field is required.',
+            $errorHtml
+        );
+    }
 }
