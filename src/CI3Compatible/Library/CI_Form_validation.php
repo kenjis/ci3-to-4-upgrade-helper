@@ -90,6 +90,25 @@ class CI_Form_validation
     }
 
     /**
+     * Set The Error Delimiter
+     *
+     * Permits a prefix/suffix to be added to each error message
+     *
+     * @param   string
+     * @param   string
+     *
+     * @return  CI_Form_validation
+     */
+    public function set_error_delimiters($prefix = '<p>', $suffix = '</p>'): void
+    {
+        throw new NotSupportedException(
+            'CI_Form_validation::set_error_delimiters() is not supported.'
+            . ' Create custom views to display errors.'
+            . ' See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.'
+        );
+    }
+
+    /**
      * Run the Validator
      *
      * This function does all the work.
