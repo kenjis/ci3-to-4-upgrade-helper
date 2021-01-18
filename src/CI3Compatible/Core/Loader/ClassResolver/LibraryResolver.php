@@ -22,10 +22,11 @@ class LibraryResolver
 
     public function resolve(string $library): string
     {
+        $classname = $this->prefix . ucfirst($library);
         if (in_array($library, $this->ci3Libraries, true)) {
-            return $this->ci3LibraryNamespace . '\\' . $this->prefix . ucfirst($library);
+            return $this->ci3LibraryNamespace . '\\' . $classname;
         }
 
-        throw new NotImplementedException();
+        throw new NotImplementedException($classname . ' is not implemented.');
     }
 }
