@@ -27,11 +27,23 @@ class LibraryLoader
         ?string $object_name = null
     ): void {
         $classname = $this->libraryResolver->resolve($library);
+        $property = $this->getPropertyName($library, $object_name);
+        $instance = $this->createInstance($classname, $params);
 
+        $this->injector->inject($property, $instance);
+    }
+
+    private function getPropertyName(string $library, ?string $object_name): string
+    {
         if ($object_name === null) {
-            $object_name = $library;
+            return $library;
         }
 
-        $this->injector->inject($object_name, new $classname($params));
+        return $object_name;
+    }
+
+    private function createInstance(string $classname, ?array $params): object
+    {
+        return new $classname($params);
     }
 }

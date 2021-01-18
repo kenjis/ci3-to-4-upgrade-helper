@@ -46,12 +46,10 @@ class ModelLoader
     private function loadModel(string $model, string $name, bool $db_conn): void
     {
         $classname = $this->modelResolver->resolve($model);
+        $property = $this->getPropertyName($model, $name);
+        $instance = $this->createInstance($classname);
 
-        if ($name === '') {
-            $name = $model;
-        }
-
-        $this->injector->inject($name, model($classname));
+        $this->injector->inject($property, $instance);
     }
 
     private function loadModels(array $models, bool $db_conn): void
@@ -61,5 +59,19 @@ class ModelLoader
                 ? $this->load($value, '', $db_conn)
                 : $this->load($key, $value, $db_conn);
         }
+    }
+
+    private function getPropertyName(string $model, string $name): string
+    {
+        if ($name === '') {
+            return $model;
+        }
+
+        return $name;
+    }
+
+    private function createInstance(string $classname): object
+    {
+        return model($classname);
     }
 }
