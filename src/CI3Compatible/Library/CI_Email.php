@@ -125,7 +125,7 @@ class CI_Email
      *
      * @return  CI_Email
      */
-    public function subject($subject): CI_Email
+    public function subject(string $subject): self
     {
         $this->email->setSubject($subject);
 
@@ -139,7 +139,7 @@ class CI_Email
      *
      * @return  CI_Email
      */
-    public function message(string $body): CI_Email
+    public function message(string $body): self
     {
         $this->email->setMessage($body);
 
