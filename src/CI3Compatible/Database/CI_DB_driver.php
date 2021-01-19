@@ -15,4 +15,14 @@ class CI_DB_driver
     {
         $this->db = $db;
     }
+
+    /**
+     * For debugging
+     *
+     * @internal
+     */
+    public function getBaseConnection(): BaseConnection
+    {
+        return $this->db;
+    }
 }
