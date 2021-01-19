@@ -94,8 +94,11 @@ class CI_Email
      *
      * @return  CI_Email
      */
-    public function from(string $from, string $name = '', ?string $return_path = null): self
-    {
+    public function from(
+        string $from,
+        string $name = '',
+        ?string $return_path = null
+    ): self {
         $this->email->setFrom($from, $name, $return_path);
 
         return $this;
