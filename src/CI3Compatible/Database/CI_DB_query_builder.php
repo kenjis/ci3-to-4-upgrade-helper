@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Database;
 
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\BaseResult;
-use Kenjis\CI3Compatible\Exception\NotImplementedException;
+use Kenjis\CI3Compatible\Exception\LogicException;
 
 use function is_bool;
 
@@ -34,15 +34,12 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         if ($table !== '') {
             $this->builder = $this->db->table($table);
-
-            $this->prepareSelectQuery($this->builder);
-            $query = $this->builder->get($limit, $offset);
-
-            return new CI_DB_result($query);
         }
 
-        // @TODO
-        throw new NotImplementedException('Not implemented yet');
+        $this->prepareSelectQuery();
+        $query = $this->builder->get($limit, $offset);
+
+        return new CI_DB_result($query);
     }
 
     /**
@@ -65,15 +62,12 @@ class CI_DB_query_builder extends CI_DB_driver
     ): CI_DB_result {
         if ($table !== '') {
             $this->builder = $this->db->table($table);
-
-            $this->prepareSelectQuery($this->builder);
-            $query = $this->builder->getWhere($where, $limit, $offset);
-
-            return new CI_DB_result($query);
         }
 
-        // @TODO
-        throw new NotImplementedException('Not implemented yet');
+        $this->prepareSelectQuery();
+        $query = $this->builder->getWhere($where, $limit, $offset);
+
+        return new CI_DB_result($query);
     }
 
     /**
@@ -91,22 +85,19 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         if ($table !== '') {
             $this->builder = $this->db->table($table);
-
-            $ret = $this->builder->insert($set, $escape);
-
-            if ($ret instanceof BaseResult) {
-                return true;
-            }
-
-            if (is_bool($ret)) {
-                return $ret;
-            }
-
-            return false;
         }
 
-        // @TODO
-        throw new NotImplementedException('Not implemented yet');
+        $ret = $this->builder->insert($set, $escape);
+
+        if ($ret instanceof BaseResult) {
+            return true;
+        }
+
+        if (is_bool($ret)) {
+            return $ret;
+        }
+
+        return false;
     }
 
     /**
@@ -128,10 +119,14 @@ class CI_DB_query_builder extends CI_DB_driver
         return $this;
     }
 
-    private function prepareSelectQuery(BaseBuilder $builder): void
+    private function prepareSelectQuery(): void
     {
+        if ($this->builder === null) {
+            throw new LogicException('$this->builder is not set');
+        }
+
         foreach ($this->order_by as $params) {
-            $builder->orderBy(...$params);
+            $this->builder->orderBy(...$params);
         }
     }
 
