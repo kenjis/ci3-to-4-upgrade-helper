@@ -86,6 +86,18 @@ class CI_EmailTest extends TestCase
         );
     }
 
+    public function test_message(): void
+    {
+        $email = new CI_Email();
+
+        $message = 'This is mail body.';
+        $email->message($message);
+
+        $ci4email = $email->getCI4Library();
+        $body = $this->getPrivateProperty($ci4email, 'body');
+        $this->assertSame($message, $body);
+    }
+
     public function tearDown(): void
     {
         parent::tearDown();

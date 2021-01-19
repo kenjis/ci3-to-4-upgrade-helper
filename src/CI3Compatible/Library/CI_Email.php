@@ -128,4 +128,18 @@ class CI_Email
 
         return $this;
     }
+
+    /**
+     * Set Body
+     *
+     * @param   string
+     *
+     * @return  CI_Email
+     */
+    public function message(string $body): CI_Email
+    {
+        $this->email->setMessage($body);
+
+        return $this;
+    }
 }
