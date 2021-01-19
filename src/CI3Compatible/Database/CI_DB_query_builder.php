@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Database;
 
+use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\BaseResult;
 use Kenjis\CI3Compatible\Exception\NotImplementedException;
 
@@ -11,6 +12,12 @@ use function is_bool;
 
 class CI_DB_query_builder extends CI_DB_driver
 {
+    /** @var BaseBuilder */
+    private $builder;
+
+    /** @var array */
+    private $order_by = [];
+
     /**
      * Get
      *
@@ -26,8 +33,10 @@ class CI_DB_query_builder extends CI_DB_driver
     public function get($table = '', $limit = null, $offset = 0): CI_DB_result
     {
         if ($table !== '') {
-            $builder = $this->db->table($table);
-            $query = $builder->get($limit, $offset);
+            $this->builder = $this->db->table($table);
+
+            $this->prepareSelectQuery($this->builder);
+            $query = $this->builder->get($limit, $offset);
 
             return new CI_DB_result($query);
         }
@@ -55,8 +64,10 @@ class CI_DB_query_builder extends CI_DB_driver
         ?int $offset = null
     ): CI_DB_result {
         if ($table !== '') {
-            $builder = $this->db->table($table);
-            $query = $builder->getWhere($where, $limit, $offset);
+            $this->builder = $this->db->table($table);
+
+            $this->prepareSelectQuery($this->builder);
+            $query = $this->builder->getWhere($where, $limit, $offset);
 
             return new CI_DB_result($query);
         }
@@ -79,8 +90,9 @@ class CI_DB_query_builder extends CI_DB_driver
     public function insert(string $table = '', ?array $set = null, ?bool $escape = null): bool
     {
         if ($table !== '') {
-            $builder = $this->db->table($table);
-            $ret = $builder->insert($set, $escape);
+            $this->builder = $this->db->table($table);
+
+            $ret = $this->builder->insert($set, $escape);
 
             if ($ret instanceof BaseResult) {
                 return true;
@@ -95,6 +107,32 @@ class CI_DB_query_builder extends CI_DB_driver
 
         // @TODO
         throw new NotImplementedException('Not implemented yet');
+    }
+
+    /**
+     * ORDER BY
+     *
+     * @param   string $orderby
+     * @param   string $direction ASC, DESC or RANDOM
+     * @param   bool   $escape
+     *
+     * @return  CI_DB_query_builder
+     */
+    public function order_by(
+        string $orderby,
+        string $direction = '',
+        ?bool $escape = null
+    ): self {
+        $this->order_by[] = [$orderby, $direction, $escape];
+
+        return $this;
+    }
+
+    private function prepareSelectQuery(BaseBuilder $builder): void
+    {
+        foreach ($this->order_by as $params) {
+            $builder->orderBy(...$params);
+        }
     }
 
     /**

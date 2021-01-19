@@ -121,4 +121,17 @@ class CI_DB_query_builderTest extends TestCase
         $this->assertTrue($ret);
         $this->seeInDatabase('news', ['slug' => 'news-title']);
     }
+
+    public function test_order_by(): void
+    {
+        $this->queryBuilder->order_by('title', 'ASC');
+        $this->queryBuilder->get('news');
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = 'SELECT *
+FROM `db_news`
+ORDER BY `title` ASC';
+        $this->assertSame($expected, $sql);
+    }
 }
