@@ -145,4 +145,30 @@ class CI_Email
 
         return $this;
     }
+
+    /**
+     * Send Email
+     *
+     * @param   bool $auto_clear = TRUE
+     *
+     * @return  bool
+     */
+    public function send(bool $auto_clear = true): bool
+    {
+        return $this->email->send($auto_clear);
+    }
+
+    /**
+     * Get Debug Message
+     *
+     * @param   array $include List of raw data chunks to include in the output
+     *             Valid options are: 'headers', 'subject', 'body'
+     *
+     * @return  string
+     */
+    public function print_debugger(
+        array $include = ['headers', 'subject', 'body']
+    ): string {
+        return $this->email->printDebugger($include);
+    }
 }

@@ -98,6 +98,54 @@ class CI_EmailTest extends TestCase
         $this->assertSame($message, $body);
     }
 
+    public function test_send_and_print_debugger(): void
+    {
+        $ci4email = $this->getDouble(
+            Email::class,
+            [
+                'sendWithMail' => true,
+                'sendWithSendmail' => true,
+                'sendWithSmtp' => true,
+            ]
+        );
+        Services::injectMock('email', $ci4email);
+
+        $email = new CI_Email();
+
+        $from = 'foo@example.com';
+        $from_name = 'Real Name';
+        $email->from($from, $from_name);
+
+        $to = 'info@example.jp';
+        $email->to($to);
+
+        $subject = 'Very good news';
+        $email->subject($subject);
+
+        $message = 'This is mail body.';
+        $email->message($message);
+
+        $email->send(false);
+
+        $debugPrintHeaders = $email->print_debugger(['headers']);
+        $this->assertStringContainsString(
+            'From: &quot;Real Name&quot; &lt;foo@example.com&gt;',
+            $debugPrintHeaders
+        );
+
+        $debugPrintSubject = $email->print_debugger(['subject']);
+        $this->assertStringContainsString(
+            '=?utf-8?Q?=56=65=72=79=20=67=6F=6F=64=20=6E=65=77=73?=',
+            $debugPrintSubject
+        );
+
+        $debugPrintBody = $email->print_debugger(['body']);
+        $this->assertStringContainsString(
+            'This is mail body.',
+            $debugPrintBody
+        );
+    }
+
     public function tearDown(): void
     {
         parent::tearDown();
