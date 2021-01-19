@@ -20,4 +20,11 @@ class ControllerPropertyInjector
     {
         $this->controller->$property = $obj;
     }
+
+    public function injectMultiple(array $instances): void
+    {
+        foreach ($instances as $property => $instance) {
+            $this->inject($property, $instance);
+        }
+    }
 }

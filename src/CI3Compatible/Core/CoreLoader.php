@@ -8,7 +8,10 @@ use Kenjis\CI3Compatible\Core\Loader\ClassResolver\CoreResolver;
 use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
 use ReflectionObject;
 
+use function array_change_key_case;
 use function strtolower;
+
+use const CASE_LOWER;
 
 class CoreLoader
 {
@@ -62,10 +65,8 @@ class CoreLoader
      */
     public function injectToController(ControllerPropertyInjector $injector): void
     {
-        foreach ($this->coreClasses as $name => $instance) {
-            $property = strtolower($name);
-            $injector->inject($property, $instance);
-        }
+        $array = array_change_key_case($this->coreClasses, CASE_LOWER);
+        $injector->injectMultiple($array);
     }
 
     /**
