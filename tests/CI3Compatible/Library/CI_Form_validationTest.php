@@ -43,7 +43,7 @@ class CI_Form_validationTest extends TestCase
 
         $validation->set_rules('title', 'Title', 'required');
 
-        $ci4Validation = $validation->getValidation();
+        $ci4Validation = $validation->getCI4Library();
         $rules = [
             'title' => [
                 'label' => 'Title',

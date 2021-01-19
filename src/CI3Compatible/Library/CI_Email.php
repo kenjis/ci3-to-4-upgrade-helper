@@ -52,7 +52,7 @@ class CI_Email
      *
      * @return Email
      */
-    public function getEmail(): Email
+    public function getCI4Library(): Email
     {
         return $this->email;
     }

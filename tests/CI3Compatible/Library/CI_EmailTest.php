@@ -18,7 +18,7 @@ class CI_EmailTest extends TestCase
         ];
         $email->initialize($config);
 
-        $ci4email = $email->getEmail();
+        $ci4email = $email->getCI4Library();
 
         $this->assertSame('mail', $ci4email->protocol);
         $this->assertSame(false, $ci4email->wordWrap);

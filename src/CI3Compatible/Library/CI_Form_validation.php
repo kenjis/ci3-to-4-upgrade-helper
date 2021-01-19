@@ -77,7 +77,7 @@ class CI_Form_validation
      *
      * @return Validation
      */
-    public function getValidation(): Validation
+    public function getCI4Library(): Validation
     {
         return $this->validation;
     }
