@@ -96,4 +96,23 @@ class CI_DB_query_builder extends CI_DB_driver
         // @TODO
         throw new NotImplementedException('Not implemented yet');
     }
+
+    /**
+     * Get SELECT query string
+     *
+     * Compiles a SELECT query string and returns the sql.
+     *
+     * @param   string  the table name to select from (optional)
+     * @param   bool    TRUE: resets QB values; FALSE: leave QB values alone
+     *
+     * @return  string
+     */
+    public function get_compiled_select($table = '', $reset = true): string
+    {
+        if ($table !== '') {
+            $this->builder = $this->db->table($table);
+        }
+
+        return $this->builder->getCompiledSelect($reset);
+    }
 }
