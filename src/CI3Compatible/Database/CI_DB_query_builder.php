@@ -12,7 +12,7 @@ use function is_bool;
 
 class CI_DB_query_builder extends CI_DB_driver
 {
-    /** @var BaseBuilder */
+    /** @var ?BaseBuilder */
     private $builder;
 
     /** @var array */
