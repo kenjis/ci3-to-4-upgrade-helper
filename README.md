@@ -11,6 +11,7 @@ This project helps to migrate CodeIgniter3 apps to CodeIgniter4.
 ## Requirements
 
 - CodeIgniter 4.0.5-dev or later
+- PHP 7.2 or later
 
 ## Sample Code
 
