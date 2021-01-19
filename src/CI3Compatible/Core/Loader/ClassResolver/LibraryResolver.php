@@ -16,8 +16,15 @@ class LibraryResolver
 
     /** @var string[] */
     private $ci3Libraries = [
-        'session',
+        'cache',
+        'email',
+        'encryption',
         'form_validation',
+        'image_lib',
+        'pagination',
+        'session',
+        'upload',
+        'user_agent',
     ];
 
     /** @var string */
