@@ -17,6 +17,18 @@ class CI_DB_result
     }
 
     /**
+     * Query result. Acts as a wrapper function for the following functions.
+     *
+     * @param   string $type 'object', 'array' or a custom class name
+     *
+     * @return  array
+     */
+    public function result(string $type = 'object'): array
+    {
+        return $this->result->getResult($type);
+    }
+
+    /**
      * Query result. "array" version.
      *
      * @return    array
