@@ -100,4 +100,18 @@ class CI_Email
 
         return $this;
     }
+
+    /**
+     * Set Recipients
+     *
+     * @param   array|string
+     *
+     * @return  CI_Email
+     */
+    public function to($to): self
+    {
+        $this->email->setTo($to);
+
+        return $this;
+    }
 }

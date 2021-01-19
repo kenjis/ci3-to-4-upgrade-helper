@@ -43,4 +43,40 @@ class CI_EmailTest extends TestCase
         $headers = $this->getPrivateProperty($ci4email, 'headers');
         $this->assertSame('"Real Name" <foo@example.com>', $headers['From']);
     }
+
+    public function test_to_string(): void
+    {
+        $email = new CI_Email();
+
+        $to = 'info@example.jp';
+        $email->to($to);
+
+        $ci4email = $email->getCI4Library();
+
+        $recipients = $this->getPrivateProperty($ci4email, 'recipients');
+        $this->assertSame($to, $recipients[0]);
+    }
+
+    public function test_to_array(): void
+    {
+        $email = new CI_Email();
+
+        $to = [
+            'info@example.jp',
+            'info@example.com',
+        ];
+        $email->to($to);
+
+        $ci4email = $email->getCI4Library();
+
+        $recipients = $this->getPrivateProperty($ci4email, 'recipients');
+        $this->assertSame($to, $recipients);
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        Services::reset();
+    }
 }
