@@ -39,9 +39,27 @@ trait SeederNewsTable
         $forge->createTable('news', true);
     }
 
+    /**
+     * Reset autoincrement sequence number in SQLite3
+     *
+     * @param string $table
+     */
+    protected static function resetSQLite3AutoIncrement(string $table): void
+    {
+        $db = self::$connection;
+
+        if ($db->DBDriver === 'SQLite3') {
+            $db->query(
+                "DELETE FROM sqlite_sequence WHERE name='" . $db->DBPrefix . $table . "';"
+            );
+        }
+    }
+
     protected static function seedData(): void
     {
-        self::$connection->table('news')->truncate();
+        $db = self::$connection;
+        $db->table('news')->truncate();
+        self::resetSQLite3AutoIncrement('news');
 
         $data = [
             [
@@ -60,6 +78,6 @@ trait SeederNewsTable
                 'body' => 'World\'s largest coffee shop open onsite nested coffee shop for staff only.',
             ],
         ];
-        self::$connection->table('news')->insertBatch($data);
+        $db->table('news')->insertBatch($data);
     }
 }
