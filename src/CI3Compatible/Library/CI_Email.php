@@ -114,4 +114,18 @@ class CI_Email
 
         return $this;
     }
+
+    /**
+     * Set Email Subject
+     *
+     * @param   string
+     *
+     * @return  CI_Email
+     */
+    public function subject($subject): CI_Email
+    {
+        $this->email->setSubject($subject);
+
+        return $this;
+    }
 }

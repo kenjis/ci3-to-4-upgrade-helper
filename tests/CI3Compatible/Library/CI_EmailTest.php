@@ -71,6 +71,21 @@ class CI_EmailTest extends TestCase
         $this->assertSame($to, $recipients);
     }
 
+    public function test_subject(): void
+    {
+        $email = new CI_Email();
+
+        $subject = 'Very good news';
+        $email->subject($subject);
+
+        $ci4email = $email->getCI4Library();
+        $headers = $this->getPrivateProperty($ci4email, 'headers');
+        $this->assertSame(
+            '=?UTF-8?Q?Very=20good=20news?=',
+            $headers['Subject']
+        );
+    }
+
     public function tearDown(): void
     {
         parent::tearDown();
