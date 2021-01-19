@@ -4,41 +4,19 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Database;
 
-use CodeIgniter\Database\BaseConnection;
 use Config\Database;
-use Kenjis\CI3Compatible\DatabaseTestHelperTrait;
-use Kenjis\CI3Compatible\TestCase;
 
-class CI_DB_query_builderTest extends TestCase
+class CI_DB_query_builderTest extends DatabaseTestCase
 {
-    use DatabaseTestHelperTrait;
-
-    /** @var BaseConnection */
-    private static $connection;
-
     /** @var CI_DB_query_builder */
     private $queryBuilder;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-
-        self::connectDb();
-        self::createTable();
-        self::seedData();
-    }
 
     public function setUp(): void
     {
         $this->queryBuilder = new CI_DB_query_builder(self::$connection);
     }
 
-    private static function connectDb(): void
-    {
-        self::$connection = Database::connect();
-    }
-
-    private static function createTable(): void
+    protected static function createTable(): void
     {
         $forge = Database::forge();
         $forge->addField(
@@ -69,7 +47,7 @@ class CI_DB_query_builderTest extends TestCase
         $forge->createTable('news', true);
     }
 
-    private static function seedData(): void
+    protected static function seedData(): void
     {
         self::$connection->table('news')->truncate();
 

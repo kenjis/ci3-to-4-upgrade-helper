@@ -4,42 +4,20 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Database;
 
-use CodeIgniter\Database\BaseConnection;
 use Config\Database;
-use Kenjis\CI3Compatible\DatabaseTestHelperTrait;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
-use Kenjis\CI3Compatible\TestCase;
 
-class CI_DB_driverTest extends TestCase
+class CI_DB_driverTest extends DatabaseTestCase
 {
-    use DatabaseTestHelperTrait;
-
-    /** @var BaseConnection */
-    private static $connection;
-
     /** @var CI_DB_driver */
     private $driver;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-
-        self::connectDb();
-        self::createTable();
-        self::seedData();
-    }
 
     public function setUp(): void
     {
         $this->driver = new CI_DB_driver(self::$connection);
     }
 
-    private static function connectDb(): void
-    {
-        self::$connection = Database::connect();
-    }
-
-    private static function createTable(): void
+    protected static function createTable(): void
     {
         $forge = Database::forge();
         $forge->addField(
@@ -70,7 +48,7 @@ class CI_DB_driverTest extends TestCase
         $forge->createTable('news', true);
     }
 
-    private static function seedData(): void
+    protected static function seedData(): void
     {
         self::$connection->table('news')->truncate();
 
