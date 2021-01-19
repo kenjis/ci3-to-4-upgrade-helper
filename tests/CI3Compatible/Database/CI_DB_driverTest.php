@@ -18,7 +18,7 @@ class CI_DB_driverTest extends DatabaseTestCase
         $this->driver = new CI_DB_driver(self::$connection);
     }
 
-    public function test_query_result(): void
+    public function test_query_select_result(): void
     {
         $ids = [];
         $query = $this->driver->query(
@@ -31,7 +31,7 @@ class CI_DB_driverTest extends DatabaseTestCase
         $this->assertSame([1, 2, 3], $ids);
     }
 
-    public function test_query_result_array(): void
+    public function test_query_select_result_array(): void
     {
         $ids = [];
         $query = $this->driver->query(
@@ -42,6 +42,31 @@ class CI_DB_driverTest extends DatabaseTestCase
         }
 
         $this->assertSame([1, 2, 3], $ids);
+    }
+
+    public function test_query_insert(): void
+    {
+        // @TODO
+    }
+
+    public function test_query_update(): void
+    {
+        // @TODO
+    }
+
+    public function test_query_delete(): void
+    {
+        // @TODO
+    }
+
+    public function test_query_binding(): void
+    {
+        // @TODO
+    }
+
+    public function test_query_return_object(): void
+    {
+        // @TODO
     }
 
     public function test_count_all(): void
