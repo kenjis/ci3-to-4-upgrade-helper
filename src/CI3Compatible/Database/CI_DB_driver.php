@@ -43,4 +43,26 @@ class CI_DB_driver
             'count_all() moved to CI_QueryBuilder. Use it.'
         );
     }
+
+    /**
+     * Execute the query
+     *
+     * Accepts an SQL string as input and returns a result object upon
+     * successful execution of a "read" type query. Returns boolean TRUE
+     * upon successful execution of a "write" type query. Returns boolean
+     * FALSE upon failure, and if the $db_debug variable is set to TRUE
+     * will raise an error.
+     *
+     * @param   string     $sql
+     * @param   array|bool $binds         = FALSE      An array of binding data
+     * @param   bool       $return_object = NULL
+     *
+     * @return  mixed
+     */
+    public function query(string $sql, $binds = false, ?bool $return_object = null)
+    {
+        $query = $this->db->query($sql, $binds);
+
+        return new CI_DB_result($query);
+    }
 }
