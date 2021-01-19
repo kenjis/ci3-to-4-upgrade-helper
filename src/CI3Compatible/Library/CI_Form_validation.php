@@ -76,6 +76,8 @@ class CI_Form_validation
      * For debugging
      *
      * @return Validation
+     *
+     * @internal
      */
     public function getCI4Library(): Validation
     {

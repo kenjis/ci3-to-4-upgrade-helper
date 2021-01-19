@@ -51,6 +51,8 @@ class CI_Email
      * For debugging
      *
      * @return Email
+     *
+     * @internal
      */
     public function getCI4Library(): Email
     {
