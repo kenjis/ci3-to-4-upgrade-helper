@@ -84,4 +84,20 @@ class CI_Email
 
         return $newConfig;
     }
+
+    /**
+     * Set FROM
+     *
+     * @param   string $from
+     * @param   string $name
+     * @param   string $return_path = NULL Return-Path
+     *
+     * @return  CI_Email
+     */
+    public function from(string $from, string $name = '', ?string $return_path = null): self
+    {
+        $this->email->setFrom($from, $name, $return_path);
+
+        return $this;
+    }
 }
