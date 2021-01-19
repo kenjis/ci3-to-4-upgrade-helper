@@ -151,4 +151,21 @@ class CI_DB_query_builder extends CI_DB_driver
             throw new LogicException('$this->builder is not set');
         }
     }
+
+    /**
+     * "Count All" query
+     *
+     * Generates a platform-specific query string that counts all records in
+     * the specified database
+     *
+     * @param   string
+     *
+     * @return  int
+     */
+    public function count_all($table = ''): int
+    {
+        $this->createQueryBuilder($table);
+
+        return $this->builder->countAll();
+    }
 }

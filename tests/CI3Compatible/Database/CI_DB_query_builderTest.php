@@ -59,4 +59,11 @@ FROM `db_news`
 ORDER BY `title` ASC';
         $this->assertSame($expected, $sql);
     }
+
+    public function test_count_all(): void
+    {
+        $count = $this->queryBuilder->count_all('news');
+
+        $this->assertSame(4, $count);
+    }
 }
