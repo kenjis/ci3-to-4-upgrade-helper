@@ -71,6 +71,8 @@ class CI_DB_query_builderTest extends TestCase
 
     private static function seedData(): void
     {
+        self::$connection->table('news')->truncate();
+
         $data = [
             [
                 'title' => 'Elvis sighted',
