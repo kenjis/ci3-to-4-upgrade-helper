@@ -32,9 +32,7 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function get($table = '', $limit = null, $offset = 0): CI_DB_result
     {
-        if ($table !== '') {
-            $this->builder = $this->db->table($table);
-        }
+        $this->createQueryBuilder($table);
 
         $this->prepareSelectQuery();
         $query = $this->builder->get($limit, $offset);
@@ -60,9 +58,7 @@ class CI_DB_query_builder extends CI_DB_driver
         ?int $limit = null,
         ?int $offset = null
     ): CI_DB_result {
-        if ($table !== '') {
-            $this->builder = $this->db->table($table);
-        }
+        $this->createQueryBuilder($table);
 
         $this->prepareSelectQuery();
         $query = $this->builder->getWhere($where, $limit, $offset);
@@ -83,9 +79,7 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function insert(string $table = '', ?array $set = null, ?bool $escape = null): bool
     {
-        if ($table !== '') {
-            $this->builder = $this->db->table($table);
-        }
+        $this->createQueryBuilder($table);
 
         $ret = $this->builder->insert($set, $escape);
 
@@ -142,10 +136,19 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function get_compiled_select($table = '', $reset = true): string
     {
+        $this->createQueryBuilder($table);
+
+        return $this->builder->getCompiledSelect($reset);
+    }
+
+    private function createQueryBuilder(string $table): void
+    {
         if ($table !== '') {
             $this->builder = $this->db->table($table);
         }
 
-        return $this->builder->getCompiledSelect($reset);
+        if ($this->builder === null) {
+            throw new LogicException('$this->builder is not set');
+        }
     }
 }
