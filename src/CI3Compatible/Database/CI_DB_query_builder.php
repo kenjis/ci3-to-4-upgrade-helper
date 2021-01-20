@@ -194,4 +194,41 @@ class CI_DB_query_builder extends CI_DB_driver
 
         return $this->builder->countAll();
     }
+
+    /**
+     * Delete
+     *
+     * Compiles a delete string and runs the query
+     *
+     * @param   mixed   the table(s) to delete from. String or array
+     * @param   mixed   the where clause
+     * @param   mixed   the limit clause
+     * @param   bool
+     *
+     * @return  mixed
+     */
+    public function delete($table = '', $where = '', $limit = null, $reset_data = true)
+    {
+        $this->createQueryBuilder($table);
+
+        $this->prepareDeleteQuery();
+        $ret = $this->builder->delete($where, $limit, $reset_data);
+
+        if ($ret instanceof BaseResult) {
+            return new CI_DB_result($ret);
+        }
+
+        return $ret;
+    }
+
+    private function prepareDeleteQuery(): void
+    {
+        if ($this->builder === null) {
+            throw new LogicException('$this->builder is not set');
+        }
+
+        foreach ($this->where as $params) {
+            $this->builder->where(...$params);
+        }
+    }
 }

@@ -89,4 +89,13 @@ ORDER BY `title` ASC';
     // DELETE
     // --------------------------------------------------------------------
 
+    public function test_delete(): void
+    {
+        $slug = 'news-title';
+        $this->queryBuilder->where('slug', $slug);
+        $ret = $this->queryBuilder->delete('news');
+
+        $this->assertInstanceOf(CI_DB_result::class, $ret);
+        $this->dontSeeInDatabase('news', ['slug' => $slug]);
+    }
 }
