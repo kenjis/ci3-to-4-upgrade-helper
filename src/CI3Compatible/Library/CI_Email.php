@@ -12,6 +12,8 @@ class CI_Email
 {
     /** @var Email */
     private $email;
+
+    /** @var string[] */
     private $propertyMap = [
         // CI3 => CI4
         'useragent' => 'userAgent',
