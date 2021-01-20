@@ -71,6 +71,8 @@ class CI_Pagination
      */
     public function create_links(): string
     {
+        $this->pager->setSegment($this->pagerConfig->uri_segment ?? 3);
+
         return $this->pager->makeLinks(
             $this->pager->getCurrentPage(),
             $this->pagerConfig->perPage,
