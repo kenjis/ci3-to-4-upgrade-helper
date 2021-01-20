@@ -47,26 +47,31 @@ class CI_DB_driverTest extends DatabaseTestCase
     public function test_query_insert(): void
     {
         // @TODO
+        $this->markTestIncomplete();
     }
 
     public function test_query_update(): void
     {
         // @TODO
+        $this->markTestIncomplete();
     }
 
     public function test_query_delete(): void
     {
         // @TODO
+        $this->markTestIncomplete();
     }
 
     public function test_query_binding(): void
     {
         // @TODO
+        $this->markTestIncomplete();
     }
 
     public function test_query_return_object(): void
     {
         // @TODO
+        $this->markTestIncomplete();
     }
 
     public function test_count_all(): void
