@@ -7,6 +7,7 @@ namespace Kenjis\CI3Compatible\Core;
 use App\Models\News_model;
 use Kenjis\CI3Compatible\Database\CI_DB;
 use Kenjis\CI3Compatible\Library\CI_Form_validation;
+use Kenjis\CI3Compatible\Library\CI_User_agent;
 use Kenjis\CI3Compatible\TestCase;
 
 class CI_LoaderTest extends TestCase
@@ -89,6 +90,17 @@ class CI_LoaderTest extends TestCase
         $this->assertInstanceOf(
             CI_Form_validation::class,
             $this->controller->form_validation
+        );
+        $this->assertInstanceOf(CI_Loader::class, $ret);
+    }
+
+    public function test_library_loads_CI_User_agent_and_returns_CI_Loader(): void
+    {
+        $ret = $this->loader->library('user_agent');
+
+        $this->assertInstanceOf(
+            CI_User_agent::class,
+            $this->controller->agent
         );
         $this->assertInstanceOf(CI_Loader::class, $ret);
     }

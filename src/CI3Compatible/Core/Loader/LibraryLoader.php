@@ -36,6 +36,10 @@ class LibraryLoader
     private function getPropertyName(string $library, ?string $object_name): string
     {
         if ($object_name === null) {
+            if ($library === 'user_agent') {
+                return 'agent';
+            }
+
             return $library;
         }
 
