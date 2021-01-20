@@ -7,7 +7,7 @@ namespace Kenjis\CI3Compatible\Library;
 use Config\Services;
 use Kenjis\CI3Compatible\TestCase;
 
-class CI_User_agetTest extends TestCase
+class CI_User_agentTest extends TestCase
 {
     public function test_(): void
     {
