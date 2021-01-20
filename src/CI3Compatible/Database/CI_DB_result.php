@@ -47,4 +47,19 @@ class CI_DB_result
     {
         return $this->result->getRowArray($n);
     }
+
+    /**
+     * Row
+     *
+     * A wrapper method.
+     *
+     * @param   mixed  $n
+     * @param   string $type 'object' or 'array'
+     *
+     * @return  mixed
+     */
+    public function row($n = 0, string $type = 'object')
+    {
+        return $this->result->getRow($n, $type);
+    }
 }
