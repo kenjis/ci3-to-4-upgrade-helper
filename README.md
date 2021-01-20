@@ -300,6 +300,8 @@ class Seeder
 $offset = max(($page - 1), 0) * $per_page;
 ```
 
+3. CI4 gets the base URL automatically from the current URL. You can't set it by config.
+
 ### Views
 
 #### Copy View files
