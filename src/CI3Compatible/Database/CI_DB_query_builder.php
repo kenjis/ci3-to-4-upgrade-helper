@@ -137,13 +137,8 @@ class CI_DB_query_builder extends CI_DB_driver
 
     private function prepareSelectQuery(): void
     {
-        if ($this->builder === null) {
-            throw new LogicException('$this->builder is not set');
-        }
-
-        foreach ($this->where as $params) {
-            $this->builder->where(...$params);
-        }
+        $this->existsBuilder();
+        $this->execWhere();
 
         foreach ($this->order_by as $params) {
             $this->builder->orderBy(...$params);
@@ -223,10 +218,19 @@ class CI_DB_query_builder extends CI_DB_driver
 
     private function prepareDeleteQuery(): void
     {
+        $this->existsBuilder();
+        $this->execWhere();
+    }
+
+    private function existsBuilder(): void
+    {
         if ($this->builder === null) {
             throw new LogicException('$this->builder is not set');
         }
+    }
 
+    private function execWhere(): void
+    {
         foreach ($this->where as $params) {
             $this->builder->where(...$params);
         }
