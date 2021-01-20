@@ -9,7 +9,7 @@ use Kenjis\CI3Compatible\TestCase;
 
 class CI_User_agentTest extends TestCase
 {
-    public function test_(): void
+    public function test_is_mobile(): void
     {
         Services::reset();
         $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/4.5 [en] (X11; U; Linux 2.2.9 i586).';
