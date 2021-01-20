@@ -67,6 +67,15 @@ ORDER BY `title` ASC';
         $this->assertSame(3, $count);
     }
 
+    public function test_select(): void
+    {
+        $this->queryBuilder->select('COUNT(*) AS count');
+        $query = $this->queryBuilder->get('news');
+        $row = $query->row_array();
+
+        $this->assertSame(3, $row['count']);
+    }
+
     // --------------------------------------------------------------------
     // INSERT
     // --------------------------------------------------------------------

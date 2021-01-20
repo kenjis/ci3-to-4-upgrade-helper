@@ -21,6 +21,9 @@ class CI_DB_query_builder extends CI_DB_driver
     /** @var array */
     private $order_by = [];
 
+    /** @var array */
+    private $select = [];
+
     /**
      * Get
      *
@@ -138,6 +141,11 @@ class CI_DB_query_builder extends CI_DB_driver
     private function prepareSelectQuery(): void
     {
         $this->existsBuilder();
+
+        foreach ($this->select as $params) {
+            $this->builder->select(...$params);
+        }
+
         $this->execWhere();
 
         foreach ($this->order_by as $params) {
@@ -234,5 +242,22 @@ class CI_DB_query_builder extends CI_DB_driver
         foreach ($this->where as $params) {
             $this->builder->where(...$params);
         }
+    }
+
+    /**
+     * Select
+     *
+     * Generates the SELECT portion of the query
+     *
+     * @param   string
+     * @param   mixed
+     *
+     * @return  CI_DB_query_builder
+     */
+    public function select($select = '*', $escape = null): self
+    {
+        $this->select[] = [$select, $escape];
+
+        return $this;
     }
 }
