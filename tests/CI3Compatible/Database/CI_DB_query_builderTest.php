@@ -16,6 +16,10 @@ class CI_DB_query_builderTest extends DatabaseTestCase
         $this->queryBuilder = new CI_DB_query_builder(self::$connection);
     }
 
+    // --------------------------------------------------------------------
+    // SELECT
+    // --------------------------------------------------------------------
+
     public function test_get_all_records(): void
     {
         $query = $this->queryBuilder->get('news');
@@ -43,20 +47,6 @@ class CI_DB_query_builderTest extends DatabaseTestCase
         $this->assertSame($slug, $row['slug']);
     }
 
-    public function test_insert_one_record(): void
-    {
-        $data = [
-            'title' => 'News Title',
-            'slug'  => 'news-title',
-            'body'  => 'News body',
-        ];
-
-        $ret = $this->queryBuilder->insert('news', $data);
-
-        $this->assertTrue($ret);
-        $this->seeInDatabase('news', ['slug' => 'news-title']);
-    }
-
     public function test_order_by(): void
     {
         $this->queryBuilder->order_by('title', 'ASC');
@@ -74,6 +64,29 @@ ORDER BY `title` ASC';
     {
         $count = $this->queryBuilder->count_all('news');
 
-        $this->assertSame(4, $count);
+        $this->assertSame(3, $count);
     }
+
+    // --------------------------------------------------------------------
+    // INSERT
+    // --------------------------------------------------------------------
+
+    public function test_insert_one_record(): void
+    {
+        $data = [
+            'title' => 'News Title',
+            'slug'  => 'news-title',
+            'body'  => 'News body',
+        ];
+
+        $ret = $this->queryBuilder->insert('news', $data);
+
+        $this->assertTrue($ret);
+        $this->seeInDatabase('news', ['slug' => 'news-title']);
+    }
+
+    // --------------------------------------------------------------------
+    // DELETE
+    // --------------------------------------------------------------------
+
 }
