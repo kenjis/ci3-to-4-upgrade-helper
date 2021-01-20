@@ -15,8 +15,8 @@ class CI_Pagination
     /** @var Pager */
     private $pager;
 
-    /** @var array */
-    private $ci3Config;
+    /** @var PagerConfig */
+    private $pagerConfig;
 
     /**
      * Constructor
@@ -29,13 +29,19 @@ class CI_Pagination
     {
         helper('url');
 
+        $this->pagerConfig = new PagerConfig();
+
         if (is_array($params)) {
             $this->initialize($params);
 
             return;
         }
 
-        $this->pager = Services::pager($params);
+        if ($params instanceof PagerConfig) {
+            $this->pagerConfig = $params;
+        }
+
+        $this->pager = Services::pager($this->pagerConfig);
     }
 
     /**
@@ -47,12 +53,13 @@ class CI_Pagination
      */
     public function initialize(array $params = []): self
     {
-        $this->ci3Config = $params;
+        $this->pagerConfig->perPage = $params['per_page'];
 
-        $config = new PagerConfig();
-        $config->perPage = $params['per_page'];
+        foreach ($params as $property => $value) {
+            $this->pagerConfig->$property = $value;
+        }
 
-        $this->pager = Services::pager($config);
+        $this->pager = Services::pager($this->pagerConfig);
 
         return $this;
     }
@@ -66,8 +73,8 @@ class CI_Pagination
     {
         return $this->pager->makeLinks(
             $this->pager->getCurrentPage(),
-            $this->ci3Config['per_page'],
-            $this->ci3Config['total_rows']
+            $this->pagerConfig->perPage,
+            $this->pagerConfig->total_rows
         );
     }
 }
