@@ -291,6 +291,15 @@ class Seeder
 }
 ```
 
+#### Pagination
+
+1. CI4 has View templates for Pagination. The CI3 configurations to customize pagination links are not supported. Create your own templates. See <https://codeigniter4.github.io/CodeIgniter4/libraries/pagination.html#customizing-the-links>.
+2. CI4 uses the actual page number only. You can't use the starting index (offset) for the items which is the default in CI3. So if you use *offset*, you have to convert *page* to *offset*.
+
+```php
+$offset = max(($page - 1), 0) * $per_page;
+```
+
 ### Views
 
 #### Copy View files
