@@ -24,10 +24,20 @@ class CI_DB_query_builderTest extends DatabaseTestCase
         $this->assertCount(3, $result);
     }
 
-    public function test_get_one_record(): void
+    public function test_get_where_one_record(): void
     {
         $slug = 'caffeination-yes';
         $query = $this->queryBuilder->get_where('news', ['slug' => $slug]);
+        $row = $query->row_array();
+
+        $this->assertSame($slug, $row['slug']);
+    }
+
+    public function test_where_one_record(): void
+    {
+        $slug = 'caffeination-yes';
+        $this->queryBuilder->where('slug', $slug);
+        $query = $this->queryBuilder->get('news');
         $row = $query->row_array();
 
         $this->assertSame($slug, $row['slug']);

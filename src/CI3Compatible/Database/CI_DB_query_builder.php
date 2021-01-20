@@ -16,6 +16,9 @@ class CI_DB_query_builder extends CI_DB_driver
     private $builder;
 
     /** @var array */
+    private $where = [];
+
+    /** @var array */
     private $order_by = [];
 
     /**
@@ -95,6 +98,25 @@ class CI_DB_query_builder extends CI_DB_driver
     }
 
     /**
+     * WHERE
+     *
+     * Generates the WHERE portion of the query.
+     * Separates multiple calls with 'AND'.
+     *
+     * @param   mixed
+     * @param   mixed
+     * @param   bool
+     *
+     * @return  CI_DB_query_builder
+     */
+    public function where($key, $value = null, $escape = null): self
+    {
+        $this->where[] = [$key, $value, $escape];
+
+        return $this;
+    }
+
+    /**
      * ORDER BY
      *
      * @param   string $orderby
@@ -117,6 +139,10 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         if ($this->builder === null) {
             throw new LogicException('$this->builder is not set');
+        }
+
+        foreach ($this->where as $params) {
+            $this->builder->where(...$params);
         }
 
         foreach ($this->order_by as $params) {
