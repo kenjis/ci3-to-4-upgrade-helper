@@ -13,7 +13,10 @@ class HelperLoader
     private $autoloaded = ['url'];
 
     /** @var string[] */
-    private $compatible = ['form'];
+    private $compatible = [
+        'form',
+        'captcha',
+    ];
 
     /** @var string[] */
     private $helperMap = [
