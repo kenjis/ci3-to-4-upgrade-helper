@@ -15,6 +15,12 @@ class HelperLoader
     /** @var string[] */
     private $compatible = ['form'];
 
+    /** @var string[] */
+    private $helperMap = [
+        // CI3 => CI4
+        'string' => 'text',
+    ];
+
     /**
      * Helper Loader
      *
@@ -51,7 +57,11 @@ class HelperLoader
      */
     protected function loadCI4Helper(string $helper): bool
     {
-        helper($helper);
+        if (isset($this->helperMap[$helper])) {
+            helper($this->helperMap[$helper]);
+        } else {
+            helper($helper);
+        }
 
         return true;
     }
