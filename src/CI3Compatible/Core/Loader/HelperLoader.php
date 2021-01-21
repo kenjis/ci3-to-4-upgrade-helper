@@ -16,6 +16,7 @@ class HelperLoader
     private $compatible = [
         'form',
         'captcha',
+        'url',
     ];
 
     /** @var string[] */
@@ -45,6 +46,8 @@ class HelperLoader
     private function loadOneHelper(string $helper): void
     {
         if (in_array($helper, $this->autoloaded, true)) {
+            $this->loadCompatibleHelper($helper);
+
             return;
         }
 
