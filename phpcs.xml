@@ -18,6 +18,7 @@
     <!-- Directories to be checked -->
     <file>src</file>
     <file>tests</file>
+    <exclude-pattern>*/src/CI3Compatible/Views/*</exclude-pattern>
     <exclude-pattern>*/tmp/*</exclude-pattern>
     <exclude-pattern>*/Fake/*</exclude-pattern>
 
