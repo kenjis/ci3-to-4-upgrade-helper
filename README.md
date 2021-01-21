@@ -291,6 +291,13 @@ class Seeder
 }
 ```
 
+#### Form_validation
+
+1. CI4 has View templates to display errors.
+  - The CI3 methods to customize error output are not supported.
+  - Create your own templates, and configure it in `app/Config/Validation.php`.
+  - See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.
+
 #### Pagination
 
 1. CI4 has View templates for Pagination.
