@@ -16,6 +16,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
+            <exclude>
+                <directory>src/CI3Compatible/Views</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
