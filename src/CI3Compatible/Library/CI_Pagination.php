@@ -107,7 +107,8 @@ class CI_Pagination
             throw new NotSupportedException(
                 'You can not customize Pagination Link by config '
                 . implode(', ', $unsupportedConfigs) . '.'
-                . ' Create your own templates, and configure to use it. See <>.'
+                . ' Create your own templates, and configure to use them.'
+                . ' See <https://github.com/kenjis/ci3-to-4-migration-helper#pagination>.'
             );
         }
     }
