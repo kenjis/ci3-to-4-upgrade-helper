@@ -293,7 +293,22 @@ class Seeder
 
 #### Pagination
 
-1. CI4 has View templates for Pagination. The CI3 configurations to customize pagination links are not supported. Create your own templates. See <https://codeigniter4.github.io/CodeIgniter4/libraries/pagination.html#customizing-the-links>.
+1. CI4 has View templates for Pagination.
+  - The CI3 configurations to customize pagination links are not supported.
+  - Create your own templates, and configure it in `app/Config/Pager.php`.
+  - Use `$pager->hasNextPage()` and `$pager->getNextPage()` instead of `$pager->hasNext()` `$pager->getNext()` for the next page link.
+  - A sample file is included in `src/CI3Compatible/Views/Pager/`. You could use it.
+
+*app/Config/Pager.php*
+```php
+    public $templates = [
+        'default_full'   => 'Kenjis\CI3Compatible\Views\Pager\default_full',
+        'default_simple' => 'CodeIgniter\Pager\Views\default_simple',
+        'default_head'   => 'CodeIgniter\Pager\Views\default_head',
+    ];
+```
+
+  - See <https://codeigniter4.github.io/CodeIgniter4/libraries/pagination.html#customizing-the-links>.
 2. CI4 uses the actual page number only. You can't use the starting index (offset) for the items which is the default in CI3. So if you use *offset*, you have to convert *page* to *offset*.
 
 ```php
