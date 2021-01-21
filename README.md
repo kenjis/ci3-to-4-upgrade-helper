@@ -336,6 +336,10 @@ $offset = max(($page - 1), 0) * $per_page;
 
 1. Copy `application/helper/*` to `app/Helpers/*`.
 
+#### URL Helper
+
+1. CI4's `base_url()` removes the last `/`. If you don't want it, use `base_url_()` instead after `$this->load->helper('url)`.
+
 ## For Development
 
 ### Installation
