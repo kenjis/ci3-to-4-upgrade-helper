@@ -78,6 +78,8 @@ class CI_Email
 
     private function convertToCI4Config(array $config): array
     {
+        $newConfig = [];
+
         foreach ($config as $key => $value) {
             if ($this->propertyMap[$key]) {
                 $key = $this->propertyMap[$key];
