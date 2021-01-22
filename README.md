@@ -15,7 +15,7 @@ This project helps to migrate CodeIgniter3 apps to CodeIgniter4.
 
 ## Sample Code
 
-If you use ci3-to-4-migration-helper, You can run the following code on CodeIgniter4.
+If you use *ci3-to-4-migration-helper*, You can run the following code on CodeIgniter4.
 
 *app/Controllers/News.php*
 ```php
