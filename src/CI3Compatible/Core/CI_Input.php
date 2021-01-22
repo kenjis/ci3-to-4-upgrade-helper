@@ -29,4 +29,25 @@ class CI_Input
 
         return $request->getPost($index);
     }
+
+    /**
+     * Fetch an item from the SERVER array
+     *
+     * @param   mixed $index     Index for item to be fetched from $_SERVER
+     * @param   bool  $xss_clean Whether to apply XSS filtering
+     *
+     * @return  mixed
+     */
+    public function server($index = null, bool $xss_clean = false)
+    {
+        if ($xss_clean !== false) {
+            throw new NotImplementedException(
+                '$xss_clean is not implemented yet.'
+            );
+        }
+
+        $request = Services::request();
+
+        return $request->getServer($index);
+    }
 }
