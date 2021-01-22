@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use CodeIgniter\HTTP\URI;
+use CodeIgniter\Router\Exceptions\RedirectException;
 use Config\Services;
 
 if (! function_exists('base_url_')) {
@@ -51,5 +52,30 @@ if (! function_exists('base_url_')) {
         }
 
         return rtrim((string) $url, ' ');
+    }
+}
+
+if (! function_exists('redirect_')) {
+    /**
+     * Header Redirect
+     *
+     * Header redirect in two flavors
+     * For very fine grained control over headers, you could use the Output
+     * Library's set_header() function.
+     *
+     * @param   string $uri    URL
+     * @param   string $method Redirect method
+     *         'auto', 'location' or 'refresh'
+     * @param   int    $code   HTTP Response status code
+     *
+     * @return  void
+     */
+    function redirect_(string $uri = '', string $method = 'auto', ?int $code = null)
+    {
+        if ($code !== null) {
+            throw new RedirectException($uri, $code);
+        }
+
+        throw new RedirectException($uri);
     }
 }
