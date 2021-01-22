@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core;
 
 use Config\Services;
+use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
 use function explode;
 use function trim;
@@ -51,9 +52,10 @@ class CI_Output
      */
     public function enable_profiler(bool $val = true): self
     {
-        // In CI4 Debug Toolbar is enabled by default not in production.
-        // See <https://codeigniter4.github.io/CodeIgniter4/testing/debugging.html#the-debug-toolbar>.
-
-        return $this;
+        throw new NotSupportedException(
+            'enable_profiler() is not supported.'
+            . ' In CI4 Debug Toolbar is enabled by default not in production.'
+            . ' See <https://codeigniter4.github.io/CodeIgniter4/testing/debugging.html#the-debug-toolbar>'
+        );
     }
 }
