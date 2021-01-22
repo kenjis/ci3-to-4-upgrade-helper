@@ -33,6 +33,14 @@ trait DatabaseTestHelperTrait
     protected $DBGroup = 'tests';
 
     /**
+     * Stores information needed to remove any
+     * rows inserted via $this->hasInDatabase();
+     *
+     * @var array
+     */
+    protected $insertCache = [];
+
+    /**
      * Load any database test dependencies.
      *
      * @before
