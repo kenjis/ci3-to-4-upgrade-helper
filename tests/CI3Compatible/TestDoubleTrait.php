@@ -29,22 +29,22 @@ trait TestDoubleTrait
      *
      * $email = $this->getDouble('CI_Email', ['send' => TRUE]);
      *
-     * @param array $params             [method_name => return_value]
-     * @param mixed $constructor_params false: disable constructor, array: constructor params
+     * @param array $params            [method_name => return_value]
+     * @param mixed $constructorParams false: disable constructor, array: constructor params
      *
      * @return mixed PHPUnit mock object
      */
-    public function getDouble(string $classname, array $params, $constructor_params = false)
+    public function getDouble(string $classname, array $params, $constructorParams = false)
     {
         // `disableOriginalConstructor()` is the default, because if we call
         // constructor, it may call `$this->load->...` or other CodeIgniter
         // methods in it. But we can't use them in
         // `$this->request->setCallablePreConstructor()`
         $mockBuilder = $this->getMockBuilder($classname);
-        if ($constructor_params === false) {
+        if ($constructorParams === false) {
             $mockBuilder->disableOriginalConstructor();
-        } elseif (is_array($constructor_params)) {
-            $mockBuilder->setConstructorArgs($constructor_params);
+        } elseif (is_array($constructorParams)) {
+            $mockBuilder->setConstructorArgs($constructorParams);
         }
 
         $methods = [];
@@ -93,7 +93,7 @@ trait TestDoubleTrait
         return $mock;
     }
 
-    protected function _verify($mock, $method, $params, $expects, $with): void
+    protected function verify($mock, $method, $params, $expects, $with): void
     {
         $invocation = $mock->expects($expects)->method($method);
 
@@ -135,7 +135,7 @@ trait TestDoubleTrait
         int $times,
         ?array $params = null
     ): void {
-        $this->_verify(
+        $this->verify(
             $mock,
             $method,
             $params,
@@ -152,7 +152,7 @@ trait TestDoubleTrait
      */
     public function verifyInvoked($mock, string $method, ?array $params = null): void
     {
-        $this->_verify(
+        $this->verify(
             $mock,
             $method,
             $params,
@@ -169,7 +169,7 @@ trait TestDoubleTrait
      */
     public function verifyInvokedOnce($mock, string $method, ?array $params = null): void
     {
-        $this->_verify(
+        $this->verify(
             $mock,
             $method,
             $params,
@@ -186,7 +186,7 @@ trait TestDoubleTrait
      */
     public function verifyNeverInvoked($mock, string $method, ?array $params = null): void
     {
-        $this->_verify(
+        $this->verify(
             $mock,
             $method,
             $params,

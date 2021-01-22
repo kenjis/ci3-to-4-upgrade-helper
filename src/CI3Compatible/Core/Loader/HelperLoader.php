@@ -29,8 +29,6 @@ class HelperLoader
      * Helper Loader
      *
      * @param   string|string[] $helpers Helper name(s)
-     *
-     * @return  object
      */
     public function load($helpers): void
     {
