@@ -41,4 +41,19 @@ class CI_Output
 
         return $this;
     }
+
+    /**
+     * Enable/disable Profiler
+     *
+     * @param   bool $val TRUE to enable or FALSE to disable
+     *
+     * @return  CI_Output
+     */
+    public function enable_profiler(bool $val = true): self
+    {
+        // In CI4 Debug Toolbar is enabled by default not in production.
+        // See <https://codeigniter4.github.io/CodeIgniter4/testing/debugging.html#the-debug-toolbar>.
+
+        return $this;
+    }
 }
