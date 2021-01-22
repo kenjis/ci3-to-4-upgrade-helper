@@ -338,7 +338,12 @@ $offset = max(($page - 1), 0) * $per_page;
 
 #### URL Helper
 
-1. CI4's `base_url()` removes the last `/`. If you don't want it, use `base_url_()` instead after `$this->load->helper('url)`.
+1. CI4 changed `redirect()` API.
+  - See <https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html#redirect>.
+  - Rewrite it to `redirect()->to($uri)`. 
+  - Or you could use `redirect_()` that *ci3-to-4-migration-helper* provides.
+2. CI4's `base_url()` removes the last `/`.
+  - If you don't want it, use `base_url_()` that *ci3-to-4-migration-helper* provides after `$this->load->helper('url')`.
 
 ## For Development
 
