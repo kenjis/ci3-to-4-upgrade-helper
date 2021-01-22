@@ -111,6 +111,41 @@ class CI_Form_validation
     }
 
     /**
+     * Set Error Message
+     *
+     * Lets users set their own error messages on the fly. Note:
+     * The key name has to match the function name that it corresponds to.
+     *
+     * @param   array
+     * @param   string
+     *
+     * @return  CI_Form_validation
+     */
+    public function set_message($lang, $val = ''): void
+    {
+        throw new NotSupportedException(
+            'set_message() is not supported.'
+            . ' Use setError(string $field, string $error) instead.'
+        );
+    }
+
+    /**
+     * CI4 method
+     * Sets the error for a specific field. Used by custom validation methods.
+     *
+     * @param string $field
+     * @param string $error
+     *
+     * @return CI_Form_validation
+     */
+    public function setError(string $field, string $error): self
+    {
+        $this->validation->setError($field, $error);
+
+        return $this;
+    }
+
+    /**
      * Run the Validator
      *
      * This function does all the work.
