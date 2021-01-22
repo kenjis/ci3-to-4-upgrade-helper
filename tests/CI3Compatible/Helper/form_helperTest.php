@@ -6,13 +6,12 @@ namespace Kenjis\CI3Compatible\Helper;
 
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
-use Kenjis\CI3Compatible\TestCase;
 
-class form_helperTest extends TestCase
+class form_helperTest extends HelperTestCase
 {
     public function test_validation_errors(): void
     {
-        require __DIR__ . '/../../../src/CI3Compatible/Helper/form_helper.php';
+        $this->loadHelper('form');
 
         $validation =  Services::validation();
         $validation->reset();

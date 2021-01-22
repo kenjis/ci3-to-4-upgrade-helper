@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Helper;
 
-use Kenjis\CI3Compatible\TestCase;
-
 use function unlink;
 
-class captcha_helperTest extends TestCase
+class captcha_helperTest extends HelperTestCase
 {
     public function test_create_captcha(): void
     {
-        require __DIR__ . '/../../../src/CI3Compatible/Helper/captcha_helper.php';
+        $this->loadHelper('captcha');
 
         $data = [
             'word'      => 'abcd',
