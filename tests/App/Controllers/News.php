@@ -6,9 +6,11 @@ namespace App\Controllers;
 
 use App\Models\News_model;
 use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Library\CI_Form_validation;
 
 /**
  * @property News_model $news_model
+ * @property CI_Form_validation $form_validation
  */
 class News extends CI_Controller
 {
