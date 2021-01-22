@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core;
 
+use Kenjis\CI3Compatible\Exception\NotSupportedException;
 use Kenjis\CI3Compatible\TestCase;
 
 class CI_InputTest extends TestCase
@@ -23,5 +24,12 @@ class CI_InputTest extends TestCase
         $val = $this->input->server('CI_ENVIRONMENT');
 
         $this->assertSame('testing', $val);
+    }
+
+    public function test_server_xss_clean(): void
+    {
+        $this->expectException(NotSupportedException::class);
+
+        $this->input->server('CI_ENVIRONMENT', true);
     }
 }

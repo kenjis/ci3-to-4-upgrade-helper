@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core;
 
 use Config\Services;
-use Kenjis\CI3Compatible\Exception\NotImplementedException;
+use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
 class CI_Input
 {
@@ -19,15 +19,22 @@ class CI_Input
      */
     public function post($index = null, bool $xss_clean = false)
     {
-        if ($xss_clean !== false) {
-            throw new NotImplementedException(
-                '$xss_clean is not implemented yet.'
-            );
-        }
+        $this->checkXssClean($xss_clean);
 
         $request = Services::request();
 
         return $request->getPost($index);
+    }
+
+    private function checkXssClean(bool $xss_clean)
+    {
+        if ($xss_clean !== false) {
+            throw new NotSupportedException(
+                '$xss_clean is not supported.'
+                . ' Preventing XSS should be performed on output, not input!'
+                . 'Use esc() <https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html#esc> instead.'
+            );
+        }
     }
 
     /**
@@ -40,11 +47,7 @@ class CI_Input
      */
     public function server($index = null, bool $xss_clean = false)
     {
-        if ($xss_clean !== false) {
-            throw new NotImplementedException(
-                '$xss_clean is not implemented yet.'
-            );
-        }
+        $this->checkXssClean($xss_clean);
 
         $request = Services::request();
 
