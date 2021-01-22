@@ -1,5 +1,10 @@
 parameters:
-  level: max
+  level: 1
   paths:
     - src
     - tests
+  bootstrapFiles:
+    - vendor/codeigniter4/codeigniter4/system/Test/bootstrap.php
+  scanDirectories:
+    - vendor/codeigniter4/codeigniter4/system/Helpers
+    - src/CI3Compatible/Helper
