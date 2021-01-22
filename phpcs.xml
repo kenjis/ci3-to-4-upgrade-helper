@@ -28,9 +28,21 @@
     <!-- Doctrine Coding Standard -->
     <rule ref="Doctrine">
 
+        <!-- Temp Exclude Rules -->
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamName"/>
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidNoReturn"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint"/>
+        <!--        <exclude name=""/>-->
+
         <!-- Exclude Rules -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSame"/>
         <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed"/>
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming.SuperfluousPrefix"/>
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix"/>
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming.SuperfluousSuffix"/>
@@ -58,5 +70,52 @@
             <property name="maxLinesCountBeforeWithComment" value="1"/>
             <property name="maxLinesCountBeforeWithoutComment" value="0"/>
         </properties>
+    </rule>
+
+    <!-- Exclude rules -->
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousTraitNaming.SuperfluousSuffix">
+        <exclude-pattern>*/tests/CI3Compatible/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment.WrongStyle">
+        <exclude-pattern>*/tests/CI3Compatible/*</exclude-pattern>
+    </rule>
+
+    <!-- Exclude rules for CodeIgniter3 coding style -->
+    <rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
+        <exclude-pattern>*/src/CI3Compatible/Core/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Database/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Library/*</exclude-pattern>
+        <exclude-pattern>*/tests/App/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Core/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Database/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Library/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Helper/*</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>*/src/CI3Compatible/Core/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Database/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Library/*</exclude-pattern>
+        <exclude-pattern>*/tests/App/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Core/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Database/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Library/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Helper/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps">
+        <exclude-pattern>*/src/CI3Compatible/Core/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Database/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Library/*</exclude-pattern>
+        <exclude-pattern>*/tests/App/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.NamingConventions.ValidVariableName.NotCamelCaps">
+        <exclude-pattern>*/src/CI3Compatible/Core/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Database/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Library/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Helper/*</exclude-pattern>
+        <exclude-pattern>*/tests/App/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Core/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Database/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Library/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Helper/*</exclude-pattern>
     </rule>
 </ruleset>
