@@ -62,4 +62,14 @@ class CI_DB_result
     {
         return $this->result->getRow($n, $type);
     }
+
+    /**
+     * Number of rows in the result set
+     *
+     * @return  int
+     */
+    public function num_rows(): int
+    {
+        return $this->result->getNumRows();
+    }
 }

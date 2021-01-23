@@ -28,6 +28,13 @@ class CI_DB_query_builderTest extends DatabaseTestCase
         $this->assertCount(3, $result);
     }
 
+    public function test_result_num_rows(): void
+    {
+        $query = $this->queryBuilder->get('news');
+
+        $this->assertSame(3, $query->num_rows());
+    }
+
     public function test_get_where_one_record_row_array(): void
     {
         $slug = 'caffeination-yes';
