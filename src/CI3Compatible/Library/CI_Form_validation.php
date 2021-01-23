@@ -25,7 +25,11 @@ class CI_Form_validation
     private $request;
 
     /**
-     * @param array|ConfigValidation $config
+     * Initialize Form_Validation class
+     *
+     * @param   ConfigValidation|array|null $rules
+     *
+     * @return  void
      */
     public function __construct($config = null)
     {

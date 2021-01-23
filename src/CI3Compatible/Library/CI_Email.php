@@ -42,7 +42,13 @@ class CI_Email
     ];
 
     /**
-     * @param EmailConfig|array|null $config
+     * Constructor - Sets Email Preferences
+     *
+     * The constructor can be passed an array of config values
+     *
+     * @param   EmailConfig|array|null $config = array()
+     *
+     * @return  void
      */
     public function __construct($config = null)
     {
