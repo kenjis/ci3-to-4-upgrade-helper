@@ -102,6 +102,20 @@ class CI_Session
     }
 
     /**
+     * Unset userdata
+     *
+     * Legacy CI_Session compatibility method
+     *
+     * @param   mixed $key Session data key(s)
+     *
+     * @return  void
+     */
+    public function unset_userdata($key)
+    {
+        $this->session->remove($key);
+    }
+
+    /**
      * Session destroy
      *
      * Legacy CI_Session compatibility method

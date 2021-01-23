@@ -106,4 +106,13 @@ class CI_SessionTest extends TestCase
 
         $this->assertSame('some_value', $this->session->some_name);
     }
+
+    public function test_unset_userdata()
+    {
+        $this->session->set_userdata('some_name', 'some_value');
+
+        $this->session->unset_userdata('some_name');
+
+        $this->assertSame(null, $this->session->some_name);
+    }
 }
