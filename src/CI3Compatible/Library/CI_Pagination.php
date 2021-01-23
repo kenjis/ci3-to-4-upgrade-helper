@@ -24,7 +24,7 @@ class CI_Pagination
     /**
      * Constructor
      *
-     * @param   array|PagerConfig|null $params Initialization parameters
+     * @param   PagerConfig|array|null $params Initialization parameters
      *
      * @return  void
      */
