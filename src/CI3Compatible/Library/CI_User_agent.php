@@ -12,6 +12,13 @@ class CI_User_agent
     /** @var UserAgent */
     private $agent;
 
+    /**
+     * Constructor
+     *
+     * Sets the User Agent and runs the compilation routine
+     *
+     * @return  void
+     */
     public function __construct()
     {
         $request = Services::request();
