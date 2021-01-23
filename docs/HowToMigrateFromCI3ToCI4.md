@@ -141,6 +141,9 @@ class Seeder
 2. CI4 has no [Callbacks](https://codeigniter.com/userguide3/libraries/form_validation.html#callbacks-your-own-validation-methods) nor [Callable](https://codeigniter.com/userguide3/libraries/form_validation.html#callable-use-anything-as-a-rule).
 - Create your own Rule classes, and configure it in `app/Config/Validation.php`.
 - See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#creating-custom-rules>.
+3. `set_message()`
+- If you create a custom rule, use the second param `&$error` and set the error message. See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#creating-custom-rules>.
+- Otherwise use `setError(string $field, string $error)`.
 
 ### Pagination
 
