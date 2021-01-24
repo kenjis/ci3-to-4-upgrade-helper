@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core;
 
 use App\Models\News_model;
+use App\Models\Shop\Shop_model;
 use Kenjis\CI3Compatible\Database\CI_DB;
 use Kenjis\CI3Compatible\Library\CI_Form_validation;
 use Kenjis\CI3Compatible\Library\CI_User_agent;
@@ -57,6 +58,17 @@ class CI_LoaderTest extends TestCase
         $this->assertInstanceOf(
             News_model::class,
             $this->controller->news_model
+        );
+        $this->assertInstanceOf(CI_Loader::class, $ret);
+    }
+
+    public function test_model_loads_Shop_model_in_sub_dir(): void
+    {
+        $ret = $this->loader->model('shop/shop_model');
+
+        $this->assertInstanceOf(
+            Shop_model::class,
+            $this->controller->shop_model
         );
         $this->assertInstanceOf(CI_Loader::class, $ret);
     }

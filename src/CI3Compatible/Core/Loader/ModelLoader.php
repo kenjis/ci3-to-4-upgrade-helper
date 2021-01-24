@@ -6,8 +6,11 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\ModelResolver;
 
+use function end;
+use function explode;
 use function is_array;
 use function is_int;
+use function strrpos;
 
 class ModelLoader
 {
@@ -63,6 +66,12 @@ class ModelLoader
 
     private function getPropertyName(string $model, string $name): string
     {
+        if (strrpos($model, '/') !== false) {
+            $parts = explode('/', $model);
+
+            return end($parts);
+        }
+
         if ($name === '') {
             return $model;
         }
