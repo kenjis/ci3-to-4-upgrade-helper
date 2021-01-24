@@ -104,4 +104,19 @@ class CI_LoaderTest extends TestCase
         );
         $this->assertInstanceOf(CI_Loader::class, $ret);
     }
+
+    public function test_library_loads_two_libraries(): void
+    {
+        $ret = $this->loader->library(['form_validation', 'user_agent']);
+
+        $this->assertInstanceOf(
+            CI_User_agent::class,
+            $this->controller->agent
+        );
+        $this->assertInstanceOf(
+            CI_Form_validation::class,
+            $this->controller->form_validation
+        );
+        $this->assertInstanceOf(CI_Loader::class, $ret);
+    }
 }

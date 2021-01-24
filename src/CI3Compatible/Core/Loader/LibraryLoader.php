@@ -6,6 +6,9 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\LibraryResolver;
 
+use function is_array;
+use function is_int;
+
 class LibraryLoader
 {
     /** @var LibraryResolver */
@@ -21,7 +24,42 @@ class LibraryLoader
         $this->libraryResolver = new LibraryResolver();
     }
 
+    /**
+     * @param string|array $libraries
+     * @param array|null   $params
+     * @param string|null  $object_name
+     */
     public function load(
+        $libraries,
+        ?array $params = null,
+        ?string $object_name = null
+    ): void {
+        if (empty($libraries)) {
+            return;
+        }
+
+        if (is_array($libraries)) {
+            foreach ($libraries as $key => $value) {
+                if (is_int($key)) {
+                    $this->load($value, $params);
+                } else {
+                    $this->load($key, $params, $value);
+                }
+            }
+
+            return;
+        }
+
+        $library = $libraries;
+
+        if ($params !== null && ! is_array($params)) {
+            $params = null;
+        }
+
+        $this->loadOneLibrary($library, $params, $object_name);
+    }
+
+    private function loadOneLibrary(
         $library,
         ?array $params = null,
         ?string $object_name = null
