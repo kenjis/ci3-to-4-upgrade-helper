@@ -67,7 +67,10 @@ class CI_Form_validation
         $rules = null,
         array $errors = []
     ): CI_Form_validation {
-        if ($this->request->getMethod() !== 'post') {
+        if (
+            $this->request->getMethod() !== 'post'
+            && empty($this->validation_data)
+        ) {
             return $this;
         }
 
@@ -90,7 +93,9 @@ class CI_Form_validation
 
     public function set_data(array $data): self
     {
+        if (! empty($data)) {
             $this->validation_data = $data;
+        }
 
         return $this;
     }
