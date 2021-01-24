@@ -37,4 +37,17 @@ class CommonTest extends TestCase
             'An Error Was Encountered'
         );
     }
+
+    public function test_html_escape(): void
+    {
+        $string = html_escape('<>&&');
+        $this->assertSame('&lt;&gt;&amp;&amp;', $string);
+    }
+
+    public function test_html_escaper_throws_NotSupportedException(): void
+    {
+        $this->expectException(NotSupportedException::class);
+
+        html_escape('<>&&', false);
+    }
 }
