@@ -24,6 +24,6 @@ class LibaryResolverTest extends TestCase
 
         $classname = $resolver->resolve('twig');
 
-        $this->assertSame('App\\Libraries\Twig', $classname);
+        $this->assertSame('App\Libraries\Twig', $classname);
     }
 }
