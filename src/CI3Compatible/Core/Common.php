@@ -4,6 +4,36 @@ declare(strict_types=1);
 
 use CodeIgniter\Exceptions\PageNotFoundException;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
+use Kenjis\CI3Compatible\Exception\RuntimeException;
+
+if (! function_exists('show_error')) {
+    /**
+     * Error Handler
+     *
+     * This function lets us invoke the exception class and
+     * display errors using the standard error template located
+     * in application/views/errors/error_general.php
+     * This function will send the error page directly to the
+     * browser and exit.
+     *
+     * @param   string
+     * @param   int
+     * @param   string
+     *
+     * @return  void
+     */
+    function show_error($message, $status_code = 500, $heading = '')
+    {
+        if ($heading !== '') {
+            throw new NotSupportedException(
+                '$heading is not supported.'
+                . 'Please write your view file `app/Views/errors/html/error_500.php`.'
+            );
+        }
+
+        throw new RuntimeException($message, $status_code);
+    }
+}
 
 if (! function_exists('show_404')) {
     /**
