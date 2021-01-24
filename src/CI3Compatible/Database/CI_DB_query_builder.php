@@ -49,6 +49,8 @@ class CI_DB_query_builder extends CI_DB_driver
         $this->prepareSelectQuery();
         $query = $this->builder->get($limit, $offset);
 
+        $this->_reset_select();
+
         return new CI_DB_result($query);
     }
 
@@ -74,6 +76,8 @@ class CI_DB_query_builder extends CI_DB_driver
 
         $this->prepareSelectQuery();
         $query = $this->builder->getWhere($where, $limit, $offset);
+
+        $this->_reset_select();
 
         return new CI_DB_result($query);
     }
@@ -173,6 +177,10 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         $this->createQueryBuilder($table);
 
+        if ($reset === true) {
+            $this->_reset_select();
+        }
+
         return $this->builder->getCompiledSelect($reset);
     }
 
@@ -201,7 +209,11 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         $this->createQueryBuilder($table);
 
-        return $this->builder->countAll();
+        $count = $this->builder->countAll();
+
+        $this->_reset_select();
+
+        return $count;
     }
 
     /**
@@ -265,5 +277,17 @@ class CI_DB_query_builder extends CI_DB_driver
         $this->select[] = [$select, $escape];
 
         return $this;
+    }
+
+    /**
+     * Resets the query builder values.  Called by the get() function
+     *
+     * @return  void
+     */
+    private function _reset_select()
+    {
+        $this->select = [];
+        $this->where = [];
+        $this->order_by = [];
     }
 }
