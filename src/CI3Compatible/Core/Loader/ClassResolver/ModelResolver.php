@@ -16,7 +16,7 @@ class ModelResolver
 
     public function resolve(string $model): string
     {
-        if (strrpos($model, '/') !== false) {
+        if ($this->inSubDir($model)) {
             $parts = explode('/', $model);
 
             foreach ($parts as $key => $part) {
@@ -27,5 +27,10 @@ class ModelResolver
         }
 
         return $this->namespace . '\\' . ucfirst($model);
+    }
+
+    private function inSubDir(string $model): bool
+    {
+        return strrpos($model, '/') !== false;
     }
 }
