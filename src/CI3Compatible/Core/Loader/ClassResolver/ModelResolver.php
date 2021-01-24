@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core\Loader\ClassResolver;
 
+use function explode;
+use function implode;
+use function strrpos;
 use function ucfirst;
 
 class ModelResolver
@@ -13,6 +16,16 @@ class ModelResolver
 
     public function resolve(string $model): string
     {
+        if (strrpos($model, '/') !== false) {
+            $parts = explode('/', $model);
+
+            foreach ($parts as $key => $part) {
+                $parts[$key] = ucfirst($part);
+            }
+
+            return $this->namespace . '\\' . implode('\\', $parts);
+        }
+
         return $this->namespace . '\\' . ucfirst($model);
     }
 }

@@ -16,4 +16,13 @@ class ModelResolverTest extends TestCase
 
         $this->assertSame('App\Models\News_model', $classname);
     }
+
+    public function test_model_name_in_sub_dir(): void
+    {
+        $resolver = new ModelResolver();
+
+        $classname = $resolver->resolve('shop/shop_model');
+
+        $this->assertSame('App\Models\Shop\Shop_model', $classname);
+    }
 }
