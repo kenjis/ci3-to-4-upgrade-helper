@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core;
 
+use App\Libraries\Validation\Field_validation;
 use App\Models\News_model;
 use App\Models\Shop\Shop_model;
 use Kenjis\CI3Compatible\Database\CI_DB;
@@ -128,6 +129,17 @@ class CI_LoaderTest extends TestCase
         $this->assertInstanceOf(
             CI_Form_validation::class,
             $this->controller->form_validation
+        );
+        $this->assertInstanceOf(CI_Loader::class, $ret);
+    }
+
+    public function test_library_loads_Field_validation_in_sub_dir(): void
+    {
+        $ret = $this->loader->library('validation/field_validation');
+
+        $this->assertInstanceOf(
+            Field_validation::class,
+            $this->controller->field_validation
         );
         $this->assertInstanceOf(CI_Loader::class, $ret);
     }

@@ -6,11 +6,15 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\LibraryResolver;
 
+use function end;
+use function explode;
 use function is_array;
 use function is_int;
 
 class LibraryLoader
 {
+    use InSubDir;
+
     /** @var LibraryResolver */
     private $libraryResolver;
 
@@ -78,6 +82,12 @@ class LibraryLoader
     private function getPropertyName(string $library, ?string $object_name): string
     {
         if ($object_name === null) {
+            if ($this->inSubDir($library)) {
+                $parts = explode('/', $library);
+
+                return end($parts);
+            }
+
             if ($library === 'user_agent') {
                 return 'agent';
             }
