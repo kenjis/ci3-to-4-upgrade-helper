@@ -178,4 +178,20 @@ class CI_Form_validation
             $this->set_data($this->request->getPost());
         }
     }
+
+    /**
+     * Reset validation vars
+     *
+     * Prevents subsequent validation routines from being affected by the
+     * results of any previous validation routine due to the CI singleton.
+     *
+     * @return  CI_Form_validation
+     */
+    public function reset_validation(): self
+    {
+        $this->validation->reset();
+        $this->data = null;
+
+        return $this;
+    }
 }
