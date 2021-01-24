@@ -30,6 +30,15 @@ See <https://codeigniter4.github.io/CodeIgniter4/incoming/routing.html#setting-y
 
 See <https://codeigniter4.github.io/CodeIgniter4/general/configuration.html#creating-configuration-files>.
 
+2. Replace the CI3 config name with the new config classname in your code.
+
+Example:
+```php
+$this->config->load('config_shop');
+↓
+$this->config->load('ConfigShop');
+```
+
 ### Other Config Files
 
 1. Migrate remaining `application/config/*.php` to `app/Config/*.php` manually. You can set your own values like database password with `.env` file.
