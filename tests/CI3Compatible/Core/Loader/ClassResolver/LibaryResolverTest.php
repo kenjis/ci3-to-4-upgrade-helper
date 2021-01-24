@@ -26,4 +26,13 @@ class LibaryResolverTest extends TestCase
 
         $this->assertSame('App\Libraries\Twig', $classname);
     }
+
+    public function test_resolve_user_library_name_in_sub_dir(): void
+    {
+        $resolver = new LibraryResolver();
+
+        $classname = $resolver->resolve('validation/field_validation');
+
+        $this->assertSame('App\Libraries\Validation\Field_validation', $classname);
+    }
 }

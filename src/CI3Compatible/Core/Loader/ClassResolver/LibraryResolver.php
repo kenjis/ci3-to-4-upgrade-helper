@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core\Loader\ClassResolver;
 
+use function explode;
+use function implode;
 use function in_array;
+use function strrpos;
 use function ucfirst;
 
 class LibraryResolver
@@ -54,6 +57,21 @@ class LibraryResolver
 
     private function resolveUserLibrary(string $library): string
     {
+        if ($this->inSubDir($library)) {
+            $parts = explode('/', $library);
+
+            foreach ($parts as $key => $part) {
+                $parts[$key] = ucfirst($part);
+            }
+
+            return $this->userLibraryNamespace . '\\' . implode('\\', $parts);
+        }
+
         return $this->userLibraryNamespace . '\\' . ucfirst($library);
+    }
+
+    private function inSubDir(string $model): bool
+    {
+        return strrpos($model, '/') !== false;
     }
 }
