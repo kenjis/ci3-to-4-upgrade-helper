@@ -39,28 +39,21 @@ class LibraryLoader
         }
 
         if (is_array($libraries)) {
-            foreach ($libraries as $key => $value) {
-                if (is_int($key)) {
-                    $this->load($value, $params);
-                } else {
-                    $this->load($key, $params, $value);
-                }
-            }
+            $this->loadMultiple($libraries, $params);
 
             return;
         }
-
-        $library = $libraries;
 
         if ($params !== null && ! is_array($params)) {
             $params = null;
         }
 
-        $this->loadOneLibrary($library, $params, $object_name);
+        $library = $libraries;
+        $this->loadOne($library, $params, $object_name);
     }
 
-    private function loadOneLibrary(
-        $library,
+    private function loadOne(
+        string $library,
         ?array $params = null,
         ?string $object_name = null
     ): void {
@@ -69,6 +62,17 @@ class LibraryLoader
         $instance = $this->createInstance($classname, $params);
 
         $this->injector->inject($property, $instance);
+    }
+
+    private function loadMultiple(array $libraries, ?array $params): void
+    {
+        foreach ($libraries as $key => $value) {
+            if (is_int($key)) {
+                $this->load($value, $params);
+            } else {
+                $this->load($key, $params, $value);
+            }
+        }
     }
 
     private function getPropertyName(string $library, ?string $object_name): string

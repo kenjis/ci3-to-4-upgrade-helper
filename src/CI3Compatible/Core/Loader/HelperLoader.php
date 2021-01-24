@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core\Loader;
 
 use function in_array;
-use function is_string;
+use function is_array;
 
 class HelperLoader
 {
@@ -32,16 +32,17 @@ class HelperLoader
      */
     public function load($helpers): void
     {
-        if (is_string($helpers)) {
-            $helpers = [$helpers];
+        if (is_array($helpers)) {
+            $this->loadMultiple($helpers);
+
+            return;
         }
 
-        foreach ($helpers as $helper) {
-            $this->loadOneHelper($helper);
-        }
+        $helper = $helpers;
+        $this->loadOne($helper);
     }
 
-    private function loadOneHelper(string $helper): void
+    private function loadOne(string $helper): void
     {
         if (in_array($helper, $this->autoloaded, true)) {
             $this->loadCompatibleHelper($helper);
@@ -51,6 +52,13 @@ class HelperLoader
 
         $this->loadCompatibleHelper($helper);
         $this->loadCI4Helper($helper);
+    }
+
+    private function loadMultiple(array $helpers): void
+    {
+        foreach ($helpers as $helper) {
+            $this->loadOne($helper);
+        }
     }
 
     /**

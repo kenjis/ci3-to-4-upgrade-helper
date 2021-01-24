@@ -38,15 +38,15 @@ class ModelLoader
         }
 
         if (is_array($model)) {
-            $this->loadModels($model, $db_conn);
+            $this->loadMultiple($model, $db_conn);
 
             return;
         }
 
-        $this->loadModel($model, $name, $db_conn);
+        $this->loadOne($model, $name, $db_conn);
     }
 
-    private function loadModel(string $model, string $name, bool $db_conn): void
+    private function loadOne(string $model, string $name, bool $db_conn): void
     {
         $classname = $this->modelResolver->resolve($model);
         $property = $this->getPropertyName($model, $name);
@@ -55,7 +55,7 @@ class ModelLoader
         $this->injector->inject($property, $instance);
     }
 
-    private function loadModels(array $models, bool $db_conn): void
+    private function loadMultiple(array $models, bool $db_conn): void
     {
         foreach ($models as $key => $value) {
             is_int($key)
