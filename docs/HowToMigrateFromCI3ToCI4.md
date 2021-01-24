@@ -206,3 +206,12 @@ $offset = max(($page - 1), 0) * $per_page;
 
 1. CI4's `base_url()` removes the last `/`.
 - If you don't want it, use `base_url_()` that *ci3-to-4-migration-helper* provides after `$this->load->helper('url')`.
+
+## Common Functions
+
+### show_error()
+
+1. CI4 does not have `show_error()`
+- `show_error()` that *ci3-to-4-migration-helper* provides does not support the third argument `$heading`.
+- If you want to show error page like CI3, you have to create error templates like `app/Views/errors/html/error_500.php` where `500` is the status code.
+- In error templates, you can use `$message` which has the Exception message.
