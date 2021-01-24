@@ -10,10 +10,11 @@ use function end;
 use function explode;
 use function is_array;
 use function is_int;
-use function strrpos;
 
 class ModelLoader
 {
+    use InSubDir;
+
     /** @var ModelResolver */
     private $modelResolver;
 
@@ -66,7 +67,7 @@ class ModelLoader
 
     private function getPropertyName(string $model, string $name): string
     {
-        if (strrpos($model, '/') !== false) {
+        if ($this->inSubDir($model)) {
             $parts = explode('/', $model);
 
             return end($parts);

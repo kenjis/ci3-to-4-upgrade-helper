@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core\Loader\ClassResolver;
 
+use Kenjis\CI3Compatible\Core\Loader\InSubDir;
+
 use function explode;
 use function implode;
-use function strrpos;
 use function ucfirst;
 
 class ModelResolver
 {
+    use InSubDir;
+
     /** @var string */
     private $namespace = 'App\\Models';
 
@@ -27,10 +30,5 @@ class ModelResolver
         }
 
         return $this->namespace . '\\' . ucfirst($model);
-    }
-
-    private function inSubDir(string $model): bool
-    {
-        return strrpos($model, '/') !== false;
     }
 }

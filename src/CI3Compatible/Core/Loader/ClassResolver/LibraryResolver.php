@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core\Loader\ClassResolver;
 
+use Kenjis\CI3Compatible\Core\Loader\InSubDir;
+
 use function explode;
 use function implode;
 use function in_array;
-use function strrpos;
 use function ucfirst;
 
 class LibraryResolver
 {
+    use InSubDir;
+
     /** @var string */
     private $ci3LibraryNamespace = 'Kenjis\CI3Compatible\Library';
 
@@ -68,10 +71,5 @@ class LibraryResolver
         }
 
         return $this->userLibraryNamespace . '\\' . ucfirst($library);
-    }
-
-    private function inSubDir(string $model): bool
-    {
-        return strrpos($model, '/') !== false;
     }
 }
