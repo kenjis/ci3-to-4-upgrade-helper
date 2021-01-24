@@ -38,6 +38,12 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function get($table = '', $limit = null, $offset = 0): CI_DB_result
     {
+        if ($limit !== null) {
+            $limit = (int) $limit;
+        }
+
+        $offset = (int) $offset;
+
         $this->createQueryBuilder($table);
 
         $this->prepareSelectQuery();
