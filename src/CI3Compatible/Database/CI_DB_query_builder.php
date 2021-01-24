@@ -44,7 +44,7 @@ class CI_DB_query_builder extends CI_DB_driver
 
         $offset = (int) $offset;
 
-        $this->createQueryBuilder($table);
+        $this->ensureQueryBuilder($table);
 
         $this->prepareSelectQuery();
         $query = $this->builder->get($limit, $offset);
@@ -72,7 +72,7 @@ class CI_DB_query_builder extends CI_DB_driver
         ?int $limit = null,
         ?int $offset = null
     ): CI_DB_result {
-        $this->createQueryBuilder($table);
+        $this->ensureQueryBuilder($table);
 
         $this->prepareSelectQuery();
         $query = $this->builder->getWhere($where, $limit, $offset);
@@ -95,7 +95,7 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function insert(string $table = '', ?array $set = null, ?bool $escape = null): bool
     {
-        $this->createQueryBuilder($table);
+        $this->ensureQueryBuilder($table);
 
         $ret = $this->builder->insert($set, $escape);
 
@@ -175,7 +175,7 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function get_compiled_select($table = '', $reset = true): string
     {
-        $this->createQueryBuilder($table);
+        $this->ensureQueryBuilder($table);
 
         if ($reset === true) {
             $this->_reset_select();
@@ -184,7 +184,7 @@ class CI_DB_query_builder extends CI_DB_driver
         return $this->builder->getCompiledSelect($reset);
     }
 
-    private function createQueryBuilder(string $table): void
+    private function ensureQueryBuilder(string $table): void
     {
         if ($table !== '') {
             $this->builder = $this->db->table($table);
@@ -207,7 +207,7 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function count_all($table = ''): int
     {
-        $this->createQueryBuilder($table);
+        $this->ensureQueryBuilder($table);
 
         $count = $this->builder->countAll();
 
@@ -230,7 +230,7 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function delete($table = '', $where = '', $limit = null, $reset_data = true)
     {
-        $this->createQueryBuilder($table);
+        $this->ensureQueryBuilder($table);
 
         $this->prepareDeleteQuery();
         $ret = $this->builder->delete($where, $limit, $reset_data);
