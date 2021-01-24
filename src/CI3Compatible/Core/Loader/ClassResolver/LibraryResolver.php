@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core\Loader\ClassResolver;
 
-use Kenjis\CI3Compatible\Exception\NotImplementedException;
-
 use function in_array;
 use function ucfirst;
 
@@ -30,13 +28,32 @@ class LibraryResolver
     /** @var string */
     private $prefix = 'CI_';
 
+    /** @var string */
+    private $userLibraryNamespace = 'App\Libraries';
+
     public function resolve(string $library): string
+    {
+        $classname = $this->resolveCI3Library($library);
+
+        if ($classname === null) {
+            $classname = $this->resolveUserLibrary($library);
+        }
+
+        return $classname;
+    }
+
+    private function resolveCI3Library(string $library): ?string
     {
         $classname = $this->prefix . ucfirst($library);
         if (in_array($library, $this->ci3Libraries, true)) {
             return $this->ci3LibraryNamespace . '\\' . $classname;
         }
 
-        throw new NotImplementedException($classname . ' is not implemented.');
+        return null;
+    }
+
+    private function resolveUserLibrary(string $library): string
+    {
+        return $this->userLibraryNamespace . '\\' . ucfirst($library);
     }
 }
