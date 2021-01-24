@@ -19,7 +19,7 @@ class CI_Form_validation
     private $validation;
 
     /** @var array */
-    private $data;
+    private $validation_data;
 
     /** @var IncomingRequest */
     private $request;
@@ -90,7 +90,7 @@ class CI_Form_validation
 
     public function set_data(array $data): self
     {
-        $this->data = $data;
+            $this->validation_data = $data;
 
         return $this;
     }
@@ -169,12 +169,12 @@ class CI_Form_validation
 
         $this->setPostData();
 
-        return $this->validation->run($this->data, $config);
+        return $this->validation->run($this->validation_data, $config);
     }
 
     protected function setPostData(): void
     {
-        if ($this->data === null) {
+        if ($this->validation_data === null) {
             $this->set_data($this->request->getPost());
         }
     }
@@ -190,7 +190,7 @@ class CI_Form_validation
     public function reset_validation(): self
     {
         $this->validation->reset();
-        $this->data = null;
+        $this->validation_data = null;
 
         return $this;
     }
