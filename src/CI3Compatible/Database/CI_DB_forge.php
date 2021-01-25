@@ -20,11 +20,11 @@ class CI_DB_forge
     /**
      * Add Field
      *
-     * @param   array $field
+     * @param   array|string $field
      *
      * @return  CI_DB_forge
      */
-    public function add_field(array $field): self
+    public function add_field($field): self
     {
         $this->forge->addField($field);
 
