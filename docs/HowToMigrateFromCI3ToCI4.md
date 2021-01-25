@@ -72,6 +72,37 @@ $this->config->load('ConfigShop');
 
 See <https://codeigniter4.github.io/CodeIgniter4/extending/events.html> or <https://codeigniter4.github.io/CodeIgniter4/incoming/filters.html>.
 
+## Database Migrations
+
+CI4 has built-in Database Migrations. *ci3-to-4-migration-helper* provides `CI_Migration` class that extends CI4's Migration class.
+
+### Copy Migration files
+
+1. Copy migration files to `app/Database/Migrations/`.
+2. Rename migration file names. See <https://codeigniter4.github.io/CodeIgniter4/dbmgmt/migration.html#migration-file-names>.
+3. Rename migration class names. Remove `Migration_` and change to CamelCase.
+
+### Add Namespace and Use statement
+
+1. Add `namespace App\Database\Migrations`.
+2. Add `use Kenjis\CI3Compatible\Library\CI_Migration;`
+
+Example:
+```php
+namespace App\Database\Migrations; // Add
+
+use Kenjis\CI3Compatible\Library\CI_Migration; // Add
+
+class CreateBbs extends CI_Migration
+{
+    ...
+}
+```
+
+### $this->db
+
+`$this->db` in migration files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-migration-helper* provides.
+
 ## Controllers
 
 ### Copy Controller files
