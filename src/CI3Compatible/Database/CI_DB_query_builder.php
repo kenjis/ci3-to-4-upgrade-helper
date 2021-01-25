@@ -24,6 +24,9 @@ class CI_DB_query_builder extends CI_DB_driver
     /** @var array */
     private $select = [];
 
+    /** @var array */
+    private $like = [];
+
     /**
      * Get
      *
@@ -157,6 +160,7 @@ class CI_DB_query_builder extends CI_DB_driver
         }
 
         $this->execWhere();
+        $this->execLike();
 
         foreach ($this->order_by as $params) {
             $this->builder->orderBy(...$params);
@@ -246,6 +250,7 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         $this->existsBuilder();
         $this->execWhere();
+        $this->execLike();
     }
 
     private function existsBuilder(): void
@@ -259,6 +264,13 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         foreach ($this->where as $params) {
             $this->builder->where(...$params);
+        }
+    }
+
+    private function execLike(): void
+    {
+        foreach ($this->like as $params) {
+            $this->builder->like(...$params);
         }
     }
 
@@ -280,6 +292,30 @@ class CI_DB_query_builder extends CI_DB_driver
     }
 
     /**
+     * LIKE
+     *
+     * Generates a %LIKE% portion of the query.
+     * Separates multiple calls with 'AND'.
+     *
+     * @param   mixed  $field
+     * @param   string $match
+     * @param   string $side
+     * @param   bool   $escape
+     *
+     * @return  CI_DB_query_builder
+     */
+    public function like(
+        $field,
+        string $match = '',
+        string $side = 'both',
+        ?bool $escape = null
+    ): self {
+        $this->like[] = [$field, $match, $side, $escape];
+
+        return $this;
+    }
+
+    /**
      * Resets the query builder values.  Called by the get() function
      *
      * @return  void
@@ -288,6 +324,7 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         $this->select = [];
         $this->where = [];
+        $this->like = [];
         $this->order_by = [];
     }
 }

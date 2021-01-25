@@ -92,6 +92,21 @@ ORDER BY `title` ASC';
         $this->assertSame(3, $row['count']);
     }
 
+    public function test_like(): void
+    {
+        $this->queryBuilder->like('body', 'of');
+        $this->queryBuilder->like('body', 'as');
+        $this->queryBuilder->get('news');
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = "SELECT *
+FROM `db_news`
+WHERE `body` LIKE '%of%' ESCAPE '!'
+AND  `body` LIKE '%as%' ESCAPE '!'";
+        $this->assertSame($expected, $sql);
+    }
+
     // --------------------------------------------------------------------
     // INSERT
     // --------------------------------------------------------------------
