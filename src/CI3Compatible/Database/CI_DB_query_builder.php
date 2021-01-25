@@ -114,6 +114,24 @@ class CI_DB_query_builder extends CI_DB_driver
     }
 
     /**
+     * Insert_Batch
+     *
+     * Compiles batch insert strings and runs the queries
+     *
+     * @param   string $table  Table to insert into
+     * @param   array  $set    An associative array of insert values
+     * @param   bool   $escape Whether to escape values and identifiers
+     *
+     * @return  int|bool    Number of rows inserted or FALSE on failure
+     */
+    public function insert_batch(string $table, ?array $set = null, ?bool $escape = null, $batch_size = 100)
+    {
+        $this->ensureQueryBuilder($table);
+
+        return $this->builder->insertBatch($set, $escape, $batch_size);
+    }
+
+    /**
      * WHERE
      *
      * Generates the WHERE portion of the query.
