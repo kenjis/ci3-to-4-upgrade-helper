@@ -96,6 +96,11 @@ class News extends CI_Controller
 }
 ```
 
+### _output()
+
+1. CI4 does not have `_output()` method.
+- Use Controller Filters. See <https://codeigniter4.github.io/CodeIgniter4/incoming/filters.html>.
+
 ## Models
 
 ### Copy Model files
