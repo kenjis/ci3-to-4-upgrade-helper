@@ -131,6 +131,21 @@ class CI_Email
     }
 
     /**
+     * Set BCC
+     *
+     * @param   string
+     * @param   string
+     *
+     * @return  CI_Email
+     */
+    public function bcc($bcc, $limit = ''): self
+    {
+        $this->email->setBCC($bcc, $limit);
+
+        return $this;
+    }
+
+    /**
      * Set Email Subject
      *
      * @param   string
