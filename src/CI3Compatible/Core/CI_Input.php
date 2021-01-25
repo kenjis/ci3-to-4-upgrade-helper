@@ -10,6 +10,23 @@ use Kenjis\CI3Compatible\Exception\NotSupportedException;
 class CI_Input
 {
     /**
+     * Fetch an item from the GET array
+     *
+     * @param   mixed $index     Index for item to be fetched from $_GET
+     * @param   bool  $xss_clean Whether to apply XSS filtering
+     *
+     * @return  mixed
+     */
+    public function get($index = null, bool $xss_clean = false)
+    {
+        $this->checkXssClean($xss_clean);
+
+        $request = Services::request();
+
+        return $request->getGet($index);
+    }
+
+    /**
      * Fetch an item from the POST array
      *
      * @param   mixed $index     Index for item to be fetched from $_POST

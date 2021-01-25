@@ -17,9 +17,19 @@ class CI_InputTest extends TestCase
         parent::setUp();
 
         $_POST = [];
+        $_GET = [];
+
         $this->input = new CI_Input();
     }
 
+    public function test_get(): void
+    {
+        $_GET['q'] = 'abc';
+
+        $val = $this->input->get('q');
+
+        $this->assertSame('abc', $val);
+    }
 
     public function test_post(): void
     {
