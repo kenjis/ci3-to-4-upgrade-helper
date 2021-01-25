@@ -26,6 +26,7 @@ class LibraryResolver
         'form_validation',
         'image_lib',
         'pagination',
+        'parser',
         'session',
         'upload',
         'user_agent',
