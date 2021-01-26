@@ -90,6 +90,7 @@ class HelperLoader
         } else {
             helper($helper);
             $this->loaded($helper);
+            log_message('debug', 'Helper(CI4) "' . $helper . '" loaded');
         }
 
         return true;
@@ -100,7 +101,7 @@ class HelperLoader
         if (in_array($helper, $this->compatible, true)) {
             require __DIR__ . '/../../Helper/' . $helper . '_helper.php';
             $this->loaded($helper);
-            log_message('debug', 'Helper "' . $helper . '" loaded');
+            log_message('debug', 'Helper(CI3Compat) "' . $helper . '" loaded');
         }
     }
 
