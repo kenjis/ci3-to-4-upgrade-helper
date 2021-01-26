@@ -103,6 +103,35 @@ class CreateBbs extends CI_Migration
 
 `$this->db` in migration files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-migration-helper* provides.
 
+## Database Seeding
+
+CI4 has built-in [Database Seeding](https://codeigniter4.github.io/CodeIgniter4/dbmgmt/seeds.html). *ci3-to-4-migration-helper* provides `Seeder` class that is based on Seeder class in [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test) and extends CI4's Seeder class.
+
+### Copy Seeder files
+
+1. Copy seeder files to `app/Database/Seeds/`.
+
+### Add Namespace and Use statement
+
+1. Add `namespace App\Database\Seeds`.
+2. Add `use Kenjis\CI3Compatible\Library\Seeder;`
+
+Example:
+```php
+namespace App\Database\Seeds; // Add
+
+use Kenjis\CI3Compatible\Library\Seeder; // Add
+
+class ProductSeeder extends Seeder
+{
+    ...
+}
+```
+
+### $this->db
+
+`$this->db` in seeder files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-migration-helper* provides.
+
 ## Controllers
 
 ### Copy Controller files
