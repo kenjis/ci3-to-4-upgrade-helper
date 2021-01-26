@@ -36,12 +36,16 @@ class LibraryLoaderTest extends TestCase
     public function test_load_ci3_library_twice_form_validation(): void
     {
         $this->loader->load('form_validation');
+        $validation1 = $this->controller->form_validation;
+
         $this->loader->load('form_validation');
+        $validation2 = $this->controller->form_validation;
 
         $this->assertInstanceOf(
             CI_Form_validation::class,
             $this->controller->form_validation
         );
+        $this->assertSame($validation1, $validation2);
     }
 
     public function test_load_ci3_library_two_instances_form_validation(): void

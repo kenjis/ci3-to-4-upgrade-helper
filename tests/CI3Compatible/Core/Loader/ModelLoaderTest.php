@@ -40,12 +40,16 @@ class ModelLoaderTest extends TestCase
     public function test_load_one_model_twice(): void
     {
         $this->loader->load('news_model');
+        $model1 = $this->controller->news_model;
+
         $this->loader->load('news_model');
+        $model2 = $this->controller->news_model;
 
         $this->assertInstanceOf(
             'App\Models\News_model',
             $this->controller->news_model
         );
+        $this->assertSame($model1, $model2);
     }
 
     public function test_load_one_model_two_instances(): void
