@@ -100,6 +100,10 @@ class LibraryLoader
 
     private function createInstance(string $classname, ?array $params): object
     {
-        return new $classname($params);
+        $instance = new $classname($params);
+
+        log_message('debug', 'Library "' . $classname . '" created');
+
+        return $instance;
     }
 }

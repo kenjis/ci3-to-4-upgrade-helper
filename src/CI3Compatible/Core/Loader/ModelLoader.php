@@ -107,6 +107,10 @@ class ModelLoader
 
     private function createInstance(string $classname): object
     {
-        return model($classname, false);
+        $instance = model($classname, false);
+
+        log_message('debug', 'Model "' . $classname . '" created');
+
+        return $instance;
     }
 }

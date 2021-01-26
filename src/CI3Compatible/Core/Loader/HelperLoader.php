@@ -82,6 +82,8 @@ class HelperLoader
     {
         if (in_array($helper, $this->compatible, true)) {
             require __DIR__ . '/../../Helper/' . $helper . '_helper.php';
+
+            log_message('debug', 'Helper "' . $helper . '" loaded');
         }
     }
 }
