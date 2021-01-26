@@ -55,16 +55,30 @@ class ModelLoader
     {
         $property = $this->getPropertyName($model, $name);
 
-        if (array_key_exists($property, $this->loadedClasses)) {
+        if ($this->isLoaded($property)) {
             return;
         }
 
         $classname = $this->modelResolver->resolve($model);
         $instance = $this->createInstance($classname);
 
-        $this->loadedClasses[$property] = $instance;
-
         $this->injector->inject($property, $instance);
+
+        $this->loaded($property, $instance);
+    }
+
+    private function loaded(string $property, object $instance)
+    {
+        $this->loadedClasses[$property] = $instance;
+    }
+
+    private function isLoaded(string $property): bool
+    {
+        if (array_key_exists($property, $this->loadedClasses)) {
+            return true;
+        }
+
+        return false;
     }
 
     private function loadMultiple(array $models, bool $db_conn): void
