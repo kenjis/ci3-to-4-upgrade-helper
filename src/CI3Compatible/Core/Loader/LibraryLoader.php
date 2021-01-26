@@ -6,6 +6,7 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\LibraryResolver;
 
+use function array_key_exists;
 use function end;
 use function explode;
 use function is_array;
@@ -20,6 +21,9 @@ class LibraryLoader
 
     /** @var ControllerPropertyInjector */
     private $injector;
+
+    /** @var array<string, object> List of loaded classes [property_name => instance] */
+    private $loadedClasses = [];
 
     public function __construct(ControllerPropertyInjector $injector)
     {
@@ -61,11 +65,31 @@ class LibraryLoader
         ?array $params = null,
         ?string $object_name = null
     ): void {
-        $classname = $this->libraryResolver->resolve($library);
         $property = $this->getPropertyName($library, $object_name);
+
+        if ($this->isLoaded($property)) {
+            return;
+        }
+
+        $classname = $this->libraryResolver->resolve($library);
         $instance = $this->createInstance($classname, $params);
 
         $this->injector->inject($property, $instance);
+        $this->loaded($property, $instance);
+    }
+
+    private function loaded(string $property, object $instance)
+    {
+        $this->loadedClasses[$property] = $instance;
+    }
+
+    private function isLoaded(string $property): bool
+    {
+        if (array_key_exists($property, $this->loadedClasses)) {
+            return true;
+        }
+
+        return false;
     }
 
     private function loadMultiple(array $libraries, ?array $params): void
