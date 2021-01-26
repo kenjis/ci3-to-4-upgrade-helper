@@ -138,4 +138,29 @@ AND  `body` LIKE '%as%' ESCAPE '!'";
         $this->assertInstanceOf(CI_DB_result::class, $ret);
         $this->dontSeeInDatabase('news', ['slug' => $slug]);
     }
+
+    // --------------------------------------------------------------------
+    // TRUNCATE
+    // --------------------------------------------------------------------
+
+    public function test_truncate_from(): void
+    {
+        $this->queryBuilder->from('news');
+        $this->queryBuilder->truncate();
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = 'DELETE FROM `db_news`';
+        $this->assertSame($expected, $sql);
+    }
+
+    public function test_truncate(): void
+    {
+        $this->queryBuilder->truncate('news');
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = 'DELETE FROM `db_news`';
+        $this->assertSame($expected, $sql);
+    }
 }

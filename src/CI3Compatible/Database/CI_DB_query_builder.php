@@ -9,6 +9,7 @@ use CodeIgniter\Database\BaseResult;
 use Kenjis\CI3Compatible\Exception\LogicException;
 
 use function is_bool;
+use function is_string;
 
 class CI_DB_query_builder extends CI_DB_driver
 {
@@ -26,6 +27,9 @@ class CI_DB_query_builder extends CI_DB_driver
 
     /** @var array */
     private $like = [];
+
+    /** @var array */
+    private $from = [];
 
     /**
      * Get
@@ -344,5 +348,63 @@ class CI_DB_query_builder extends CI_DB_driver
         $this->where = [];
         $this->like = [];
         $this->order_by = [];
+    }
+
+    /**
+     * Resets the query builder "write" values.
+     *
+     * Called by the insert() update() insert_batch() update_batch() and delete() functions
+     *
+     * @return  void
+     */
+    protected function _reset_write()
+    {
+        $this->from = [];
+        $this->where = [];
+        $this->order_by = [];
+    }
+
+    /**
+     * Truncate
+     *
+     * Compiles a truncate string and runs the query
+     * If the database does not support the truncate() command
+     * This function maps to "DELETE FROM table"
+     *
+     * @param   string  the table to truncate
+     *
+     * @return  bool    TRUE on success, FALSE on failure
+     *
+     * @TODO @return is accutually BaseResult|false, but CI3 also returns Result
+     */
+    public function truncate($table = '')
+    {
+        $this->ensureQueryBuilder($table);
+
+        $ret = $this->builder->truncate();
+
+        $this->_reset_write();
+
+        return $ret;
+    }
+
+    /**
+     * From
+     *
+     * Generates the FROM portion of the query
+     *
+     * @param   mixed $from can be a string or array
+     *
+     * @return  CI_DB_query_builder
+     */
+    public function from($from): self
+    {
+        $this->from[] = $from;
+
+        if ($this->builder === null && is_string($from)) {
+            $this->builder = $this->db->table($from);
+        }
+
+        return $this;
     }
 }
