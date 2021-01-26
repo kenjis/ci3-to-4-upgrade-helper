@@ -12,6 +12,9 @@ class DatabaseLoader
     /** @var ControllerPropertyInjector */
     private $injector;
 
+    /** @var CI_DB */
+    private $db;
+
     public function __construct(ControllerPropertyInjector $injector)
     {
         $this->injector = $injector;
@@ -19,16 +22,27 @@ class DatabaseLoader
 
     public function load($params = '', $return = false, $query_builder = null)
     {
-        $connection = Database::connect($params);
-
-        $db = new CI_DB($connection);
-
-        $this->injector->inject('db', $db);
-
-        if ($return) {
-            return $db;
+        if (
+            $return === false && $query_builder === null
+            && isset($this->db)
+        ) {
+            return false;
         }
 
-        return true;
+        if ($return) {
+            $connection = Database::connect($params, false);
+
+            return new CI_DB($connection);
+        }
+
+        if ($this->db === null) {
+            $connection = Database::connect($params, false);
+            $this->db = new CI_DB($connection);
+            $this->injector->inject('db', $this->db);
+
+            return $this->db;
+        }
+
+        return false;
     }
 }

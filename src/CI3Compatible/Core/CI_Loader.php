@@ -10,6 +10,7 @@ use Kenjis\CI3Compatible\Core\Loader\DatabaseLoader;
 use Kenjis\CI3Compatible\Core\Loader\HelperLoader;
 use Kenjis\CI3Compatible\Core\Loader\LibraryLoader;
 use Kenjis\CI3Compatible\Core\Loader\ModelLoader;
+use Kenjis\CI3Compatible\Database\CI_DB;
 
 class CI_Loader
 {
@@ -133,7 +134,11 @@ class CI_Loader
     ) {
         $ret = $this->databaseLoader->load($params, $return, $query_builder);
 
-        if ($return) {
+        if ($ret === false) {
+            return false;
+        }
+
+        if ($return && $ret instanceof CI_DB) {
             return $ret;
         }
 

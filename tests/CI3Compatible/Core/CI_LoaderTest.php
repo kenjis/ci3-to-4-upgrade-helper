@@ -89,9 +89,9 @@ class CI_LoaderTest extends TestCase
     {
         $ret = $this->loader->database('', true);
 
-        $this->assertInstanceOf(
-            CI_DB::class,
-            $this->controller->db
+        $this->assertObjectNotHasAttribute(
+            'db',
+            $this->controller
         );
         $this->assertInstanceOf(CI_DB::class, $ret);
     }
