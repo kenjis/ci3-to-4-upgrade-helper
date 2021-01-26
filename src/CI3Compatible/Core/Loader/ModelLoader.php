@@ -63,7 +63,6 @@ class ModelLoader
         $instance = $this->createInstance($classname);
 
         $this->injector->inject($property, $instance);
-
         $this->loaded($property, $instance);
     }
 
