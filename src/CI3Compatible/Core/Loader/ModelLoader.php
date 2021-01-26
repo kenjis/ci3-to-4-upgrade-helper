@@ -6,6 +6,7 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\ModelResolver;
 
+use function array_key_exists;
 use function end;
 use function explode;
 use function is_array;
@@ -20,6 +21,9 @@ class ModelLoader
 
     /** @var ControllerPropertyInjector */
     private $injector;
+
+    /** @var array<string, object> List of loaded classes [property_name => instance] */
+    private $loadedClasses = [];
 
     public function __construct(ControllerPropertyInjector $injector)
     {
@@ -49,9 +53,16 @@ class ModelLoader
 
     private function loadOne(string $model, string $name, bool $db_conn): void
     {
-        $classname = $this->modelResolver->resolve($model);
         $property = $this->getPropertyName($model, $name);
+
+        if (array_key_exists($property, $this->loadedClasses)) {
+            return;
+        }
+
+        $classname = $this->modelResolver->resolve($model);
         $instance = $this->createInstance($classname);
+
+        $this->loadedClasses[$property] = $instance;
 
         $this->injector->inject($property, $instance);
     }
@@ -82,6 +93,6 @@ class ModelLoader
 
     private function createInstance(string $classname): object
     {
-        return model($classname);
+        return model($classname, false);
     }
 }

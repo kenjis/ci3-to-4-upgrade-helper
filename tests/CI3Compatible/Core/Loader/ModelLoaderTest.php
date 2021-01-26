@@ -11,20 +11,56 @@ use Kenjis\CI3Compatible\TestCase;
 
 class ModelLoaderTest extends TestCase
 {
-    public function test_load_model(): void
+    /** @var News */
+    private $controller;
+
+    /** @var ModelLoader */
+    private $loader;
+
+    public function setUp(): void
     {
-        $controller = new News();
-        $injector = new ControllerPropertyInjector($controller);
-        $loader = new ModelLoader($injector);
+        $this->controller = new News();
+        $injector = new ControllerPropertyInjector($this->controller);
+        $this->loader = new ModelLoader($injector);
 
         $model = new Model();
         Factories::injectMock('model', 'App\Models\News_model', $model);
+    }
 
-        $loader->load('news_model');
+    public function test_load_one_model(): void
+    {
+        $this->loader->load('news_model');
 
         $this->assertInstanceOf(
             'App\Models\News_model',
-            $controller->news_model
+            $this->controller->news_model
+        );
+    }
+
+    public function test_load_one_model_twice(): void
+    {
+        $this->loader->load('news_model');
+        $this->loader->load('news_model');
+
+        $this->assertInstanceOf(
+            'App\Models\News_model',
+            $this->controller->news_model
+        );
+    }
+
+    public function test_load_one_model_two_instances(): void
+    {
+        $this->loader->load('news_model', 'a');
+        $this->loader->load('news_model', 'b');
+
+        $this->assertNotSame($this->controller->a, $this->controller->b);
+        $this->assertInstanceOf(
+            'App\Models\News_model',
+            $this->controller->a
+        );
+        $this->assertInstanceOf(
+            'App\Models\News_model',
+            $this->controller->b
         );
     }
 }
