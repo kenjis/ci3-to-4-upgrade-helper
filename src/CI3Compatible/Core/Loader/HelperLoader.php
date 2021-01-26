@@ -51,14 +51,23 @@ class HelperLoader
             return;
         }
 
-        if (in_array($helper, $this->autoloaded, true)) {
-            $this->loadCompatibleHelper($helper);
-
+        if ($this->loadAutoloadedHelper($helper)) {
             return;
         }
 
         $this->loadCompatibleHelper($helper);
         $this->loadCI4Helper($helper);
+    }
+
+    private function loadAutoloadedHelper(string $helper): bool
+    {
+        if (in_array($helper, $this->autoloaded, true)) {
+            $this->loadCompatibleHelper($helper);
+
+            return true;
+        }
+
+        return false;
     }
 
     private function loadMultiple(array $helpers): void
