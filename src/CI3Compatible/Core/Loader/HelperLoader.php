@@ -19,7 +19,7 @@ class HelperLoader
         'url',
     ];
 
-    /** @var string[] */
+    /** @var array<string, string> */
     private $helperMap = [
         // CI3 => CI4
         'string' => 'text',
