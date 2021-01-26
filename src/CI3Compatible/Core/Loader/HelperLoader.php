@@ -25,6 +25,9 @@ class HelperLoader
         'string' => 'text',
     ];
 
+    /** @var string[] List of loaded helpers */
+    private $loadedHelpers = [];
+
     /**
      * Helper Loader
      *
@@ -44,6 +47,10 @@ class HelperLoader
 
     private function loadOne(string $helper): void
     {
+        if ($this->isLoaded($helper)) {
+            return;
+        }
+
         if (in_array($helper, $this->autoloaded, true)) {
             $this->loadCompatibleHelper($helper);
 
@@ -73,6 +80,7 @@ class HelperLoader
             helper($this->helperMap[$helper]);
         } else {
             helper($helper);
+            $this->loaded($helper);
         }
 
         return true;
@@ -82,8 +90,22 @@ class HelperLoader
     {
         if (in_array($helper, $this->compatible, true)) {
             require __DIR__ . '/../../Helper/' . $helper . '_helper.php';
-
+            $this->loaded($helper);
             log_message('debug', 'Helper "' . $helper . '" loaded');
         }
+    }
+
+    private function loaded(string $helper)
+    {
+        $this->loadedHelpers[] = $helper;
+    }
+
+    private function isLoaded(string $helper): bool
+    {
+        if (in_array($helper, $this->loadedHelpers, true)) {
+            return true;
+        }
+
+        return false;
     }
 }
