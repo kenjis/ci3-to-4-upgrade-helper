@@ -22,7 +22,7 @@ class CI_Session
      *
      * @return  void
      */
-    public function __construct(?array $params = null)
+    public function __construct($params = null)
     {
         if (is_array($params)) {
             throw new NotSupportedException(
