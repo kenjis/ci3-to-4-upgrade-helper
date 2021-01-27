@@ -47,4 +47,11 @@ class form_helperTest extends HelperTestCase
             $errorHtml
         );
     }
+
+    public function test_form_error_throws_exception(): void
+    {
+        $this->expectException(NotSupportedException::class);
+
+        form_error('username', '<div>', '</div>');
+    }
 }
