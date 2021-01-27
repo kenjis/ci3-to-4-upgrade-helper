@@ -92,6 +92,18 @@ ORDER BY `title` ASC';
         $this->assertSame(3, $row['count']);
     }
 
+    public function test_from(): void
+    {
+        $this->queryBuilder->from('news');
+        $this->queryBuilder->get();
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = 'SELECT *
+FROM `db_news`';
+        $this->assertSame($expected, $sql);
+    }
+
     public function test_like(): void
     {
         $this->queryBuilder->like('body', 'of');
