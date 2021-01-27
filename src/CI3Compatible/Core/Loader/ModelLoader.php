@@ -8,8 +8,10 @@ use Kenjis\CI3Compatible\Core\Loader\ClassResolver\ModelResolver;
 use ReflectionObject;
 
 use function array_key_exists;
+use function array_pop;
 use function end;
 use function explode;
+use function get_class;
 use function is_array;
 use function is_int;
 
@@ -125,6 +127,15 @@ class ModelLoader
             // Skip if the property exists
             if (! $reflection->hasProperty($property)) {
                 $obj->$property = $instance;
+            } else {
+                $classname = get_class($obj);
+                $path = explode('\\', __METHOD__);
+                $method = array_pop($path);
+
+                log_message(
+                    'debug',
+                    $method . ' ' . $classname . '::$' . $property . ' already exists'
+                );
             }
         }
     }

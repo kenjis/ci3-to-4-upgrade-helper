@@ -9,6 +9,9 @@ use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
 use ReflectionObject;
 
 use function array_change_key_case;
+use function array_pop;
+use function explode;
+use function get_class;
 use function strtolower;
 
 use const CASE_LOWER;
@@ -82,6 +85,15 @@ class CoreLoader
             // Skip if the property exists
             if (! $reflection->hasProperty($property)) {
                 $obj->$property = $instance;
+            } else {
+                $classname = get_class($obj);
+                $path = explode('\\', __METHOD__);
+                $method = array_pop($path);
+
+                log_message(
+                    'debug',
+                    $method . ' ' . $classname . '::$' . $property . ' already exists'
+                );
             }
         }
 
