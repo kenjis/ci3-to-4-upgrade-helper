@@ -13,6 +13,7 @@ use Kenjis\CI3Compatible\Database\CI_DB_forge;
 use function array_map;
 use function is_array;
 use function is_string;
+use function rtrim;
 
 /**
  * Seeder
@@ -21,7 +22,7 @@ use function is_string;
  *  <https://github.com/kenjis/ci-phpunit-test/blob/master/application/libraries/Seeder.php>
  *  and extends CI4's Seeder.
  */
-class Seeder extends CI4Seeder
+abstract class Seeder extends CI4Seeder
 {
     /** @var CI_DB */
     protected $db_;
@@ -32,6 +33,9 @@ class Seeder extends CI4Seeder
     /** @var array */
     protected $depends = [];
 
+    /** @var string */
+    protected $seedPath_;
+
     public function __construct(Database $config, ?BaseConnection $db = null)
     {
         parent::__construct($config, $db);
@@ -41,19 +45,30 @@ class Seeder extends CI4Seeder
     }
 
     /**
+     * Set path for seeder files
+     *
+     * @param string $path
+     */
+    public function setPath_(string $path)
+    {
+        $this->seedPath_ = rtrim($path, '/') . '/';
+    }
+
+    /**
      * Run another seeder
      *
-     * @param string $seeder Seeder classname
+     * @param string $seeder           Seeder classname
+     * @param bool   $callDependencies
      */
     public function call_(string $seeder, bool $callDependencies = true): void
     {
-        if ($this->seedPath === null) {
-            $this->seedPath = APPPATH . 'Database/Seeds/';
+        if ($this->seedPath_ === null) {
+            $this->seedPath_ = APPPATH . 'Database/Seeds/';
         }
 
         $obj = $this->loadSeeder($seeder);
         if ($callDependencies === true && $obj instanceof Seeder) {
-            $obj->callDependencies($this->seedPath);
+            $obj->callDependencies($this->seedPath_);
         }
 
         $obj->run();
@@ -64,27 +79,29 @@ class Seeder extends CI4Seeder
      */
     protected function loadSeeder(string $seeder): Seeder
     {
-        $file = $this->seedPath . $seeder . '.php';
+        $file = $this->seedPath_ . $seeder . '.php';
         require_once $file;
 
-        return new $seeder();
+        $seederClassname = 'App\\Database\\Seeds\\' . $seeder;
+
+        return new $seederClassname($this->config);
     }
 
     /**
      * Call dependency seeders
      */
-    public function callDependencies(string $seedPath): void
+    protected function callDependencies(string $seedPath): void
     {
         foreach ($this->depends as $path => $seeders) {
-            $this->seedPath = $seedPath;
+            $this->seedPath_ = $seedPath;
             if (is_string($path)) {
-                $this->setPath($path);
+                $this->setPath_($path);
             }
 
             $this->callDependency($seeders);
         }
 
-        $this->setPath($seedPath);
+        $this->setPath_($seedPath);
     }
 
     /**
@@ -101,8 +118,8 @@ class Seeder extends CI4Seeder
         }
 
         $seeder = $this->loadSeeder($seederName);
-        if (is_string($this->seedPath)) {
-            $seeder->setPath($this->seedPath);
+        if (is_string($this->seedPath_)) {
+            $seeder->setPath_($this->seedPath_);
         }
 
         $seeder->call_($seederName, true);
