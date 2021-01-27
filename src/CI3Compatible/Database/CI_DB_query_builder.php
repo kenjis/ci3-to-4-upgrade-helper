@@ -106,6 +106,8 @@ class CI_DB_query_builder extends CI_DB_driver
 
         $ret = $this->builder->insert($set, $escape);
 
+        $this->_reset_write();
+
         if ($ret instanceof BaseResult) {
             return true;
         }
@@ -131,6 +133,8 @@ class CI_DB_query_builder extends CI_DB_driver
     public function insert_batch(string $table, ?array $set = null, ?bool $escape = null, $batch_size = 100)
     {
         $this->ensureQueryBuilder($table);
+
+        $this->_reset_write();
 
         return $this->builder->insertBatch($set, $escape, $batch_size);
     }
@@ -260,6 +264,10 @@ class CI_DB_query_builder extends CI_DB_driver
 
         $this->prepareDeleteQuery();
         $ret = $this->builder->delete($where, $limit, $reset_data);
+
+        if ($reset_data) {
+            $this->_reset_write();
+        }
 
         if ($ret instanceof BaseResult) {
             return new CI_DB_result($ret);
