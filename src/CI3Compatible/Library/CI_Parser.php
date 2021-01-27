@@ -15,9 +15,9 @@ class CI_Parser
     /**
      * @return  void
      */
-    public function __construct()
+    public function __construct(?string $viewPath = null)
     {
-        $this->parser = Services::parser();
+        $this->parser = Services::parser($viewPath, null, false);
     }
 
     /**
