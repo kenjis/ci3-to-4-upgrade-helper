@@ -43,4 +43,40 @@ class CI_ParserTest extends TestCase
         $expected = 'Hello, John Doe (Mr Mr )';
         $this->assertEquals($expected, $output);
     }
+
+    public function test_parse()
+    {
+        $viewPath = __DIR__ . '/../../App/Views';
+        $parser = new CI_Parser($viewPath);
+
+        $data = [
+            'blog_title' => 'My Blog Title',
+            'blog_heading' => 'My Blog Heading',
+            'blog_entries' => [
+                ['title' => 'Title 1', 'body' => 'Body 1'],
+                ['title' => 'Title 2', 'body' => 'Body 2'],
+            ],
+        ];
+        $output = $parser->parse('parser/blog_template', $data, true);
+
+        $expected = '<html>
+<head>
+    <title>My Blog Title</title>
+</head>
+<body>
+<h3>My Blog Heading</h3>
+
+
+<h5>Title 1</h5>
+<p>Body 1</p>
+
+<h5>Title 2</h5>
+<p>Body 2</p>
+
+
+</body>
+</html>
+';
+        $this->assertEquals($expected, $output);
+    }
 }
