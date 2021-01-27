@@ -8,6 +8,9 @@ use CodeIgniter\Config\BaseConfig;
 
 class Shop extends BaseConfig
 {
-    public $siteName  = 'My Great Site';
+    /** @var string */
+    public $siteName = 'My Great Site';
+
+    /** @var string */
     public $siteEmail = 'webmaster@example.com';
 }
