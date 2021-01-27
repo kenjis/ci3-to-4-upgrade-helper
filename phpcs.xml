@@ -19,6 +19,7 @@
     <file>src</file>
     <file>tests</file>
     <exclude-pattern>*/src/CI3Compatible/Views/*</exclude-pattern>
+    <exclude-pattern>*/tests/App/Views/*</exclude-pattern>
     <exclude-pattern>*/tmp/*</exclude-pattern>
     <exclude-pattern>*/Fake/*</exclude-pattern>
 
@@ -52,6 +53,7 @@
         <exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed"/>
         <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation"/>
         <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn.UselessIfCondition"/>
     </rule>
 
     <!-- Additional Rules -->
@@ -117,5 +119,8 @@
         <exclude-pattern>*/tests/CI3Compatible/Database/*</exclude-pattern>
         <exclude-pattern>*/tests/CI3Compatible/Library/*</exclude-pattern>
         <exclude-pattern>*/tests/CI3Compatible/Helper/*</exclude-pattern>
+    </rule>
+    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+        <exclude-pattern>*/src/CI3Compatible/Database/*</exclude-pattern>
     </rule>
 </ruleset>
