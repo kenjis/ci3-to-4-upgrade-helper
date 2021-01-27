@@ -26,6 +26,25 @@ class CI_Controller extends BaseController
 
         $this->load = new CI_Loader();
         $this->load->setController($this);
+
+        $this->autoloadLibraries();
+    }
+
+    private function autoloadLibraries()
+    {
+        if (! isset($this->libraries)) {
+            return;
+        }
+
+        foreach ($this->libraries as $library) {
+            if ($library === 'database') {
+                $this->load->database();
+
+                continue;
+            }
+
+            $this->load->library($library);
+        }
     }
 
     public function initController(

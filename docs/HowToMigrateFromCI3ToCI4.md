@@ -24,6 +24,36 @@ $ composer require kenjis/ci3-to-4-migration-helper:1.x-dev
 
 See <https://codeigniter4.github.io/CodeIgniter4/incoming/routing.html#setting-your-own-routing-rules>.
 
+### autoload.php
+
+1. CI4 does not have CI3's “Auto-load” feature, except helper autoloading.
+2. To autoload helpers, add your `autoload.php` config in the property `$helpers` in `app/Controllers/BaseController.php`. This is CI4's feature.
+2. To autoload libraries, add your `autoload.php` config in the property `$libraries` in `app/Controllers/BaseController.php`. This feature is provided by *ci3-to-4-migration-helper*.
+
+Example:
+```diff
+--- a/app/Controllers/BaseController.php
++++ b/app/Controllers/BaseController.php
+@@ -20,6 +20,17 @@ use Psr\Log\LoggerInterface;
+ 
+ class BaseController extends Controller
+ {
++    /**
++     * CI3's $autoload['libraries']
++     *
++     * @var array
++     */
++    protected $libraries = [
++        'database',
++        'session',
++        'form_validation',
++    ];
++
+     /**
+      * An array of helpers to be loaded automatically upon
+      * class instantiation. These helpers will be available
+```
+
 ### Custom Config Files
 
 1. Convert custom config files to Config classes manually.
