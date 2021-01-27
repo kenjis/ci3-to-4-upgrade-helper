@@ -132,6 +132,10 @@ class ProductSeeder extends Seeder
 
 `$this->db` in seeder files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-migration-helper* provides.
 
+### $this->call()
+
+`$this->call()` in seeder files is the method of CI4's Seeder. If you want to use *ci-phpunit-test* compatible `$this->call()`, replace it with `$this->call_()`.
+
 ## Controllers
 
 ### Copy Controller files
