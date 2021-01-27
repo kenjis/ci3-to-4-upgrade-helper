@@ -80,9 +80,9 @@ class CI_Loader
     private function injectLoadedClassesToView(): void
     {
         $view = Services::renderer();
-        $this->coreLoader->inject($view);
-        $this->libraryLoader->inject($view);
-        $this->modelLoader->inject($view);
+        $this->coreLoader->injectTo($view);
+        $this->libraryLoader->injectTo($view);
+        $this->modelLoader->injectTo($view);
     }
 
     /**

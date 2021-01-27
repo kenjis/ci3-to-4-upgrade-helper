@@ -72,7 +72,7 @@ class CoreLoader
     /**
      * Inject Core Classes
      */
-    public function inject(object $obj): void
+    public function injectTo(object $obj): void
     {
         $reflection = new ReflectionObject($obj);
 
