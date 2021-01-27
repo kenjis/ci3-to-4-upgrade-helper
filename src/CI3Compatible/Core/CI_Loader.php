@@ -29,6 +29,9 @@ class CI_Loader
     /** @var LibraryLoader */
     private $libraryLoader;
 
+    /** @var bool */
+    private $coreClassesInjectedToView = false;
+
     public function __construct()
     {
         $this->coreLoader = CoreLoader::getInstance();
@@ -80,9 +83,15 @@ class CI_Loader
     private function injectLoadedClassesToView(): void
     {
         $view = Services::renderer();
-        $this->coreLoader->injectTo($view);
+
+        if ($this->coreClassesInjectedToView === false) {
+            $this->coreLoader->injectTo($view);
+        }
+
         $this->libraryLoader->injectTo($view);
         $this->modelLoader->injectTo($view);
+
+        $this->coreClassesInjectedToView = true;
     }
 
     /**
