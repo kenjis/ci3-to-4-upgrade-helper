@@ -68,7 +68,7 @@ class CI_Loader
      */
     public function view(string $view, array $vars = [], bool $return = false)
     {
-        $this->injectCoreClassesToView();
+        $this->injectLoadedClassesToView();
 
         if ($return) {
             return view($view, $vars);
@@ -77,10 +77,12 @@ class CI_Loader
         echo view($view, $vars);
     }
 
-    private function injectCoreClassesToView(): void
+    private function injectLoadedClassesToView(): void
     {
         $view = Services::renderer();
         $this->coreLoader->inject($view);
+        $this->libraryLoader->inject($view);
+        $this->modelLoader->inject($view);
     }
 
     /**

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\LibraryResolver;
+use ReflectionObject;
 
 use function array_key_exists;
 use function end;
@@ -129,5 +130,20 @@ class LibraryLoader
         log_message('debug', 'Library "' . $classname . '" created');
 
         return $instance;
+    }
+
+    /**
+     * Inject Loaded Classes
+     */
+    public function inject(object $obj): void
+    {
+        $reflection = new ReflectionObject($obj);
+
+        foreach ($this->loadedClasses as $property => $instance) {
+            // Skip if the property exists
+            if (! $reflection->hasProperty($property)) {
+                $obj->$property = $instance;
+            }
+        }
     }
 }
