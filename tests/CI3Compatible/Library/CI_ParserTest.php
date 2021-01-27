@@ -8,17 +8,24 @@ use Kenjis\CI3Compatible\TestCase;
 
 class CI_ParserTest extends TestCase
 {
+    /** @var CI_Parser */
+    private $parser;
+
+    public function setUp(): void
+    {
+        $viewPath = __DIR__ . '/../../App/Views';
+        $this->parser = new CI_Parser($viewPath);
+    }
+
     public function test_parse_string(): void
     {
-        $parser = new CI_Parser();
-
         $template = 'Hello, {firstname} {lastname}';
         $data = [
             'title' => 'Mr',
             'firstname' => 'John',
             'lastname' => 'Doe',
         ];
-        $output = $parser->parse_string($template, $data, true);
+        $output = $this->parser->parse_string($template, $data, true);
 
         $expected = 'Hello, John Doe';
         $this->assertEquals($expected, $output);
@@ -26,8 +33,6 @@ class CI_ParserTest extends TestCase
 
     public function test_parse_string_variable_pair(): void
     {
-        $parser = new CI_Parser();
-
         $template = 'Hello, {firstname} {lastname} ({degrees}{degree} {/degrees})';
         $data = [
             'degree' => 'Mr',
@@ -38,7 +43,7 @@ class CI_ParserTest extends TestCase
                 ['degree' => 'PhD'],
             ],
         ];
-        $output = $parser->parse_string($template, $data, true);
+        $output = $this->parser->parse_string($template, $data, true);
 
         $expected = 'Hello, John Doe (Mr Mr )';
         $this->assertEquals($expected, $output);
@@ -46,9 +51,6 @@ class CI_ParserTest extends TestCase
 
     public function test_parse()
     {
-        $viewPath = __DIR__ . '/../../App/Views';
-        $parser = new CI_Parser($viewPath);
-
         $data = [
             'blog_title' => 'My Blog Title',
             'blog_heading' => 'My Blog Heading',
@@ -57,7 +59,7 @@ class CI_ParserTest extends TestCase
                 ['title' => 'Title 2', 'body' => 'Body 2'],
             ],
         ];
-        $output = $parser->parse('parser/blog_template', $data, true);
+        $output = $this->parser->parse('parser/blog_template', $data, true);
 
         $expected = '<html>
 <head>
