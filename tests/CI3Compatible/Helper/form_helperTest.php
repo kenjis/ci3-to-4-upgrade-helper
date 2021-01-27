@@ -13,7 +13,7 @@ class form_helperTest extends HelperTestCase
     {
         $this->loadHelper('form');
 
-        $validation =  Services::validation();
+        $validation = Services::validation();
         $validation->reset();
         $validation->setRule('username', 'Username', 'required');
         $data = [];
@@ -35,7 +35,7 @@ class form_helperTest extends HelperTestCase
 
     public function test_form_error(): void
     {
-        $validation =  Services::validation();
+        $validation = Services::validation();
         $validation->reset();
         $validation->setRule('username', 'Username', 'required');
         $data = [];
