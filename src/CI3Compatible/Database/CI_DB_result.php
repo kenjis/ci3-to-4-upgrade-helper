@@ -41,9 +41,9 @@ class CI_DB_result
     /**
      * Returns a single result row - array version
      *
-     * @return    array
+     * @return    array|null
      */
-    public function row_array(int $n = 0): array
+    public function row_array(int $n = 0)
     {
         return $this->result->getRowArray($n);
     }
