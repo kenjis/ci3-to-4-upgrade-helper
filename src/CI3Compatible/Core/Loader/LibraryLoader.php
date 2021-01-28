@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\LibraryResolver;
+use Kenjis\CI3Compatible\Internal\DebugLog;
 use ReflectionObject;
 
 use function array_key_exists;
-use function array_pop;
 use function end;
 use function explode;
 use function get_class;
@@ -129,7 +129,8 @@ class LibraryLoader
     {
         $instance = new $classname($params);
 
-        log_message('debug', 'Library "' . $classname . '" created');
+        $message = 'Library "' . $classname . '" created';
+        DebugLog::log(__METHOD__, $message);
 
         return $instance;
     }
@@ -147,13 +148,8 @@ class LibraryLoader
                 $obj->$property = $instance;
             } else {
                 $classname = get_class($obj);
-                $path = explode('\\', __METHOD__);
-                $method = array_pop($path);
-
-                log_message(
-                    'debug',
-                    $method . ' ' . $classname . '::$' . $property . ' already exists'
-                );
+                $message = $classname . '::$' . $property . ' already exists';
+                DebugLog::log(__METHOD__, $message);
             }
         }
     }

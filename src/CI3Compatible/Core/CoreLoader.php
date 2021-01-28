@@ -6,11 +6,10 @@ namespace Kenjis\CI3Compatible\Core;
 
 use Kenjis\CI3Compatible\Core\Loader\ClassResolver\CoreResolver;
 use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
+use Kenjis\CI3Compatible\Internal\DebugLog;
 use ReflectionObject;
 
 use function array_change_key_case;
-use function array_pop;
-use function explode;
 use function get_class;
 use function strtolower;
 
@@ -87,13 +86,8 @@ class CoreLoader
                 $obj->$property = $instance;
             } else {
                 $classname = get_class($obj);
-                $path = explode('\\', __METHOD__);
-                $method = array_pop($path);
-
-                log_message(
-                    'debug',
-                    $method . ' ' . $classname . '::$' . $property . ' already exists'
-                );
+                $message = $classname . '::$' . $property . ' already exists';
+                DebugLog::log(__METHOD__, $message);
             }
         }
 

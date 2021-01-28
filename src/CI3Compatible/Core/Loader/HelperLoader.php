@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core\Loader;
 
+use Kenjis\CI3Compatible\Internal\DebugLog;
+
 use function in_array;
 use function is_array;
 
@@ -90,7 +92,9 @@ class HelperLoader
         } else {
             helper($helper);
             $this->loaded($helper);
-            log_message('debug', 'Helper(CI4) "' . $helper . '" loaded');
+
+            $message = 'Helper(CI4) "' . $helper . '" loaded';
+            DebugLog::log(__METHOD__, $message);
         }
 
         return true;
@@ -101,7 +105,9 @@ class HelperLoader
         if (in_array($helper, $this->compatible, true)) {
             require __DIR__ . '/../../Helper/' . $helper . '_helper.php';
             $this->loaded($helper);
-            log_message('debug', 'Helper(CI3Compat) "' . $helper . '" loaded');
+
+            $message = 'Helper(CI3Compat) "' . $helper . '" loaded';
+            DebugLog::log(__METHOD__, $message);
         }
     }
 
