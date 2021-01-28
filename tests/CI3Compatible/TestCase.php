@@ -8,4 +8,5 @@ class TestCase extends \PHPUnit\Framework\TestCase
 {
     use TestDoubleTrait;
     use ReflectionHelperTrait;
+    use LogTestHelperTrait;
 }
