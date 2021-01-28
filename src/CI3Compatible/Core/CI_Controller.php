@@ -7,6 +7,7 @@ namespace Kenjis\CI3Compatible\Core;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Kenjis\CI3Compatible\Internal\DebugLog;
 use Psr\Log\LoggerInterface;
 
 require __DIR__ . '/get_instance.php';
@@ -22,6 +23,9 @@ class CI_Controller extends BaseController
 
     public function __construct()
     {
+        $message = 'Creating Controller "' . static::class . '"';
+        DebugLog::log(__METHOD__, $message);
+
         self::$instance =& $this;
 
         $this->load = new CI_Loader();
