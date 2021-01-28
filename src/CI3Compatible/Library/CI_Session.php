@@ -131,6 +131,20 @@ class CI_Session
     }
 
     /**
+     * Flashdata (fetch)
+     *
+     * Legacy CI_Session compatibility method
+     *
+     * @param   string $key Session data key
+     *
+     * @return  mixed   Session data value or NULL if not found
+     */
+    public function flashdata(?string $key = null)
+    {
+        return $this->session->getFlashdata($key);
+    }
+
+    /**
      * Session destroy
      *
      * Legacy CI_Session compatibility method
