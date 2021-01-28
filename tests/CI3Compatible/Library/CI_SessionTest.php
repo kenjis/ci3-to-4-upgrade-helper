@@ -115,4 +115,11 @@ class CI_SessionTest extends TestCase
 
         $this->assertSame(null, $this->session->some_name);
     }
+
+    public function test_set_flashdata(): void
+    {
+        $this->session->set_flashdata('flash', 'flash_value');
+
+        $this->assertSame('flash_value', $_SESSION['flash']);
+    }
 }

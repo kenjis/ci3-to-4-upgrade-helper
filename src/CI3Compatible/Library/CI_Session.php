@@ -116,6 +116,21 @@ class CI_Session
     }
 
     /**
+     * Set flashdata
+     *
+     * Legacy CI_Session compatibility method
+     *
+     * @param   mixed $data  Session data key or an associative array
+     * @param   mixed $value Value to store
+     *
+     * @return  void
+     */
+    public function set_flashdata($data, $value = null)
+    {
+        $this->session->setFlashdata($data, $value);
+    }
+
+    /**
      * Session destroy
      *
      * Legacy CI_Session compatibility method
