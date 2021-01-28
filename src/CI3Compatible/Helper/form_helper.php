@@ -24,7 +24,7 @@ if (! function_exists('form_error')) {
             throw new NotSupportedException(
                 '$prefix and $suffix are not supported.'
                 . ' Create custom views to display errors.'
-                . ' See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.'
+                . ' See <https://github.com/kenjis/ci3-to-4-migration-helper/blob/1.x/docs/HowToMigrateFromCI3ToCI4.md#form_validation>.'
             );
         }
 
@@ -52,7 +52,7 @@ if (! function_exists('validation_errors')) {
             throw new NotSupportedException(
                 '$prefix and $suffix are not supported.'
                 . ' Create custom views to display errors.'
-                . ' See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.'
+                . ' See <https://github.com/kenjis/ci3-to-4-migration-helper/blob/1.x/docs/HowToMigrateFromCI3ToCI4.md#form_validation>.'
             );
         }
 
