@@ -102,6 +102,7 @@
         <exclude-pattern>*/tests/CI3Compatible/Database/*</exclude-pattern>
         <exclude-pattern>*/tests/CI3Compatible/Library/*</exclude-pattern>
         <exclude-pattern>*/tests/CI3Compatible/Helper/*</exclude-pattern>
+        <exclude-pattern>*/tests/CI3Compatible/Internal/*</exclude-pattern>
     </rule>
     <rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps">
         <exclude-pattern>*/src/CI3Compatible/Core/*</exclude-pattern>
