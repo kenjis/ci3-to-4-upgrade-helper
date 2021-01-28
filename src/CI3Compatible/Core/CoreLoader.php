@@ -77,6 +77,7 @@ class CoreLoader
     public function injectTo(object $obj): void
     {
         $reflection = new ReflectionObject($obj);
+        $classname = get_class($obj);
 
         foreach ($this->coreClasses as $name => $instance) {
             $property = strtolower($name);
@@ -84,8 +85,10 @@ class CoreLoader
             // Skip if the property exists
             if (! $reflection->hasProperty($property)) {
                 $obj->$property = $instance;
+
+                $message = $classname . '::$' . $property . ' injected';
+                DebugLog::log(__METHOD__, $message);
             } else {
-                $classname = get_class($obj);
                 $message = $classname . '::$' . $property . ' already exists';
                 DebugLog::log(__METHOD__, $message);
             }

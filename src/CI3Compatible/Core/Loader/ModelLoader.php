@@ -123,13 +123,16 @@ class ModelLoader
     public function injectTo(object $obj): void
     {
         $reflection = new ReflectionObject($obj);
+        $classname = get_class($obj);
 
         foreach ($this->loadedClasses as $property => $instance) {
             // Skip if the property exists
             if (! $reflection->hasProperty($property)) {
                 $obj->$property = $instance;
+
+                $message = $classname . '::$' . $property . ' injected';
+                DebugLog::log(__METHOD__, $message);
             } else {
-                $classname = get_class($obj);
                 $message = $classname . '::$' . $property . ' already exists';
                 DebugLog::log(__METHOD__, $message);
             }
