@@ -32,6 +32,7 @@ class CI_Controller extends BaseController
         $this->load->setController($this);
 
         $this->autoloadLibraries();
+        $this->autoloadHelpers();
     }
 
     private function autoloadLibraries()
@@ -49,6 +50,11 @@ class CI_Controller extends BaseController
 
             $this->load->library($library);
         }
+    }
+
+    private function autoloadHelpers()
+    {
+        $this->load->helper($this->helpers);
     }
 
     public function initController(
