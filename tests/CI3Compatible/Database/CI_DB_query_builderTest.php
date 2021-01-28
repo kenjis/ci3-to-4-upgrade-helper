@@ -119,6 +119,19 @@ AND  `body` LIKE '%as%' ESCAPE '!'";
         $this->assertSame($expected, $sql);
     }
 
+    public function test_join(): void
+    {
+        $this->queryBuilder->select('*');
+        $this->queryBuilder->from('blogs');
+        $this->queryBuilder->join('comments', 'comments.id = blogs.id');
+        $sql = $this->queryBuilder->get_compiled_select();
+
+        $expected = 'SELECT *
+FROM `db_blogs`
+JOIN `db_comments` ON `db_comments`.`id` = `db_blogs`.`id`';
+        $this->assertSame($expected, $sql);
+    }
+
     // --------------------------------------------------------------------
     // INSERT
     // --------------------------------------------------------------------

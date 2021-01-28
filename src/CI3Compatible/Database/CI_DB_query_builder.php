@@ -31,6 +31,9 @@ class CI_DB_query_builder extends CI_DB_driver
     /** @var array */
     private $from = [];
 
+    /** @var array */
+    private $join = [];
+
     /**
      * Get
      *
@@ -159,6 +162,25 @@ class CI_DB_query_builder extends CI_DB_driver
     }
 
     /**
+     * JOIN
+     *
+     * Generates the JOIN portion of the query
+     *
+     * @param   string
+     * @param   string  the join condition
+     * @param   string  the type of join
+     * @param   string  whether not to try to escape identifiers
+     *
+     * @return  CI_DB_query_builder
+     */
+    public function join($table, $cond, $type = '', $escape = null): self
+    {
+        $this->join[] = [$table, $cond, $type, $escape];
+
+        return $this;
+    }
+
+    /**
      * ORDER BY
      *
      * @param   string $orderby
@@ -183,6 +205,10 @@ class CI_DB_query_builder extends CI_DB_driver
 
         foreach ($this->select as $params) {
             $this->builder->select(...$params);
+        }
+
+        foreach ($this->join as $params) {
+            $this->builder->join(...$params);
         }
 
         $this->execWhere();
@@ -356,6 +382,7 @@ class CI_DB_query_builder extends CI_DB_driver
     private function _reset_select()
     {
         $this->select = [];
+        $this->join = [];
         $this->where = [];
         $this->like = [];
         $this->order_by = [];
@@ -371,6 +398,7 @@ class CI_DB_query_builder extends CI_DB_driver
     protected function _reset_write()
     {
         $this->from = [];
+        $this->join = [];
         $this->where = [];
         $this->order_by = [];
     }
