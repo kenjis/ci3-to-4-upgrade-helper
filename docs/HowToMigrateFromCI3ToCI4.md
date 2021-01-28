@@ -246,6 +246,17 @@ class Seeder
 - The CI3 methods to customize error output are not supported.
 - Create your own templates, and configure it in `app/Config/Validation.php`.
 - See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.
+- If you need more than one template for `list` or `single`, please use CI4's native methods and pass your template name.
+
+Examples:
+```php
+<?= \Config\Services::validation()->listErrors('my_list') ?>
+```
+
+```php
+<?= \Config\Services::validation()->showError('username', 'my_single') ?>
+```
+
 2. CI4 has no [Callbacks](https://codeigniter.com/userguide3/libraries/form_validation.html#callbacks-your-own-validation-methods) nor [Callable](https://codeigniter.com/userguide3/libraries/form_validation.html#callable-use-anything-as-a-rule).
 - Create your own Rule classes, and configure it in `app/Config/Validation.php`.
 - See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#creating-custom-rules>.
