@@ -45,6 +45,14 @@ class CI_Form_validation
         $this->validation->reset();
 
         $this->request = Services::request();
+
+        $this->loadFormHelper();
+    }
+
+    private function loadFormHelper()
+    {
+        $CI = get_instance();
+        $CI->load->helper('form');
     }
 
     /**
