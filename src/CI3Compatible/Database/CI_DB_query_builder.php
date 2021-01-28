@@ -207,11 +207,14 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         $this->ensureQueryBuilder($table);
 
+        $this->prepareSelectQuery();
+        $sql = $this->builder->getCompiledSelect($reset);
+
         if ($reset === true) {
             $this->_reset_select();
         }
 
-        return $this->builder->getCompiledSelect($reset);
+        return $sql;
     }
 
     private function ensureQueryBuilder(string $table): void
