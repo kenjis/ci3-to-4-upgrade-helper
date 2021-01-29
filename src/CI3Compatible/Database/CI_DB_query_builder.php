@@ -34,6 +34,9 @@ class CI_DB_query_builder extends CI_DB_driver
     /** @var array */
     private $join = [];
 
+    /** @var array */
+    private $set = [];
+
     /**
      * Get
      *
@@ -143,6 +146,47 @@ class CI_DB_query_builder extends CI_DB_driver
     }
 
     /**
+     * UPDATE
+     *
+     * Compiles an update string and runs the query.
+     *
+     * @param   string $table
+     * @param   array  $set   An associative array of update values
+     * @param   mixed  $where
+     * @param   int    $limit
+     *
+     * @return  bool    TRUE on success, FALSE on failure
+     */
+    public function update(string $table = '', ?array $set = null, $where = null, ?int $limit = null)
+    {
+        $this->ensureQueryBuilder($table);
+
+        $ret = $this->builder->update($set, $where, $limit);
+
+        $this->_reset_write();
+
+        return $ret;
+    }
+
+    /**
+     * The "set" function.
+     *
+     * Allows key/value pairs to be set for inserting or updating
+     *
+     * @param   mixed
+     * @param   string
+     * @param   bool
+     *
+     * @return  CI_DB_query_builder
+     */
+    public function set($key, $value = '', $escape = null)
+    {
+        $this->set[] = [$key, $value, $escape];
+
+        return $this;
+    }
+
+    /**
      * WHERE
      *
      * Generates the WHERE portion of the query.
@@ -207,16 +251,23 @@ class CI_DB_query_builder extends CI_DB_driver
             $this->builder->select(...$params);
         }
 
-        foreach ($this->join as $params) {
-            $this->builder->join(...$params);
-        }
-
+        $this->execJoin();
         $this->execWhere();
         $this->execLike();
 
         foreach ($this->order_by as $params) {
             $this->builder->orderBy(...$params);
         }
+    }
+
+    private function prepareUpdateQuery(): void
+    {
+        $this->existsBuilder();
+
+        $this->execSet();
+        $this->execJoin();
+        $this->execWhere();
+        $this->execLike();
     }
 
     /**
@@ -238,6 +289,30 @@ class CI_DB_query_builder extends CI_DB_driver
 
         if ($reset === true) {
             $this->_reset_select();
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Get UPDATE query string
+     *
+     * Compiles an update query and returns the sql
+     *
+     * @param   string  the table to update
+     * @param   bool    TRUE: reset QB values; FALSE: leave QB values alone
+     *
+     * @return  string
+     */
+    public function get_compiled_update($table = '', $reset = true)
+    {
+        $this->ensureQueryBuilder($table);
+
+        $this->prepareUpdateQuery();
+        $sql = $this->builder->getCompiledUpdate($reset);
+
+        if ($reset === true) {
+            $this->_reset_write();
         }
 
         return $sql;
@@ -319,6 +394,20 @@ class CI_DB_query_builder extends CI_DB_driver
         }
     }
 
+    private function execSet(): void
+    {
+        foreach ($this->set as $params) {
+            $this->builder->set(...$params);
+        }
+    }
+
+    private function execJoin(): void
+    {
+        foreach ($this->join as $params) {
+            $this->builder->join(...$params);
+        }
+    }
+
     private function execWhere(): void
     {
         foreach ($this->where as $params) {
@@ -382,6 +471,7 @@ class CI_DB_query_builder extends CI_DB_driver
     private function _reset_select()
     {
         $this->select = [];
+        $this->from = [];
         $this->join = [];
         $this->where = [];
         $this->like = [];
@@ -397,9 +487,11 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     protected function _reset_write()
     {
+        $this->set = [];
         $this->from = [];
         $this->join = [];
         $this->where = [];
+        $this->like = [];
         $this->order_by = [];
     }
 

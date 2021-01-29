@@ -143,11 +143,30 @@ JOIN `db_comments` ON `db_comments`.`id` = `db_blogs`.`id`';
             'slug'  => 'news-title',
             'body'  => 'News body',
         ];
-
         $ret = $this->queryBuilder->insert('news', $data);
 
         $this->assertTrue($ret);
         $this->seeInDatabase('news', ['slug' => 'news-title']);
+    }
+
+    // --------------------------------------------------------------------
+    // UPDATE
+    // --------------------------------------------------------------------
+
+    public function test_update(): void
+    {
+        $data = [
+            'title' => 'My Title',
+            'name' => 'My Name',
+            'date' => 'My Date',
+        ];
+        $this->queryBuilder->where('id', 1);
+        $this->queryBuilder->set($data);
+        $sql = $this->queryBuilder->get_compiled_update('mytable');
+
+        $expected = "UPDATE `db_mytable` SET `title` = 'My Title', `name` = 'My Name', `date` = 'My Date'
+WHERE `id` = 1";
+        $this->assertSame($expected, $sql);
     }
 
     // --------------------------------------------------------------------
