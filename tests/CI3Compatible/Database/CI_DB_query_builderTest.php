@@ -119,7 +119,7 @@ AND  `body` LIKE '%as%' ESCAPE '!'";
         $this->assertSame($expected, $sql);
     }
 
-    public function test_join(): void
+    public function test_join_get_compiled_select(): void
     {
         $this->queryBuilder->select('*');
         $this->queryBuilder->from('blogs');
@@ -153,7 +153,7 @@ JOIN `db_comments` ON `db_comments`.`id` = `db_blogs`.`id`';
     // UPDATE
     // --------------------------------------------------------------------
 
-    public function test_update(): void
+    public function test_get_compiled_update(): void
     {
         $data = [
             'title' => 'My Title',
