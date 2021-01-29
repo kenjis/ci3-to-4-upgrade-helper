@@ -30,6 +30,10 @@ class ValidationRuleMaker
         $this->setMaxSize();
         $this->setMaxDims();
 
+// @TODO
+//        $this->ci3Config['min_width']
+//        $this->ci3Config['min_height']
+
         return [
             $fieldName => implode('|', $this->rules),
         ];
