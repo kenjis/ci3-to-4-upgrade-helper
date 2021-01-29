@@ -149,6 +149,19 @@ JOIN `db_comments` ON `db_comments`.`id` = `db_blogs`.`id`';
         $this->seeInDatabase('news', ['slug' => 'news-title']);
     }
 
+    public function test_get_compiled_insert(): void
+    {
+        $data = [
+            'title' => 'My title',
+            'name'  => 'My name',
+            'date'  => 'My date',
+        ];
+        $sql = $this->queryBuilder->set($data)->get_compiled_insert('mytable');
+
+        $expected = "INSERT INTO `db_mytable` (`title`, `name`, `date`) VALUES ('My title', 'My name', 'My date')";
+        $this->assertSame($expected, $sql);
+    }
+
     // --------------------------------------------------------------------
     // UPDATE
     // --------------------------------------------------------------------

@@ -270,6 +270,13 @@ class CI_DB_query_builder extends CI_DB_driver
         $this->execLike();
     }
 
+    private function prepareInsertQuery()
+    {
+        $this->existsBuilder();
+
+        $this->execSet();
+    }
+
     /**
      * Get SELECT query string
      *
@@ -310,6 +317,30 @@ class CI_DB_query_builder extends CI_DB_driver
 
         $this->prepareUpdateQuery();
         $sql = $this->builder->getCompiledUpdate($reset);
+
+        if ($reset === true) {
+            $this->_reset_write();
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Get INSERT query string
+     *
+     * Compiles an insert query and returns the sql
+     *
+     * @param   string  the table to insert into
+     * @param   bool    TRUE: reset QB values; FALSE: leave QB values alone
+     *
+     * @return  string
+     */
+    public function get_compiled_insert($table = '', $reset = true)
+    {
+        $this->ensureQueryBuilder($table);
+
+        $this->prepareInsertQuery();
+        $sql = $this->builder->getCompiledInsert($reset);
 
         if ($reset === true) {
             $this->_reset_write();
