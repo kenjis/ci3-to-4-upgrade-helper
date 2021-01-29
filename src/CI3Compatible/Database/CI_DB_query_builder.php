@@ -349,6 +349,30 @@ class CI_DB_query_builder extends CI_DB_driver
         return $sql;
     }
 
+    /**
+     * Get DELETE query string
+     *
+     * Compiles a delete query string and returns the sql
+     *
+     * @param   string  the table to delete from
+     * @param   bool    TRUE: reset QB values; FALSE: leave QB values alone
+     *
+     * @return  string
+     */
+    public function get_compiled_delete($table = '', $reset = true)
+    {
+        $this->ensureQueryBuilder($table);
+
+        $this->prepareDeleteQuery();
+        $sql = $this->builder->getCompiledDelete($reset);
+
+        if ($reset === true) {
+            $this->_reset_write();
+        }
+
+        return $sql;
+    }
+
     private function ensureQueryBuilder(string $table): void
     {
         if ($table !== '') {

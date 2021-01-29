@@ -196,6 +196,16 @@ WHERE `id` = 1";
         $this->dontSeeInDatabase('news', ['slug' => $slug]);
     }
 
+    public function test_get_compiled_delete()
+    {
+        $this->queryBuilder->where('id', 1);
+        $sql = $this->queryBuilder->get_compiled_delete('mytable');
+
+        $expected = 'DELETE FROM `db_mytable`
+WHERE `id` = 1';
+        $this->assertSame($expected, $sql);
+    }
+
     // --------------------------------------------------------------------
     // TRUNCATE
     // --------------------------------------------------------------------
