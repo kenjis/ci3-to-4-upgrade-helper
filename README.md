@@ -1,8 +1,8 @@
-# CodeIgniter 3 to 4 Migration Helper
+# CodeIgniter 3 to 4 Upgrade Helper
 
 This project helps to migrate CodeIgniter3 apps to CodeIgniter4.
 
-- The goal is to reduce migration costs.
+- The goal is to reduce upgrade costs.
 - It provides compatible interfaces for common use cases in CodeIgniter3 apps.
 - It does not aim to be 100% compatible.
 - **This project is under early development.**
@@ -15,7 +15,7 @@ This project helps to migrate CodeIgniter3 apps to CodeIgniter4.
 
 ## Sample Code
 
-If you use *ci3-to-4-migration-helper*, You can run the following code on CodeIgniter4.
+If you use *ci3-to-4-upgrade-helper*, You can run the following code on CodeIgniter4.
 
 *app/Controllers/News.php*
 ```php

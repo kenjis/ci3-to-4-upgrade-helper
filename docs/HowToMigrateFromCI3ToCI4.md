@@ -6,10 +6,10 @@ See <https://codeigniter4.github.io/CodeIgniter4/installation/index.html>.
 
 **Note:** CodeIgniter 4.0.4 is not supported. Use 4.0.5-dev (`develop` branch) or later.
 
-## Install ci3-to-4-migration-helper
+## Install ci3-to-4-upgrade-helper
 
 ```
-$ composer require kenjis/ci3-to-4-migration-helper:1.x-dev
+$ composer require kenjis/ci3-to-4-upgrade-helper:1.x-dev
 ```
 
 ## Config
@@ -28,7 +28,7 @@ See <https://codeigniter4.github.io/CodeIgniter4/incoming/routing.html#setting-y
 
 1. CI4 does not have CI3's “Auto-load” feature, except helper autoloading.
 2. To autoload helpers, add your `autoload.php` config in the property `$helpers` in `app/Controllers/BaseController.php`. This is CI4's feature.
-2. To autoload libraries, add your `autoload.php` config in the property `$libraries` in `app/Controllers/BaseController.php`. This feature is provided by *ci3-to-4-migration-helper*.
+2. To autoload libraries, add your `autoload.php` config in the property `$libraries` in `app/Controllers/BaseController.php`. This feature is provided by *ci3-to-4-upgrade-helper*.
 
 Example:
 ```diff
@@ -104,7 +104,7 @@ See <https://codeigniter4.github.io/CodeIgniter4/extending/events.html> or <http
 
 ## Database Migrations
 
-CI4 has built-in Database Migrations. *ci3-to-4-migration-helper* provides `CI_Migration` class that extends CI4's Migration class.
+CI4 has built-in Database Migrations. *ci3-to-4-upgrade-helper* provides `CI_Migration` class that extends CI4's Migration class.
 
 ### Copy Migration files
 
@@ -131,11 +131,11 @@ class CreateBbs extends CI_Migration
 
 ### $this->db
 
-`$this->db` in migration files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-migration-helper* provides.
+`$this->db` in migration files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-upgrade-helper* provides.
 
 ## Database Seeding
 
-CI4 has built-in [Database Seeding](https://codeigniter4.github.io/CodeIgniter4/dbmgmt/seeds.html). *ci3-to-4-migration-helper* provides `Seeder` class that is based on Seeder class in [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test) and extends CI4's Seeder class.
+CI4 has built-in [Database Seeding](https://codeigniter4.github.io/CodeIgniter4/dbmgmt/seeds.html). *ci3-to-4-upgrade-helper* provides `Seeder` class that is based on Seeder class in [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test) and extends CI4's Seeder class.
 
 ### Copy Seeder files
 
@@ -160,7 +160,7 @@ class ProductSeeder extends Seeder
 
 ### $this->db
 
-`$this->db` in seeder files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-migration-helper* provides.
+`$this->db` in seeder files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-upgrade-helper* provides.
 
 ### $this->call()
 
@@ -310,18 +310,18 @@ $offset = max(($page - 1), 0) * $per_page;
 - See <https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html#redirect>.
 - Replace `redirect($uri)` with `return redirect()->to(site_url($uri))`, when you can return Response object.
 - Replace it with`throw new \CodeIgniter\Router\Exceptions\RedirectException($uri)`, when you cannot return Response object.
-- Or you could use `redirect_()` that *ci3-to-4-migration-helper* provides.
+- Or you could use `redirect_()` that *ci3-to-4-upgrade-helper* provides.
 
 #### base_url()
 
 1. CI4's `base_url()` removes the last `/`.
-- If you don't want it, use `base_url_()` that *ci3-to-4-migration-helper* provides after `$this->load->helper('url')`.
+- If you don't want it, use `base_url_()` that *ci3-to-4-upgrade-helper* provides after `$this->load->helper('url')`.
 
 ## Common Functions
 
 ### show_error()
 
 1. CI4 does not have `show_error()`
-- `show_error()` that *ci3-to-4-migration-helper* provides does not support the third argument `$heading`.
+- `show_error()` that *ci3-to-4-upgrade-helper* provides does not support the third argument `$heading`.
 - If you want to show error page like CI3, you have to create error templates like `app/Views/errors/html/error_500.php` where `500` is the status code.
 - In error templates, you can use `$message` which has the Exception message.
