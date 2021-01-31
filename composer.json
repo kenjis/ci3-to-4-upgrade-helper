@@ -1,6 +1,6 @@
 {
-    "name": "kenjis/ci3-to-4-migration-helper",
-    "description": "Help migration from CodeIgniter3 to CodeIgniter4",
+    "name": "kenjis/ci3-to-4-upgrade-helper",
+    "description": "Help upgrade from CodeIgniter3 to CodeIgniter4",
     "license": "MIT",
     "authors": [
         {
