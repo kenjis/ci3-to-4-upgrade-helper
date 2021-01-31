@@ -4,15 +4,16 @@
  * @var \CodeIgniter\Pager\PagerRenderer $pager
  */
 
-$pager->setSurroundCount(2);
+$surroundCount = 2;
+$pager->setSurroundCount($surroundCount);
 ?>
 
 <?php if ($pager->hasPreviousPage()) : ?>
-    <?php if ($pager->current !== 2) : ?>
-    <a href="<?= $pager->getFirst() ?>" data-ci-pagination-page="<?= $pager->first ?> rel="start">&lsaquo; <?= lang('Pager.first') ?></a>
+    <?php if ($pager->getPreviousPageNumber() > $surroundCount) : ?>
+    <a href="<?= $pager->getFirst() ?>" data-ci-pagination-page="<?= $pager->getFirstPageNumber() ?> rel="start">&lsaquo; <?= lang('Pager.first') ?></a>
     <?php endif ?>
 
-    <a href="<?= $pager->getPreviousPage() ?>" data-ci-pagination-page="<?= $pager->current - 1 ?>" rel="prev">&lt;</a>
+    <a href="<?= $pager->getPreviousPage() ?>" data-ci-pagination-page="<?= $pager->getPreviousPageNumber() ?>" rel="prev">&lt;</a>
 <?php endif ?>
 
 <?php foreach ($pager->links() as $link) : ?>
@@ -26,9 +27,9 @@ $pager->setSurroundCount(2);
 <?php endforeach ?>
 
 <?php if ($pager->hasNextPage()) : ?>
-    <a href="<?= $pager->getNextPage() ?>" data-ci-pagination-page="<?= $pager->current + 1 ?>" rel="next">&gt;</a>
+    <a href="<?= $pager->getNextPage() ?>" data-ci-pagination-page="<?= $pager->getNextPageNumber() ?>" rel="next">&gt;</a>
 
-    <?php if ($pager->current !== ($pager->last - 1)) : ?>
-    <a href="<?= $pager->getLast() ?>" data-ci-pagination-page="<?= $pager->last ?>"><?= lang('Pager.last') ?> &rsaquo;</a>
+    <?php if ($pager->getCurrentPageNumber() < $pager->getPageCount() - $surroundCount) : ?>
+    <a href="<?= $pager->getLast() ?>" data-ci-pagination-page="<?= $pager->getLastPageNumber() ?>"><?= lang('Pager.last') ?> &rsaquo;</a>
     <?php endif ?>
 <?php endif ?>
