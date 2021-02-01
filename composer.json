@@ -68,7 +68,8 @@
             "./vendor/bin/phpcs --standard=phpcs.xml src tests"
         ],
         "cs-fix": [
-            "./vendor/bin/phpcbf src tests"
+            "./vendor/bin/phpcbf src tests",
+            "./vendor/bin/php-cs-fixer fix"
         ],
         "sa": [
             "phpstan analyse -c phpstan.neon",
