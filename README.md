@@ -1,6 +1,6 @@
 # CodeIgniter 3 to 4 Upgrade Helper
 
-This project helps to migrate CodeIgniter3 apps to CodeIgniter4.
+This project helps you upgrade your CodeIgniter3 apps to CodeIgniter4.
 
 - The goal is to reduce upgrade costs.
 - It provides compatible interfaces for common use cases in CodeIgniter3 apps.
@@ -11,6 +11,7 @@ This project helps to migrate CodeIgniter3 apps to CodeIgniter4.
 ## Requirements
 
 - CodeIgniter 4.0.5-dev or later
+  - [ci4-app-template](https://github.com/kenjis/ci4-app-template) can be used, if you use PHP 7.3 or lator
 - PHP 7.2 or later
 
 ## Sample Code
