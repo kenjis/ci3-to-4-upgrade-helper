@@ -117,7 +117,7 @@ class CI_Pagination
                 'You can not customize Pagination Links by config '
                 . implode(', ', $unsupportedConfigs) . '.'
                 . ' Create your own templates, and configure to use them.'
-                . ' See <https://github.com/kenjis/ci3-to-4-upgrade-helper/blob/1.x/docs/HowToMigrateFromCI3ToCI4.md#pagination>.'
+                . ' See <https://github.com/kenjis/ci3-to-4-upgrade-helper/blob/1.x/docs/HowToUpgradeFromCI3ToCI4.md#pagination>.'
             );
         }
     }

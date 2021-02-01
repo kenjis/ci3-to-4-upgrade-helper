@@ -151,7 +151,7 @@ class CI_Form_validation
     {
         throw new NotSupportedException(
             'set_message() is not supported.'
-            . ' See <https://github.com/kenjis/ci3-to-4-upgrade-helper/blob/1.x/docs/HowToMigrateFromCI3ToCI4.md#form_validation>.'
+            . ' See <https://github.com/kenjis/ci3-to-4-upgrade-helper/blob/1.x/docs/HowToUpgradeFromCI3ToCI4.md#form_validation>.'
         );
     }
 
