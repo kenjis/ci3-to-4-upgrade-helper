@@ -157,9 +157,9 @@ class News_model extends CI_Model
 </form>
 ```
 
-## How to Migrate from CI3 to CI4
+## How to Upgrade from CI3 to CI4
 
-See [How to Migrate from CI3 to CI4](docs/HowToMigrateFromCI3ToCI4.md).
+See [How to Upgrade from CI3 to CI4](docs/HowToUpgradeFromCI3ToCI4.md).
 
 ## For Development
 
