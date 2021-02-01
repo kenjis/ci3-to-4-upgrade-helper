@@ -1,4 +1,4 @@
-# How to Migrate from CI3 to CI4
+# How to Upgrade from CI3 to CI4
 
 ## Install CodeIgniter4
 
