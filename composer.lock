@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "552a70531f53216057617a1e279062b9",
+    "content-hash": "5191a0fda88f7508654f29b4ab3c927d",
     "packages": [
         {
             "name": "composer/semver",
@@ -2277,12 +2277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/CodeIgniter4.git",
-                "reference": "3685755ce38f3511a5493dc740912abb4a7e31d7"
+                "reference": "51e2371f5c191dd57b623ab23540e113ee7e87cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/CodeIgniter4/zipball/3685755ce38f3511a5493dc740912abb4a7e31d7",
-                "reference": "3685755ce38f3511a5493dc740912abb4a7e31d7",
+                "url": "https://api.github.com/repos/codeigniter4/CodeIgniter4/zipball/51e2371f5c191dd57b623ab23540e113ee7e87cf",
+                "reference": "51e2371f5c191dd57b623ab23540e113ee7e87cf",
                 "shasum": ""
             },
             "require": {
@@ -2292,7 +2292,7 @@
                 "ext-mbstring": "*",
                 "kint-php/kint": "^3.3",
                 "laminas/laminas-escaper": "^2.6",
-                "php": "^7.2 || ^8.0",
+                "php": "^7.3||^8.0",
                 "psr/log": "^1.1"
             },
             "require-dev": {
@@ -2300,9 +2300,9 @@
                 "fakerphp/faker": "^1.9",
                 "mikey179/vfsstream": "^1.6",
                 "phpstan/phpstan": "0.12.69",
-                "phpunit/phpunit": "^8.5 || ^9.1",
+                "phpunit/phpunit": "^9.1",
                 "predis/predis": "^1.1",
-                "rector/rector": "^0.8",
+                "rector/rector": "^0.9",
                 "squizlabs/php_codesniffer": "^3.3"
             },
             "suggest": {
@@ -2347,7 +2347,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "issues": "https://github.com/codeigniter4/CodeIgniter4/issues"
             },
-            "time": "2021-01-30T22:49:37+00:00"
+            "time": "2021-02-01T02:55:33+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -2753,6 +2753,56 @@
                 "source": "https://github.com/felixfbecker/php-language-server-protocol/tree/v1.5.0"
             },
             "time": "2020-10-23T13:55:30+00:00"
+        },
+        {
+            "name": "kenjis/phpunit-helper",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kenjis/phpunit-helper.git",
+                "reference": "809ae5022203892cb7da3051cfd9f663b7742299"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kenjis/phpunit-helper/zipball/809ae5022203892cb7da3051cfd9f663b7742299",
+                "reference": "809ae5022203892cb7da3051cfd9f663b7742299",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
+                "phpunit/phpunit": "^9.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kenjis\\PhpUnitHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "kenjis",
+                    "email": "kenji.uui@gmail.com"
+                }
+            ],
+            "description": "Provides helper traits for PHPUnit",
+            "homepage": "https://github.com/kenjis/phpunit-helper",
+            "keywords": [
+                "mock",
+                "phpunit"
+            ],
+            "support": {
+                "issues": "https://github.com/kenjis/phpunit-helper/issues",
+                "source": "https://github.com/kenjis/phpunit-helper/tree/1.x"
+            },
+            "time": "2021-02-01T06:47:59+00:00"
         },
         {
             "name": "kint-php/kint",
@@ -5491,6 +5541,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "kenjis/phpunit-helper": 20,
         "codeigniter4/codeigniter4": 20
     },
     "prefer-stable": false,
