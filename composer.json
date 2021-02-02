@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": "^7.3",
-        "kenjis/ci3-like-captcha": "1.x-dev"
+        "kenjis/ci3-like-captcha": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
