@@ -1,10 +1,53 @@
 # How to Upgrade from CI3 to CI4
 
+## Table of Contents
+
+* [Install CodeIgniter4](#install-codeigniter4)
+* [Install ci3-to-4-upgrade-helper](#install-ci3-to-4-upgrade-helper)
+* [Config](#config)
+    * [config.php](#configphp)
+    * [Routing](#routing)
+    * [autoload.php](#autoloadphp)
+    * [Custom Config Files](#custom-config-files)
+    * [Other Config Files](#other-config-files)
+    * [app/Config/View.php](#appconfigviewphp)
+* [Hooks](#hooks)
+* [Database Migrations](#database-migrations)
+    * [Copy Migration files](#copy-migration-files)
+    * [Add Namespace and Use statement](#add-namespace-and-use-statement)
+    * [$this-&gt;db](#this-db)
+* [Database Seeding](#database-seeding)
+    * [Copy Seeder files](#copy-seeder-files)
+    * [Add Namespace and Use statement](#add-namespace-and-use-statement-1)
+    * [$this-&gt;db](#this-db-1)
+    * [$this-&gt;call()](#this-call)
+* [Controllers](#controllers)
+    * [Copy Controller files](#copy-controller-files)
+    * [Add Namespace and Use statement](#add-namespace-and-use-statement-2)
+    * [_output()](#_output)
+* [Models](#models)
+    * [Copy Model files](#copy-model-files)
+    * [Add Namespace and Use statement](#add-namespace-and-use-statement-3)
+* [Libraries](#libraries)
+    * [Copy Library files](#copy-library-files)
+    * [Add Namespace](#add-namespace)
+    * [Form_validation](#form_validation)
+    * [Pagination](#pagination)
+* [Views](#views)
+    * [Copy View files](#copy-view-files)
+* [Helpers](#helpers)
+    * [Copy Helper files](#copy-helper-files)
+    * [URL Helper](#url-helper)
+        * [redirect()](#redirect)
+        * [base_url()](#base_url)
+* [Common Functions](#common-functions)
+    * [show_error()](#show_error)
+
 ## Install CodeIgniter4
 
 See <https://codeigniter4.github.io/CodeIgniter4/installation/index.html>.
 
-**Note:** CodeIgniter 4.0.4 is not supported. Use 4.0.5-dev (`develop` branch) or later.
+**Note:** Use 4.1.0 or later.
 
 ## Install ci3-to-4-upgrade-helper
 
