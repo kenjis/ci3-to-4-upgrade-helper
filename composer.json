@@ -7,8 +7,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "kenjis",
-            "email": "kenji.uui@gmail.com"
+            "name": "Kenji Suzuki",
+            "homepage": "https://github.com/kenjis"
         }
     ],
     "require": {
@@ -77,7 +77,8 @@
         ],
         "sa": [
             "phpstan analyse -c phpstan.neon",
-            "psalm --show-info=true"
+            "psalm --show-info=true",
+            "./vendor/bin/phpmd src text ./phpmd.xml"
         ],
         "metrics": [
             "phpmetrics --report-html=build/metrics --excluded-dirs=src/Exception src"
