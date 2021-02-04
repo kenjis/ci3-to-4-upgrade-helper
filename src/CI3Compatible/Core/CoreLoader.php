@@ -19,6 +19,7 @@ use Kenjis\CI3Compatible\Internal\DebugLog;
 use ReflectionObject;
 
 use function array_change_key_case;
+use function array_keys;
 use function get_class;
 use function strtolower;
 
@@ -64,7 +65,7 @@ class CoreLoader
 
     private function load(): void
     {
-        foreach ($this->coreClasses as $class => $instance) {
+        foreach (array_keys($this->coreClasses) as $class) {
             $classname = $this->resolver->resolve($class);
             $obj = new $classname();
             $this->coreClasses[$class] = $obj;

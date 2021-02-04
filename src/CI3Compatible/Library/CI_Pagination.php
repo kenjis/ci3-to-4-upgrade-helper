@@ -18,6 +18,7 @@ use Config\Pager as PagerConfig;
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
+use function array_keys;
 use function implode;
 use function in_array;
 use function is_array;
@@ -106,7 +107,7 @@ class CI_Pagination
 
         $unsupportedConfigs = [];
 
-        foreach ($params as $property => $value) {
+        foreach (array_keys($params) as $property) {
             if (in_array($property, $customizingLinkConfigs, true)) {
                 $unsupportedConfigs[] = $property;
             }
