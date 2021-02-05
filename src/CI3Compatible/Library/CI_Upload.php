@@ -14,10 +14,14 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Library;
 
 use CodeIgniter\HTTP\Files\UploadedFile;
+use CodeIgniter\Images\Exceptions\ImageException;
+use CodeIgniter\Images\Image;
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotImplementedException;
 use Kenjis\CI3Compatible\Library\Upload\ValidationRuleMaker;
 
+use function realpath;
+use function round;
 use function strlen;
 use function substr;
 
@@ -118,35 +122,67 @@ class CI_Upload
      */
     public function data(?string $index = null)
     {
-        $full_path = $this->ci3Config['upload_path'] . '/' . $this->file->getName();
-        $raw_name = substr(
-            $this->file->getName(),
-            0,
-            -strlen($this->file->getClientExtension())
+        $full_path = realpath(
+            $this->ci3Config['upload_path'] . '/' . $this->file->getName()
         );
 
-        $data = [
-            'file_name'      => $this->file->getName(),
-            'file_type'      => $this->file->getClientMimeType(),
-            'file_path'      => $this->ci3Config['upload_path'],
-            'full_path'      => $full_path,
-            'raw_name'       => $raw_name,
-            'orig_name'      => $this->file->getClientName(),
-            'client_name'    => $this->file->getClientName(),
-            'file_ext'       => $this->file->getClientExtension(),
-            'file_size'      => $this->file->getSize(),
-// @TODO
-//            'is_image'       => $this->is_image(),
-//            'image_width'    => $this->image_width,
-//            'image_height'   => $this->image_height,
-//            'image_type'     => $this->image_type,
-//            'image_size_str' => $this->image_size_str,
-        ];
+        $data = $this->getImageData($full_path);
 
         if (! empty($index)) {
             return $data[$index] ?? null;
         }
 
         return $data;
+    }
+
+    private function getImageData(string $full_path): array
+    {
+        $image = new Image($full_path);
+
+        try {
+            $imageData = $image->getProperties(true);
+            $imageData['is_image'] = true;
+
+            $types = [1 => 'gif', 2 => 'jpeg', 3 => 'png'];
+            $image_type = $types[$imageData['image_type']] ?? 'unknown';
+        } catch (ImageException $e) {
+            $imageData = [
+                'is_image' => false,
+                'width'    => null,
+                'height'   => null,
+                'size_str' => '',
+            ];
+            $image_type = '';
+        }
+
+        $file_ext = '.' . $this->file->getClientExtension();
+
+        $raw_name = substr(
+            $this->file->getName(),
+            0,
+            -strlen($file_ext)
+        );
+
+        $file_size = $this->file->getSize();
+        if ($file_size > 0) {
+            $file_size = round($file_size / 1024, 2);
+        }
+
+        return [
+            'file_name'      => $this->file->getName(),
+            'file_type'      => $this->file->getClientMimeType(),
+            'file_path'      => realpath($this->ci3Config['upload_path']),
+            'full_path'      => $full_path,
+            'raw_name'       => $raw_name,
+            'orig_name'      => $this->file->getClientName(),
+            'client_name'    => $this->file->getClientName(),
+            'file_ext'       => $file_ext,
+            'file_size'      => $file_size,
+            'is_image'       => $imageData['is_image'],
+            'image_width'    => $imageData['width'],
+            'image_height'   => $imageData['height'],
+            'image_type'     => $image_type,
+            'image_size_str' => $imageData['size_str'],
+        ];
     }
 }
