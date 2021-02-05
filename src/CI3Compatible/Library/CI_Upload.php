@@ -56,7 +56,6 @@ class CI_Upload
         $notImplemented = [
             'file_name',
             'file_ext_tolower',
-            'overwrite',
             'max_filename',
             'max_filename_increment',
             'remove_spaces',
@@ -98,9 +97,9 @@ class CI_Upload
             if ($this->file->isValid() && ! $this->file->hasMoved()) {
                 if ($this->ci3Config['encrypt_name']) {
                     $newName = $this->file->getRandomName();
-                    $this->file->move($this->ci3Config['upload_path'], $newName);
+                    $this->file->move($this->ci3Config['upload_path'], $newName, $this->ci3Config['overwrite']);
                 } else {
-                    $this->file->move($this->ci3Config['upload_path']);
+                    $this->file->move($this->ci3Config['upload_path'], null, $this->ci3Config['overwrite']);
                 }
 
                 return true;
