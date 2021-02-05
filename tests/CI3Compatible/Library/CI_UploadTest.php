@@ -2,21 +2,88 @@
 
 declare(strict_types=1);
 
-namespace Kenjis\CI3Compatible\Library;
+namespace CodeIgniter\HTTP\Files;
 
-use CodeIgniter\HTTP\Files\FileCollection;
+use Kenjis\CI3Compatible\Library\CI_Upload;
 use Kenjis\CI3Compatible\TestCase;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 
+use function file_exists;
+use function file_put_contents;
+use function is_dir;
+use function mkdir;
 use function realpath;
+use function rmdir;
 
 class CI_UploadTest extends TestCase
 {
+    /** @var vfsStreamDirectory */
+    private $root;
+
+    /** @var string */
+    private $start;
+
+    /** @var string */
+    private $destination;
+
+    public function setUp(): void
+    {
+        $this->root = vfsStream::setup();
+        vfsStream::copyFromFileSystem(
+            __DIR__ . '/../../fixture',
+            $this->root
+        );
+
+        $this->start = $this->root->url();
+
+        $this->destination = $this->start . '/destination';
+        if (is_dir($this->destination)) {
+            rmdir($this->destination);
+        }
+
+        $_FILES = [];
+    }
+
     public function test_create_instance(): void
     {
         $config = [];
         $upload = new CI_Upload($config);
 
         $this->assertInstanceOf(CI_Upload::class, $upload);
+    }
+
+    public function test_do_upload(): void
+    {
+        $filename = 'pexels-skully-mba-1316484';
+        $_FILES = [
+            'userfile1' => [
+                'name'     => $filename . '.jpg',
+                'type'     => 'image/jpeg',
+                'size'     => 7755,
+                'tmp_name' => $this->start . '/images/' . $filename . '.jpg',
+                'error'    => 0,
+            ],
+        ];
+
+        $destination = $this->destination;
+        is_dir($destination) || mkdir($destination, 0777, true);
+
+        $config = [
+            'upload_path'     => $destination,
+            'encrypt_name'    => true,
+            'allowed_types'   => 'jpg|jpeg|png|JPG|PNG|JPEG',
+            'max_size'        => 3000,
+            'max_width'       => 0,
+            'max_height'      => 0,
+            'overwrite'       => true,
+//            'file_ext_tolower' => true,
+        ];
+        $upload = new CI_Upload($config);
+
+        $ret = $upload->do_upload('userfile1');
+
+        $this->assertTrue($ret);
     }
 
     public function test_data_image_file(): void
@@ -118,4 +185,13 @@ class CI_UploadTest extends TestCase
         ];
         $this->assertSame($expected, $data);
     }
+}
+
+function is_uploaded_file($filename)
+{
+    if (! file_exists($filename)) {
+        file_put_contents($filename, 'data');
+    }
+
+    return file_exists($filename);
 }
