@@ -15,6 +15,7 @@ namespace Kenjis\CI3Compatible\Library;
 
 use CodeIgniter\HTTP\Files\UploadedFile;
 use Config\Services;
+use Kenjis\CI3Compatible\Exception\NotImplementedException;
 use Kenjis\CI3Compatible\Library\Upload\ValidationRuleMaker;
 
 use function strlen;
@@ -42,6 +43,30 @@ class CI_Upload
     {
         $this->ci3Config = $config;
         $this->ruleMaker = new ValidationRuleMaker();
+
+        $this->checkNotImplementedConfig();
+    }
+
+    private function checkNotImplementedConfig()
+    {
+        $notImplemented = [
+            'file_name',
+            'file_ext_tolower',
+            'overwrite',
+            'max_filename',
+            'max_filename_increment',
+            'remove_spaces',
+            'detect_mime',
+            'mod_mime_fix',
+        ];
+
+        foreach ($notImplemented as $item) {
+            if (isset($this->ci3Config[$item])) {
+                throw new NotImplementedException(
+                    'config "' . $item . '" is not implemented yet.'
+                );
+            }
+        }
     }
 
     /**
@@ -67,16 +92,6 @@ class CI_Upload
 
         if ($this->file !== null) {
             if ($this->file->isValid() && ! $this->file->hasMoved()) {
-// @TODO
-//                $this->ci3Config['file_name']
-//                $this->ci3Config['file_ext_tolower']
-//                $this->ci3Config['overwrite']
-//                $this->ci3Config['max_filename']
-//                $this->ci3Config['max_filename_increment']
-//                $this->ci3Config['remove_spaces']
-//                $this->ci3Config['detect_mime']
-//                $this->ci3Config['mod_mime_fix']
-
                 if ($this->ci3Config['encrypt_name']) {
                     $newName = $this->file->getRandomName();
                     $this->file->move($this->ci3Config['upload_path'], $newName);

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Library\Upload;
 
+use Kenjis\CI3Compatible\Exception\NotSupportedException;
+
 use function explode;
 use function implode;
 
@@ -39,9 +41,17 @@ class ValidationRuleMaker
         $this->setMaxSize();
         $this->setMaxDims();
 
-// @TODO
-//        $this->ci3Config['min_width']
-//        $this->ci3Config['min_height']
+        if (isset($this->ci3Config['min_width'])) {
+            throw new NotSupportedException(
+                'config "min_width" is removed in CI4.'
+            );
+        }
+
+        if (isset($this->ci3Config['min_height'])) {
+            throw new NotSupportedException(
+                'config "min_height" is removed in CI4.'
+            );
+        }
 
         return [
             $fieldName => implode('|', $this->rules),
