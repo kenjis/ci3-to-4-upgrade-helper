@@ -342,12 +342,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/CodeIgniter4.git",
-                "reference": "44a66f699f83abfc163e40fb8b699b1a280c47f1"
+                "reference": "12cb18d15dea09a17262daadc8d78028c8968fe3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/CodeIgniter4/zipball/44a66f699f83abfc163e40fb8b699b1a280c47f1",
-                "reference": "44a66f699f83abfc163e40fb8b699b1a280c47f1",
+                "url": "https://api.github.com/repos/codeigniter4/CodeIgniter4/zipball/12cb18d15dea09a17262daadc8d78028c8968fe3",
+                "reference": "12cb18d15dea09a17262daadc8d78028c8968fe3",
                 "shasum": ""
             },
             "require": {
@@ -412,7 +412,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "issues": "https://github.com/codeigniter4/CodeIgniter4/issues"
             },
-            "time": "2021-02-04T07:50:36+00:00"
+            "time": "2021-02-05T10:42:36+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
