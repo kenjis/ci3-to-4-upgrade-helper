@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core;
 
 use CodeIgniter\Config\BaseConfig;
+use Kenjis\CI3Compatible\Exception\NotImplementedException;
 use Kenjis\CI3Compatible\Exception\RuntimeException;
 
 use function array_key_exists;
@@ -40,6 +41,12 @@ class CI_Config
      */
     public function load(string $file = '', bool $use_sections = false, bool $fail_gracefully = false)
     {
+        if ($fail_gracefully !== false) {
+            throw new NotImplementedException(
+                '$fail_gracefully is not implemented yet.'
+            );
+        }
+
         $config = config($file);
 
         if ($config === null) {

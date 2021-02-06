@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Database;
 
 use CodeIgniter\Database\BaseConnection;
+use Kenjis\CI3Compatible\Exception\NotImplementedException;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
 class CI_DB_driver
@@ -70,6 +71,12 @@ class CI_DB_driver
      */
     public function query(string $sql, $binds = false, ?bool $return_object = null)
     {
+        if ($return_object !== null) {
+            throw new NotImplementedException(
+                '$return_object is not implemented yet.'
+            );
+        }
+
         $query = $this->db->query($sql, $binds);
 
         return new CI_DB_result($query);
