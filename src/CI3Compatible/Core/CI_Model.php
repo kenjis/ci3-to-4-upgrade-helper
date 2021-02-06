@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core;
 
+use function get_instance;
+
 class CI_Model
 {
     public function __construct()

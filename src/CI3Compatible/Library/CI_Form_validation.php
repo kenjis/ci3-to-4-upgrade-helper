@@ -20,6 +20,7 @@ use Config\Validation as ConfigValidation;
 use Kenjis\CI3Compatible\Exception\NotImplementedException;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
+use function get_instance;
 use function is_array;
 
 class CI_Form_validation

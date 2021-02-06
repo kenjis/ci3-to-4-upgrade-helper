@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Traits\View;
 
+use function get_instance;
+
 /**
  * Use in app/Config/View.php
  *
