@@ -53,6 +53,7 @@ class CI_Upload
 
     private function checkNotImplementedConfig()
     {
+        // @TODO
         $notImplemented = [
             'file_name',
             'file_ext_tolower',
