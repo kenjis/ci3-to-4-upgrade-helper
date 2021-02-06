@@ -14,6 +14,7 @@ declare(strict_types=1);
 use CodeIgniter\HTTP\URI;
 use CodeIgniter\Router\Exceptions\RedirectException;
 use Config\Services;
+use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
 if (! function_exists('base_url_')) {
     /**
@@ -81,6 +82,12 @@ if (! function_exists('redirect_')) {
      */
     function redirect_(string $uri = '', string $method = 'auto', ?int $code = null)
     {
+        if ($method !== 'auto') {
+            throw new NotSupportedException(
+                '$method except "auto" is not supported.'
+            );
+        }
+
         if ($code !== null) {
             throw new RedirectException($uri, $code);
         }
