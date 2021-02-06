@@ -13,4 +13,7 @@ declare(strict_types=1);
 
 use Kenjis\CI3Compatible\Core\CoreLoader;
 
+require __DIR__ . '/../CI3Compatible/Core/get_instance.php';
+require __DIR__ . '/../CI3Compatible/Core/Common.php';
+
 $coreLoader = new CoreLoader();

@@ -19,9 +19,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Kenjis\CI3Compatible\Internal\DebugLog;
 use Psr\Log\LoggerInterface;
 
-require __DIR__ . '/get_instance.php';
-require __DIR__ . '/Common.php';
-
 class CI_Controller extends BaseController
 {
     /** @var CI_Controller */
