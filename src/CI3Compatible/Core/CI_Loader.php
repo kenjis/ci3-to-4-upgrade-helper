@@ -108,18 +108,26 @@ class CI_Loader
      *
      * Loads and instantiates models.
      *
-     * @param mixed  $model   Model name
-     * @param string $name    An optional object name to assign to
-     * @param bool   $db_conn An optional database connection configuration to initialize
+     * @param mixed             $model   Model name
+     * @param string            $name    An optional object name to assign to
+     * @param bool|string|array $db_conn An optional database connection configuration to initialize
      *
      * @return  object
      */
     public function model(
         $model,
         string $name = '',
-        bool $db_conn = false
+        $db_conn = false
     ): self {
-        $this->modelLoader->load($model, $name, $db_conn);
+        if ($db_conn !== false) {
+            if ($db_conn === true) {
+                $db_conn = '';
+            }
+
+            $this->database($db_conn, false, true);
+        }
+
+        $this->modelLoader->load($model, $name);
 
         return $this;
     }

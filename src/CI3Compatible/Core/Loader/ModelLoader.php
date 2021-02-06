@@ -45,25 +45,25 @@ class ModelLoader
     }
 
     /**
-     * @param mixed $model
-     * @param bool  $db_conn @TODO not implemented
+     * @param mixed  $model
+     * @param string $name
      */
-    public function load($model, string $name = '', bool $db_conn = false): void
+    public function load($model, string $name = ''): void
     {
         if (empty($model)) {
             return;
         }
 
         if (is_array($model)) {
-            $this->loadMultiple($model, $db_conn);
+            $this->loadMultiple($model);
 
             return;
         }
 
-        $this->loadOne($model, $name, $db_conn);
+        $this->loadOne($model, $name);
     }
 
-    private function loadOne(string $model, string $name, bool $db_conn): void
+    private function loadOne(string $model, string $name): void
     {
         $property = $this->getPropertyName($model, $name);
 
@@ -92,12 +92,12 @@ class ModelLoader
         return false;
     }
 
-    private function loadMultiple(array $models, bool $db_conn): void
+    private function loadMultiple(array $models): void
     {
         foreach ($models as $key => $value) {
             is_int($key)
-                ? $this->load($value, '', $db_conn)
-                : $this->load($key, $value, $db_conn);
+                ? $this->load($value, '')
+                : $this->load($key, $value);
         }
     }
 

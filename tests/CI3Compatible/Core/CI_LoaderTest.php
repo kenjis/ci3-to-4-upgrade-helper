@@ -74,6 +74,31 @@ class CI_LoaderTest extends TestCase
         $this->assertInstanceOf(CI_Loader::class, $ret);
     }
 
+    public function test_model_loads_model_only(): void
+    {
+        $ret = $this->loader->model('shop/shop_model');
+
+        $this->assertInstanceOf(
+            Shop_model::class,
+            $this->controller->shop_model
+        );
+        $this->assertFalse(isset($this->controller->db));
+    }
+
+    public function test_model_loads_model_and_db(): void
+    {
+        $ret = $this->loader->model(
+            'shop/shop_model',
+            '',
+            true
+        );
+
+        $this->assertInstanceOf(
+            CI_DB::class,
+            $this->controller->db
+        );
+    }
+
     public function test_database_loads_CI_DB_and_returns_CI_Loader(): void
     {
         $ret = $this->loader->database();
