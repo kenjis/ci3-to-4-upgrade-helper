@@ -46,11 +46,25 @@ if (! function_exists('show_error')) {
 
 if (! function_exists('show_404')) {
     /**
-     * @param bool $log_error @TODO not implemented
+     * @param   string $page      Page URI
+     * @param   bool   $log_error Whether to log the error
      */
     function show_404(string $page = '', bool $log_error = true): void
     {
-        throw new PageNotFoundException($page);
+        if (is_cli()) {
+            $heading = 'Not Found';
+            $message = 'The controller/method pair you requested was not found.';
+        } else {
+            $heading = '404 Page Not Found';
+            $message = 'The page you requested was not found.';
+        }
+
+        // By default we log this, but allow a dev to skip it
+        if ($log_error) {
+            log_message('error', $heading . ': ' . $page);
+        }
+
+        throw new PageNotFoundException($heading . ': ' . $message);
     }
 }
 

@@ -9,15 +9,18 @@ use Kenjis\CI3Compatible\Exception\NotSupportedException;
 use Kenjis\CI3Compatible\Exception\RuntimeException;
 use Kenjis\CI3Compatible\TestCase;
 
+use function html_escape;
+use function show_404;
+use function show_error;
+
 class CommonTest extends TestCase
 {
     public function test_show_404_throws_PageNotFoundException(): void
     {
-        require __DIR__ . '/../../../src/CI3Compatible/Core/Common.php';
-
         $this->expectException(PageNotFoundException::class);
+        $this->expectExceptionMessage('Not Found: The controller/method pair you requested was not found.');
 
-        show_404('Not Found');
+        show_404('admin/login');
     }
 
     public function test_show_error_throws_RuntimeException(): void
