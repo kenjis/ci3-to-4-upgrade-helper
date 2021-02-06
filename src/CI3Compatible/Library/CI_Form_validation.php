@@ -128,7 +128,7 @@ class CI_Form_validation
      *
      * @return  CI_Form_validation
      */
-    public function set_error_delimiters($prefix = '<p>', $suffix = '</p>'): void
+    public function set_error_delimiters(): void
     {
         throw new NotSupportedException(
             'CI_Form_validation::set_error_delimiters() is not supported.'
@@ -148,7 +148,7 @@ class CI_Form_validation
      *
      * @return  CI_Form_validation
      */
-    public function set_message($lang, $val = ''): void
+    public function set_message(): void
     {
         throw new NotSupportedException(
             'set_message() is not supported.'

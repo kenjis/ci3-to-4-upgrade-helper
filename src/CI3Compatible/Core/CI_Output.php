@@ -55,11 +55,9 @@ class CI_Output
     /**
      * Enable/disable Profiler
      *
-     * @param   bool $val TRUE to enable or FALSE to disable
-     *
      * @return  CI_Output
      */
-    public function enable_profiler(bool $val = true): self
+    public function enable_profiler(): self
     {
         throw new NotSupportedException(
             'enable_profiler() is not supported.'

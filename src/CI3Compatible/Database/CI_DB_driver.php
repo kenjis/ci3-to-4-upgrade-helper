@@ -47,7 +47,7 @@ class CI_DB_driver
      *
      * @return  int
      */
-    public function count_all($table = '')
+    public function count_all()
     {
         throw new NotSupportedException(
             'count_all() moved to CI_QueryBuilder. Use it.'
