@@ -76,7 +76,7 @@ class CI_UploadTest extends TestCase
             'max_size'        => 3000,
             'max_width'       => 0,
             'max_height'      => 0,
-            'overwrite'       => true,
+//            'overwrite'       => true,
 //            'file_ext_tolower' => true,
         ];
         $upload = new CI_Upload($config);

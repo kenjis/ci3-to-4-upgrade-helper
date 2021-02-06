@@ -96,11 +96,13 @@ class CI_Upload
 
         if ($this->file !== null) {
             if ($this->file->isValid() && ! $this->file->hasMoved()) {
+                $overwrite = $this->ci3Config['overwrite'] ?? false;
+
                 if ($this->ci3Config['encrypt_name']) {
                     $newName = $this->file->getRandomName();
-                    $this->file->move($this->ci3Config['upload_path'], $newName, $this->ci3Config['overwrite']);
+                    $this->file->move($this->ci3Config['upload_path'], $newName, $overwrite);
                 } else {
-                    $this->file->move($this->ci3Config['upload_path'], null, $this->ci3Config['overwrite']);
+                    $this->file->move($this->ci3Config['upload_path'], null, $overwrite);
                 }
 
                 return true;
