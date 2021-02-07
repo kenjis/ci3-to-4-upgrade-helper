@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+* [Read CodeIgniter4 User Guide](#read-codeigniter4-user-guide)
 * [Install CodeIgniter4](#install-codeigniter4)
 * [Install ci3-to-4-upgrade-helper](#install-ci3-to-4-upgrade-helper)
 * [Config](#config)
@@ -43,11 +44,19 @@
 * [Common Functions](#common-functions)
     * [show_error()](#show_error)
 
+## Read CodeIgniter4 User Guide
+
+CodeIgniter 4 is a rewrite of the framework. It is not an exaggeration to say that it is a new framework. Please read the User Guide carefully to get an overview.
+
+- [Upgrading from 3.x to 4.x](https://codeigniter4.github.io/CodeIgniter4/installation/upgrade_4xx.html)
+- [CodeIgniter4 Overview](https://codeigniter4.github.io/CodeIgniter4/concepts/index.html)
+- [General Topics](https://codeigniter4.github.io/CodeIgniter4/general/index.html)
+
 ## Install CodeIgniter4
 
 See <https://codeigniter4.github.io/CodeIgniter4/installation/index.html>.
 
-**Note:** Use 4.1.0 or later.
+**Note:** Use 4.1.0 or later. [ci4-app-template](https://github.com/kenjis/ci4-app-template) can be used.
 
 ## Install ci3-to-4-upgrade-helper
 
