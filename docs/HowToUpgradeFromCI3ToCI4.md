@@ -371,7 +371,7 @@ $offset = max(($page - 1), 0) * $per_page;
 
 #### url_title()
 
-1. CI4's `url_title()` does not support the second param's 'dash' and 'underscore'. Replace them with '-' or '_'.
+1. CI4's `url_title()` does not support the second param's `'dash'` and `'underscore'`. Replace them with `'-'` or `'_'`.
 
 ## Common Functions
 
