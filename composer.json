@@ -84,6 +84,9 @@
         "metrics": [
             "phpmetrics --report-html=build/metrics --excluded-dirs=src/Exception src"
         ],
+        "sabik": [
+            "npx sabik src -o build/sabik"
+        ],
         "build": [
             "@cs",
             "@sa",
