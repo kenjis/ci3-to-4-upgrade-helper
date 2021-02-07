@@ -18,6 +18,8 @@ This project helps you upgrade your CodeIgniter3 apps to CodeIgniter4.
 
 ## Sample Code
 
+- https://github.com/kenjis/ci3-to-4-news
+
 If you use *ci3-to-4-upgrade-helper*, You can run the following code on CodeIgniter4.
 
 *app/Controllers/News.php*
