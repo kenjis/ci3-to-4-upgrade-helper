@@ -369,6 +369,10 @@ $offset = max(($page - 1), 0) * $per_page;
 1. CI4's `base_url()` removes the last `/`.
 - If you don't want it, use `base_url_()` that *ci3-to-4-upgrade-helper* provides after `$this->load->helper('url')`.
 
+#### url_title()
+
+1. CI4's `url_title()` does not support the second param's 'dash' and 'underscore'. Replace them with '-' or '_'.
+
 ## Common Functions
 
 ### show_error()
