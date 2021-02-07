@@ -40,7 +40,6 @@ class News extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
         $this->load->model('news_model');
         $this->load->helper('url_helper');
     }
@@ -97,20 +96,14 @@ class News extends CI_Controller
 <?php
 namespace App\Models;
 
-use Kenjis\CI3Compatible\Core\CI_Input;
-use Kenjis\CI3Compatible\Core\CI_Loader;
 use Kenjis\CI3Compatible\Core\CI_Model;
-use Kenjis\CI3Compatible\Database\CI_DB;
 
-/**
- * @property CI_Loader $load
- * @property CI_DB $db
- * @property CI_Input $input
- */
 class News_model extends CI_Model
 {
     public function __construct()
     {
+        parent::__construct();
+
         $this->load->database();
     }
 
@@ -122,7 +115,6 @@ class News_model extends CI_Model
         }
 
         $query = $this->db->get_where('news', ['slug' => $slug]);
-
         return $query->row_array();
     }
 
@@ -130,7 +122,7 @@ class News_model extends CI_Model
     {
         $this->load->helper('url');
 
-        $slug = url_title($this->input->post('title'), 'dash', true);
+        $slug = url_title($this->input->post('title'), '-', true);
 
         $data = [
             'title' => $this->input->post('title'),
