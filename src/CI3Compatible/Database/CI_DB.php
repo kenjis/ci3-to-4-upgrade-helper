@@ -24,4 +24,14 @@ class CI_DB extends CI_DB_query_builder
     {
         return $this->db->insertID();
     }
+
+    /**
+     * Affected Rows
+     *
+     * @return  int
+     */
+    public function affected_rows(): int
+    {
+        return $this->db->affectedRows();
+    }
 }
