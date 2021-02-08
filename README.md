@@ -19,6 +19,7 @@ This project helps you upgrade your CodeIgniter3 apps to CodeIgniter4.
 ## Sample Code
 
 - https://github.com/kenjis/ci3-to-4-news
+- https://github.com/kenjis/ci4-online-games-store
 
 If you use *ci3-to-4-upgrade-helper*, You can run the following code on CodeIgniter4.
 
