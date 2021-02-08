@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace CodeIgniter\HTTP\Files;
 
+use Config\Services;
 use Kenjis\CI3Compatible\Library\CI_Upload;
 use Kenjis\CI3Compatible\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
+use function copy;
 use function file_exists;
 use function file_put_contents;
 use function is_dir;
 use function mkdir;
 use function realpath;
+use function rename;
 use function rmdir;
+use function unlink;
 
 class CI_UploadTest extends TestCase
 {
@@ -43,6 +47,13 @@ class CI_UploadTest extends TestCase
         }
 
         $_FILES = [];
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        Services::reset();
     }
 
     public function test_create_instance(): void
@@ -88,6 +99,50 @@ class CI_UploadTest extends TestCase
         $destinationDir = $this->root->getChild('destination')->getChildren();
         $this->assertCount(1, $destinationDir);
         $this->assertRegExp('/\.jpg\z/', $destinationDir[0]->getName());
+    }
+
+    public function test_do_upload_file_ext_tolower(): void
+    {
+        $origFilename = 'pexels-skully-mba-1316484.jpg';
+        $filename = 'pexels-skully-mba-1316484.JPEG';
+        rename(
+            $this->rootPath . '/images/' . $origFilename,
+            $this->rootPath . '/images/' . $filename
+        );
+//        dd($this->root->getChild('images')->getChildren()[0]->getName());
+
+        $_FILES = [
+            'userfile1' => [
+                'name'     => $filename,
+                'type'     => 'image/jpeg',
+                'size'     => 7755,
+                'tmp_name' => $this->rootPath . '/images/' . $filename,
+                'error'    => 0,
+            ],
+        ];
+
+        $destination = $this->destination;
+        is_dir($destination) || mkdir($destination, 0777, true);
+
+        $config = [
+            'upload_path'     => $destination,
+            'encrypt_name'    => false,
+            'allowed_types'   => 'jpg|jpeg|png|JPG|PNG|JPEG',
+            'max_size'        => 3000,
+            'max_width'       => 0,
+            'max_height'      => 0,
+//            'overwrite'       => true,
+            'file_ext_tolower' => true,
+        ];
+        $upload = new CI_Upload($config);
+
+        $ret = $upload->do_upload('userfile1');
+
+        $this->assertTrue($ret);
+
+        $destinationDir = $this->root->getChild('destination')->getChildren();
+        $this->assertCount(1, $destinationDir);
+        $this->assertEquals('pexels-skully-mba-1316484.jpeg', $destinationDir[0]->getName());
     }
 
     public function test_data_image_file(): void

@@ -18,6 +18,7 @@ use CodeIgniter\Images\Exceptions\ImageException;
 use CodeIgniter\Images\Image;
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotImplementedException;
+use Kenjis\CI3Compatible\Library\Upload\FileExtention;
 use Kenjis\CI3Compatible\Library\Upload\ValidationRuleMaker;
 
 use function realpath;
@@ -36,6 +37,12 @@ class CI_Upload
     /** @var UploadedFile|null */
     private $file;
 
+    /** @var FileExtention */
+    private $fileExt;
+
+    /** @var string */
+    private $newName;
+
     /**
      * Constructor
      *
@@ -47,6 +54,7 @@ class CI_Upload
     {
         $this->ci3Config = $config;
         $this->ruleMaker = new ValidationRuleMaker();
+        $this->fileExt = new FileExtention();
 
         $this->checkNotImplementedConfig();
     }
@@ -56,7 +64,6 @@ class CI_Upload
         // @TODO
         $notImplemented = [
             'file_name',
-            'file_ext_tolower',
             'max_filename',
             'max_filename_increment',
             'remove_spaces',
@@ -98,12 +105,17 @@ class CI_Upload
             if ($this->file->isValid() && ! $this->file->hasMoved()) {
                 $overwrite = $this->ci3Config['overwrite'] ?? false;
 
-                if ($this->ci3Config['encrypt_name']) {
-                    $newName = $this->file->getRandomName();
-                    $this->file->move($this->ci3Config['upload_path'], $newName, $overwrite);
-                } else {
-                    $this->file->move($this->ci3Config['upload_path'], null, $overwrite);
+                $this->newName = $this->file->getName();
+
+                if ($this->ci3Config['encrypt_name'] ?? false) {
+                    $this->newName = $this->file->getRandomName();
                 }
+
+                if ($this->ci3Config['file_ext_tolower'] ?? false) {
+                    $this->newName = $this->fileExt->toLower($this->newName);
+                }
+
+                $this->file->move($this->ci3Config['upload_path'], $this->newName, $overwrite);
 
                 return true;
             }
@@ -171,7 +183,7 @@ class CI_Upload
         }
 
         return [
-            'file_name'      => $this->file->getName(),
+            'file_name'      => $image->getFilename(),
             'file_type'      => $this->file->getClientMimeType(),
             'file_path'      => realpath($this->ci3Config['upload_path']),
             'full_path'      => $full_path,
