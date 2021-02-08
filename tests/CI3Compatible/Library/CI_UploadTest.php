@@ -55,13 +55,13 @@ class CI_UploadTest extends TestCase
 
     public function test_do_upload(): void
     {
-        $filename = 'pexels-skully-mba-1316484';
+        $filename = 'pexels-skully-mba-1316484.jpg';
         $_FILES = [
             'userfile1' => [
-                'name'     => $filename . '.jpg',
+                'name'     => $filename,
                 'type'     => 'image/jpeg',
                 'size'     => 7755,
-                'tmp_name' => $this->start . '/images/' . $filename . '.jpg',
+                'tmp_name' => $this->start . '/images/' . $filename,
                 'error'    => 0,
             ],
         ];
@@ -94,7 +94,7 @@ class CI_UploadTest extends TestCase
                 'name'     => $filename . '.jpg',
                 'type'     => 'image/jpeg',
                 'size'     => 7755,
-                'tmp_name' => '/tmp/fileA.txt',
+                'tmp_name' => $this->start . '/images/' . $filename . '.jpg',
                 'error'    => 0,
             ],
         ];
