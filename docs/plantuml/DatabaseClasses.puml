@@ -1,0 +1,23 @@
+@startuml
+
+namespace CI3 #DDDDDD {
+    abstract class CI_DB_driver
+
+    abstract class CI_DB_query_builder extends CI_DB_driver
+
+    class CI_DB extends CI_DB_query_builder
+
+    class CI_DB_mysqli_driver extends CI_DB
+
+    class CI_DB_sqlite3_driver extends CI_DB
+}
+
+namespace ci3-to-4-upgrade-helper {
+    class CI_DB_driver
+
+    class CI_DB_query_builder extends CI_DB_driver
+
+    class CI_DB extends CI_DB_query_builder
+}
+
+@enduml
