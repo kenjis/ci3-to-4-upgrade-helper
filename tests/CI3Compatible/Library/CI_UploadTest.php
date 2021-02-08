@@ -84,6 +84,10 @@ class CI_UploadTest extends TestCase
         $ret = $upload->do_upload('userfile1');
 
         $this->assertTrue($ret);
+
+        $destinationDir = $this->root->getChild('destination')->getChildren();
+        $this->assertCount(1, $destinationDir);
+        $this->assertRegExp('/\.jpg\z/', $destinationDir[0]->getName());
     }
 
     public function test_data_image_file(): void
@@ -187,11 +191,23 @@ class CI_UploadTest extends TestCase
     }
 }
 
-function is_uploaded_file($filename)
+/**
+ * Override for testing
+ */
+function is_uploaded_file(string $filename): bool
 {
     if (! file_exists($filename)) {
         file_put_contents($filename, 'data');
     }
 
     return file_exists($filename);
+}
+
+/**
+ * Override for testing
+ */
+function move_uploaded_file(string $filename, string $destination): void
+{
+    copy($filename, $destination);
+    unlink($filename);
 }
