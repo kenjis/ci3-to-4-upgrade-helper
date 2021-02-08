@@ -92,6 +92,19 @@ ORDER BY `title` ASC';
         $this->assertSame(3, $row['count']);
     }
 
+    public function test_select_sum(): void
+    {
+        $this->queryBuilder->select_sum('subtotal');
+        $this->queryBuilder->from('cart');
+        $this->queryBuilder->where('user_id', 100);
+        $sql = $this->queryBuilder->get_compiled_select();
+
+        $expected = 'SELECT SUM(`subtotal`) AS `subtotal`
+FROM `db_cart`
+WHERE `user_id` = 100';
+        $this->assertSame($expected, $sql);
+    }
+
     public function test_from(): void
     {
         $this->queryBuilder->from('news');

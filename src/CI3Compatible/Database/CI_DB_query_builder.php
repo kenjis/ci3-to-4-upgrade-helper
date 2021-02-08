@@ -46,6 +46,9 @@ class CI_DB_query_builder extends CI_DB_driver
     /** @var array */
     private $set = [];
 
+    /** @var array */
+    private $select_sum = [];
+
     /**
      * Get
      *
@@ -258,6 +261,10 @@ class CI_DB_query_builder extends CI_DB_driver
 
         foreach ($this->select as $params) {
             $this->builder->select(...$params);
+        }
+
+        foreach ($this->select_sum as $params) {
+            $this->builder->selectSum(...$params);
         }
 
         $this->execJoin();
@@ -499,6 +506,23 @@ class CI_DB_query_builder extends CI_DB_driver
     public function select($select = '*', $escape = null): self
     {
         $this->select[] = [$select, $escape];
+
+        return $this;
+    }
+
+    /**
+     * Select Sum
+     *
+     * Generates a SELECT SUM(field) portion of a query
+     *
+     * @param   string  the field
+     * @param   string  an alias
+     *
+     * @return  CI_DB_query_builder
+     */
+    public function select_sum($select = '', $alias = '')
+    {
+        $this->select_sum[] = [$select, $alias];
 
         return $this;
     }
