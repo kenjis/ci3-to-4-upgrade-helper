@@ -22,7 +22,7 @@ class CI_UploadTest extends TestCase
     private $root;
 
     /** @var string */
-    private $start;
+    private $rootPath;
 
     /** @var string */
     private $destination;
@@ -35,9 +35,9 @@ class CI_UploadTest extends TestCase
             $this->root
         );
 
-        $this->start = $this->root->url();
+        $this->rootPath = $this->root->url();
 
-        $this->destination = $this->start . '/destination';
+        $this->destination = $this->rootPath . '/destination';
         if (is_dir($this->destination)) {
             rmdir($this->destination);
         }
@@ -61,7 +61,7 @@ class CI_UploadTest extends TestCase
                 'name'     => $filename,
                 'type'     => 'image/jpeg',
                 'size'     => 7755,
-                'tmp_name' => $this->start . '/images/' . $filename,
+                'tmp_name' => $this->rootPath . '/images/' . $filename,
                 'error'    => 0,
             ],
         ];
@@ -94,7 +94,7 @@ class CI_UploadTest extends TestCase
                 'name'     => $filename . '.jpg',
                 'type'     => 'image/jpeg',
                 'size'     => 7755,
-                'tmp_name' => $this->start . '/images/' . $filename . '.jpg',
+                'tmp_name' => $this->rootPath . '/images/' . $filename . '.jpg',
                 'error'    => 0,
             ],
         ];
