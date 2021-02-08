@@ -50,7 +50,7 @@ class CI_DB_driver
     public function count_all()
     {
         throw new NotSupportedException(
-            'count_all() moved to CI_QueryBuilder. Use it.'
+            'count_all() moved to CI_DB_query_builder. Use it.'
         );
     }
 
