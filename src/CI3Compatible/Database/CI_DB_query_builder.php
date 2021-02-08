@@ -558,6 +558,8 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     private function _reset_select()
     {
+        $this->builder = null;
+
         $this->select = [];
         $this->from = [];
         $this->join = [];
@@ -575,6 +577,8 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     protected function _reset_write()
     {
+        $this->builder = null;
+
         $this->set = [];
         $this->from = [];
         $this->join = [];
