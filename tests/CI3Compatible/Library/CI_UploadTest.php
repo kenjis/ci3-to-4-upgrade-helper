@@ -46,6 +46,8 @@ class CI_UploadTest extends TestCase
             rmdir($this->destination);
         }
 
+        mkdir($this->destination, 0777, true);
+
         $_FILES = [];
     }
 
@@ -64,9 +66,8 @@ class CI_UploadTest extends TestCase
         $this->assertInstanceOf(CI_Upload::class, $upload);
     }
 
-    public function test_do_upload(): void
+    private function setGlobalFiles(string $filename)
     {
-        $filename = 'pexels-skully-mba-1316484.jpg';
         $_FILES = [
             'userfile1' => [
                 'name'     => $filename,
@@ -76,12 +77,15 @@ class CI_UploadTest extends TestCase
                 'error'    => 0,
             ],
         ];
+    }
 
-        $destination = $this->destination;
-        is_dir($destination) || mkdir($destination, 0777, true);
+    public function test_do_upload(): void
+    {
+        $filename = 'pexels-skully-mba-1316484.jpg';
+        $this->setGlobalFiles($filename);
 
         $config = [
-            'upload_path'     => $destination,
+            'upload_path'     => $this->destination,
             'encrypt_name'    => true,
             'allowed_types'   => 'jpg|jpeg|png|JPG|PNG|JPEG',
             'max_size'        => 3000,
@@ -110,22 +114,10 @@ class CI_UploadTest extends TestCase
             $this->rootPath . '/images/' . $filename
         );
 //        dd($this->root->getChild('images')->getChildren()[0]->getName());
-
-        $_FILES = [
-            'userfile1' => [
-                'name'     => $filename,
-                'type'     => 'image/jpeg',
-                'size'     => 7755,
-                'tmp_name' => $this->rootPath . '/images/' . $filename,
-                'error'    => 0,
-            ],
-        ];
-
-        $destination = $this->destination;
-        is_dir($destination) || mkdir($destination, 0777, true);
+        $this->setGlobalFiles($filename);
 
         $config = [
-            'upload_path'     => $destination,
+            'upload_path'     => $this->destination,
             'encrypt_name'    => false,
             'allowed_types'   => 'jpg|jpeg|png|JPG|PNG|JPEG',
             'max_size'        => 3000,
@@ -148,15 +140,8 @@ class CI_UploadTest extends TestCase
     public function test_data_image_file(): void
     {
         $filename = 'pexels-skully-mba-1316484';
-        $_FILES = [
-            'userfile1' => [
-                'name'     => $filename . '.jpg',
-                'type'     => 'image/jpeg',
-                'size'     => 7755,
-                'tmp_name' => $this->rootPath . '/images/' . $filename . '.jpg',
-                'error'    => 0,
-            ],
-        ];
+        $this->setGlobalFiles($filename . '.jpg');
+
         $collection = new FileCollection();
         $file = $collection->getFile('userfile1');
         $this->setPrivateProperty($file, 'hasMoved', true);
