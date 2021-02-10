@@ -247,6 +247,11 @@ class News extends CI_Controller
 1. CI4 does not have `_output()` method.
 - Use Controller Filters. See <https://codeigniter4.github.io/CodeIgniter4/incoming/filters.html>.
 
+### MY_Controller
+
+1. Copy `application/core/MY_Controller` to `app/Controllers/MY_Controller`.
+2. Add Namespace and Use statement as other controllers.
+
 ## Models
 
 ### Copy Model files
@@ -362,7 +367,7 @@ $offset = max(($page - 1), 0) * $per_page;
 - See <https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html#redirect>.
 - Replace `redirect($uri)` with `return redirect()->to(site_url($uri))`, when you can return Response object.
 - Replace it with`throw new \CodeIgniter\Router\Exceptions\RedirectException($uri)`, when you cannot return Response object.
-- Or you could use `redirect_()` that *ci3-to-4-upgrade-helper* provides.
+- Or you could use `redirect_()` that *ci3-to-4-upgrade-helper* provides after `$this->load->helper('url')`.
 
 #### base_url()
 
@@ -381,3 +386,7 @@ $offset = max(($page - 1), 0) * $per_page;
 - `show_error()` that *ci3-to-4-upgrade-helper* provides does not support the third argument `$heading`.
 - If you want to show error page like CI3, you have to create error templates like `app/Views/errors/html/error_500.php` where `500` is the status code.
 - In error templates, you can use `$message` which has the Exception message.
+
+## Writable Paths
+
+1. CI4 has new `writable` directory and the constant `WRITEPATH`. Adjust the paths when you write files.
