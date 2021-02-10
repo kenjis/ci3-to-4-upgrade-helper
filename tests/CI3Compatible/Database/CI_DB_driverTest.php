@@ -80,4 +80,41 @@ class CI_DB_driverTest extends DatabaseTestCase
 
         $this->driver->count_all();
     }
+
+    public function test_trans_start_success()
+    {
+        $this->driver->trans_start();
+        $this->driver->query(
+            "INSERT INTO `db_news` (`title`, `slug`, `body`) VALUES ('title1', 'title1', 'body1')"
+        );
+        $this->driver->trans_complete();
+
+        $this->assertTrue($this->driver->trans_status());
+    }
+
+    public function test_trans_begin_commit()
+    {
+        $this->driver->trans_begin();
+        $this->driver->query(
+            "INSERT INTO `db_news` (`title`, `slug`, `body`) VALUES ('title3', 'title3', 'body3')"
+        );
+        $this->driver->trans_commit();
+
+        $this->seeInDatabase('db_news', [
+            'slug' => 'title3',
+        ]);
+    }
+
+    public function test_trans_begin_rollback()
+    {
+        $this->driver->trans_begin();
+        $this->driver->query(
+            "INSERT INTO `db_news` (`title`, `slug`, `body`) VALUES ('title4', 'title4', 'body4')"
+        );
+        $this->driver->trans_rollback();
+
+        $this->dontSeeInDatabase('db_news', [
+            'slug' => 'title4',
+        ]);
+    }
 }

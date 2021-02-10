@@ -81,4 +81,98 @@ class CI_DB_driver
 
         return new CI_DB_result($query);
     }
+
+    /**
+     * Start Transaction
+     *
+     * @param   bool $test_mode = FALSE
+     *
+     * @return  bool
+     */
+    public function trans_start(bool $test_mode = false): bool
+    {
+        return $this->db->transStart($test_mode);
+    }
+
+    /**
+     * Complete Transaction
+     *
+     * @return  bool
+     */
+    public function trans_complete(): bool
+    {
+        return $this->db->transComplete();
+    }
+
+    /**
+     * Lets you retrieve the transaction flag to determine if it has failed
+     *
+     * @return  bool
+     */
+    public function trans_status(): bool
+    {
+        return $this->db->transStatus();
+    }
+
+    /**
+     * Begin Transaction
+     *
+     * @param   bool $test_mode
+     *
+     * @return  bool
+     */
+    public function trans_begin(bool $test_mode = false): bool
+    {
+        return $this->db->transBegin($test_mode);
+    }
+
+    /**
+     * Commit Transaction
+     *
+     * @return  bool
+     */
+    public function trans_commit(): bool
+    {
+        return $this->db->transCommit();
+    }
+
+    /**
+     * Rollback Transaction
+     *
+     * @return  bool
+     */
+    public function trans_rollback(): bool
+    {
+        return $this->db->transRollback();
+    }
+
+    /**
+     * Enable/disable Transaction Strict Mode
+     *
+     * When strict mode is enabled, if you are running multiple groups of
+     * transactions, if one group fails all subsequent groups will be
+     * rolled back.
+     *
+     * If strict mode is disabled, each group is treated autonomously,
+     * meaning a failure of one group will not affect any others
+     *
+     * @param   bool $mode = TRUE
+     *
+     * @return  void
+     */
+    public function trans_strict(bool $mode = true)
+    {
+        $this->db->transStart($mode);
+    }
+
+    /**
+     * Disable Transactions
+     * This permits transactions to be disabled at run-time.
+     *
+     * @return  void
+     */
+    public function trans_off()
+    {
+        $this->db->transOff();
+    }
 }
