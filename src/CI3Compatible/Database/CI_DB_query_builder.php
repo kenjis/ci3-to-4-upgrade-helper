@@ -122,6 +122,7 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         $this->ensureQueryBuilder($table);
 
+        $this->prepareInsertQuery();
         $ret = $this->builder->insert($set, $escape);
 
         $this->_reset_write();
@@ -173,6 +174,7 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         $this->ensureQueryBuilder($table);
 
+        $this->prepareUpdateQuery();
         $ret = $this->builder->update($set, $where, $limit);
 
         $this->_reset_write();
