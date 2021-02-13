@@ -37,6 +37,7 @@
   - [Copy Library files](#copy-library-files)
   - [Add Namespace](#add-namespace)
   - [Form_validation](#form_validation)
+    - [Validation Rules](#validation-rules)
   - [Pagination](#pagination)
 - [Views](#views)
   - [Copy View files](#copy-view-files)
@@ -328,6 +329,10 @@ Examples:
 3. `set_message()`
 - If you create a custom rule, use the second param `&$error` and set the error message. See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#creating-custom-rules>.
 - Otherwise use `setError(string $field, string $error)`.
+
+#### Validation Rules
+
+1. CI4's `valid_email` does not permit empty string. If you want to permit empty, add the rule `permit_empty`.
 
 ### Pagination
 
