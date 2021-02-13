@@ -86,6 +86,24 @@ class CI_Form_validationTest extends TestCase
         );
     }
 
+    public function test_set_error_delimiters(): void
+    {
+        $validation = $this->createFormValidation();
+
+        $this->expectException(NotSupportedException::class);
+
+        $validation->set_error_delimiters();
+    }
+
+    public function test_set_message(): void
+    {
+        $validation = $this->createFormValidation();
+
+        $this->expectException(NotSupportedException::class);
+
+        $validation->set_message();
+    }
+
     public function test_error_string(): void
     {
         $validation = $this->createFormValidation();
