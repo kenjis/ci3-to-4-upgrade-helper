@@ -15,6 +15,7 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Config\Database;
 use Kenjis\CI3Compatible\Database\CI_DB;
+use Kenjis\CI3Compatible\Database\CI_DB_forge;
 
 class DatabaseLoader
 {
@@ -23,6 +24,9 @@ class DatabaseLoader
 
     /** @var CI_DB */
     private $db;
+
+    /** @var CI_DB_forge */
+    private $dbforge;
 
     public function __construct(ControllerPropertyInjector $injector)
     {
@@ -53,5 +57,19 @@ class DatabaseLoader
         }
 
         return false;
+    }
+
+    public function loadDbForge(?object $db = null, bool $return): CI_DB_forge
+    {
+        if ($return) {
+            return new CI_DB_forge($db);
+        }
+
+        if ($this->dbforge === null) {
+            $this->dbforge = new CI_DB_forge();
+            $this->injector->inject('dbforge', $this->dbforge);
+        }
+
+        return $this->dbforge;
     }
 }

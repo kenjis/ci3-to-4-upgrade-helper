@@ -8,6 +8,7 @@ use App\Libraries\Validation\Field_validation;
 use App\Models\News_model;
 use App\Models\Shop\Shop_model;
 use Kenjis\CI3Compatible\Database\CI_DB;
+use Kenjis\CI3Compatible\Database\CI_DB_forge;
 use Kenjis\CI3Compatible\Library\CI_Form_validation;
 use Kenjis\CI3Compatible\Library\CI_User_agent;
 use Kenjis\CI3Compatible\TestCase;
@@ -119,6 +120,28 @@ class CI_LoaderTest extends TestCase
             $this->controller
         );
         $this->assertInstanceOf(CI_DB::class, $ret);
+    }
+
+    public function test_dbforge_loads_CI_DB_forge_and_returns_CI_Loader(): void
+    {
+        $ret = $this->loader->dbforge();
+
+        $this->assertInstanceOf(
+            CI_DB_forge::class,
+            $this->controller->dbforge
+        );
+        $this->assertInstanceOf(CI_Loader::class, $ret);
+    }
+
+    public function test_dbforge_loads_CI_DB_dbforge_and_returns_CI_DB_dbforge(): void
+    {
+        $ret = $this->loader->dbforge(null, true);
+
+        $this->assertObjectNotHasAttribute(
+            'dbforge',
+            $this->controller
+        );
+        $this->assertInstanceOf(CI_DB_forge::class, $ret);
     }
 
     public function test_library_loads_CI_Form_validation_and_returns_CI_Loader(): void

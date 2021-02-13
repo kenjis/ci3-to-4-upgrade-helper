@@ -20,6 +20,8 @@ use Kenjis\CI3Compatible\Core\Loader\HelperLoader;
 use Kenjis\CI3Compatible\Core\Loader\LibraryLoader;
 use Kenjis\CI3Compatible\Core\Loader\ModelLoader;
 use Kenjis\CI3Compatible\Database\CI_DB;
+use Kenjis\CI3Compatible\Database\CI_DB_forge;
+use Kenjis\CI3Compatible\Exception\NotImplementedException;
 
 class CI_Loader
 {
@@ -167,6 +169,31 @@ class CI_Loader
         }
 
         if ($return && $ret instanceof CI_DB) {
+            return $ret;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Load the Database Forge Class
+     *
+     * @param   object $db     Database object
+     * @param   bool   $return Whether to return the DB Forge class object or not
+     *
+     * @return  object
+     */
+    public function dbforge(?object $db = null, bool $return = false)
+    {
+        if ($db !== null) {
+            throw new NotImplementedException(
+                '$db is not implemented yet.'
+            );
+        }
+
+        $ret = $this->databaseLoader->loadDbForge($db, $return);
+
+        if ($return && $ret instanceof CI_DB_forge) {
             return $ret;
         }
 
