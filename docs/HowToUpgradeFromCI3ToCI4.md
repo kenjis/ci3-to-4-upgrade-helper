@@ -342,7 +342,8 @@ Examples:
 
 #### Validation Rules
 
-1. CI4's `valid_email` does not permit empty string. If you want to permit empty, add the rule `permit_empty`.
+1. Setting validation rules providing a constructor param array is not supported. Please convert it to `Config\Validation` class. See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#saving-sets-of-validation-rules-to-the-config-file>.
+2. CI4's `valid_email` does not permit empty string. If you want to permit empty, add the rule `permit_empty`.
 
 ### Pagination
 
