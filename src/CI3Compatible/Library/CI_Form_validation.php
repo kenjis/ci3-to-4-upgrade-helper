@@ -133,7 +133,7 @@ class CI_Form_validation
         throw new NotSupportedException(
             'CI_Form_validation::set_error_delimiters() is not supported.'
             . ' Create custom views to display errors.'
-            . ' See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.'
+            . ' See <https://github.com/kenjis/ci3-to-4-upgrade-helper/blob/1.x/docs/HowToUpgradeFromCI3ToCI4.md#form_validation>.'
         );
     }
 
