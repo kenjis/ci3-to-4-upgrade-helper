@@ -85,4 +85,13 @@ class CI_Form_validationTest extends TestCase
             $error_array['title']
         );
     }
+
+    public function test_error_string(): void
+    {
+        $validation = $this->createFormValidation();
+
+        $this->expectException(NotSupportedException::class);
+
+        $validation->error_string();
+    }
 }

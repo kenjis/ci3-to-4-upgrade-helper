@@ -229,4 +229,23 @@ class CI_Form_validation
     {
         return $this->validation->getErrors();
     }
+
+    /**
+     * Error String
+     *
+     * Returns the error messages as a string, wrapped in the error delimiters
+     *
+     * @param   string
+     * @param   string
+     *
+     * @return  string
+     */
+    public function error_string()
+    {
+        throw new NotSupportedException(
+            'CI_Form_validation::error_string() is not supported.'
+            . ' Use error_array() instead.'
+            . ' See <https://github.com/kenjis/ci3-to-4-upgrade-helper/blob/1.x/docs/HowToUpgradeFromCI3ToCI4.md#form_validation>.'
+        );
+    }
 }
