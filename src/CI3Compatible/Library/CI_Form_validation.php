@@ -45,9 +45,9 @@ class CI_Form_validation
     {
         if (is_array($config)) {
             throw new NotSupportedException(
-                'Setting validation rules with an array is not supported.'
+                'Setting validation rules with a constructor array is not supported.'
                 . ' Please convert it to `Config\Validation` class.'
-                . ' See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#saving-sets-of-validation-rules-to-the-config-file>.'
+                . ' See <https://github.com/kenjis/ci3-to-4-upgrade-helper/blob/1.x/docs/HowToUpgradeFromCI3ToCI4.md#validation-rules>.'
             );
         }
 
@@ -151,7 +151,7 @@ class CI_Form_validation
     public function set_message(): void
     {
         throw new NotSupportedException(
-            'set_message() is not supported.'
+            'CI_Form_validation::set_message() is not supported.'
             . ' See <https://github.com/kenjis/ci3-to-4-upgrade-helper/blob/1.x/docs/HowToUpgradeFromCI3ToCI4.md#form_validation>.'
         );
     }
