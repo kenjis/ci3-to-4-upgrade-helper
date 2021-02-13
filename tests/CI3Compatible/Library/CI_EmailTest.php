@@ -150,6 +150,6 @@ class CI_EmailTest extends TestCase
     {
         parent::tearDown();
 
-        Services::reset();
+        Services::reset(true);
     }
 }

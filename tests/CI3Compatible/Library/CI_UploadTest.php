@@ -55,7 +55,7 @@ class CI_UploadTest extends TestCase
     {
         parent::tearDown();
 
-        Services::reset();
+        Services::reset(true);
     }
 
     public function test_create_instance(): void

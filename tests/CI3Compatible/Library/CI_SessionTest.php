@@ -49,7 +49,7 @@ class CI_SessionTest extends TestCase
     {
         parent::tearDown();
 
-        Services::reset();
+        Services::reset(true);
     }
 
     private function createCI4Session($options = []): Session
