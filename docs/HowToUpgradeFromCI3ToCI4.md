@@ -312,6 +312,16 @@ class Seeder
 - The CI3 methods to customize error output are not supported.
 - Create your own templates, and configure it in `app/Config/Validation.php`.
 - See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display>.
+- `error_string()` is also not supported. Use `error_array()` instead, if you really need it.
+
+Example:
+```php
+array_reduce($this->form_validation->error_array(), function ($carry, $item) {
+    $carry .= '<p>'.$item.'</p>';
+    return $carry;
+});
+```
+
 - If you need more than one template for `list` or `single`, please use CI4's native methods and pass your template name.
 
 Examples:
