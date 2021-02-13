@@ -217,4 +217,16 @@ class CI_Form_validation
 
         return $this;
     }
+
+    /**
+     * Get Array of Error Messages
+     *
+     * Returns the error messages as an array
+     *
+     * @return  array
+     */
+    public function error_array(): array
+    {
+        return $this->validation->getErrors();
+    }
 }

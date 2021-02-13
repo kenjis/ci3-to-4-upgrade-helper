@@ -30,7 +30,10 @@ class CI_Form_validationTest extends TestCase
     {
         $request = $this->getDouble(
             IncomingRequest::class,
-            ['getMethod' => 'post']
+            [
+                'getMethod' => 'post',
+                'getLocale' => 'en',
+            ]
         );
         Services::injectMock('request', $request);
 
@@ -53,7 +56,7 @@ class CI_Form_validationTest extends TestCase
         $this->assertSame($rules, $ci4Validation->getRules());
     }
 
-    public function test_run(): void
+    public function test_run_success(): void
     {
         $validation = $this->createFormValidation();
 
@@ -63,5 +66,23 @@ class CI_Form_validationTest extends TestCase
         $ret = $validation->set_data($data)->run();
 
         $this->assertTrue($ret);
+    }
+
+    public function test_error_array(): void
+    {
+        $validation = $this->createFormValidation();
+
+        $validation->set_rules('title', 'Title', 'required');
+
+        $data = ['title' => ''];
+        $ret = $validation->set_data($data)->run();
+
+        $this->assertFalse($ret);
+
+        $error_array = $validation->error_array();
+        $this->assertEquals(
+            'The Title field is required.',
+            $error_array['title']
+        );
     }
 }
