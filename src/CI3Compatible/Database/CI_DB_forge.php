@@ -21,8 +21,14 @@ class CI_DB_forge
     /** @var Forge */
     protected $forge;
 
-    public function __construct()
+    /**
+     * @param   object $db Database object
+     *
+     * @return  void
+     */
+    public function __construct(?object $db = null)
     {
+        $db;    // @TODO not implemented yet
         $this->forge = Database::forge();
     }
 
