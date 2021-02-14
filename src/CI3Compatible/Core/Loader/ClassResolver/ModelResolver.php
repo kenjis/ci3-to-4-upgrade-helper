@@ -17,6 +17,8 @@ use Kenjis\CI3Compatible\Core\Loader\InSubDir;
 
 use function explode;
 use function implode;
+use function strlen;
+use function substr;
 use function ucfirst;
 
 class ModelResolver
@@ -28,6 +30,10 @@ class ModelResolver
 
     public function resolve(string $model): string
     {
+        if ($this->isFQCN($model)) {
+            return $model;
+        }
+
         if ($this->inSubDir($model)) {
             $parts = explode('/', $model);
 
@@ -39,5 +45,14 @@ class ModelResolver
         }
 
         return $this->namespace . '\\' . ucfirst($model);
+    }
+
+    private function isFQCN(string $model): bool
+    {
+        if (substr($model, 0, strlen($this->namespace)) === $this->namespace) {
+            return true;
+        }
+
+        return false;
     }
 }
