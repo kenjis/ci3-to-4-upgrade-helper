@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core;
 
+use CodeIgniter\HTTP\Response;
+use Config\App;
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
 use Kenjis\CI3Compatible\TestCase;
@@ -55,6 +57,18 @@ class CI_OutputTest extends TestCase
             'Cache-Control: cache',
             (string) $response->header('Cache-Control')
         );
+    }
+
+    public function test_get_output(): void
+    {
+        $response = new Response(new App());
+        $body = 'This is HTTP body.';
+        $response->setBody($body);
+        Services::injectMock('response', $response);
+
+        $output = $this->output->get_output();
+
+        $this->assertSame($body, $output);
     }
 
     public function test_enable_profiler(): void

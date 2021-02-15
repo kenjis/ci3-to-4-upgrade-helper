@@ -53,6 +53,20 @@ class CI_Output
     }
 
     /**
+     * Get Output
+     *
+     * Returns the current output string.
+     *
+     * @return  string
+     */
+    public function get_output(): string
+    {
+        $response = Services::response();
+
+        return $response->getBody();
+    }
+
+    /**
      * Enable/disable Profiler
      *
      * @return  CI_Output
