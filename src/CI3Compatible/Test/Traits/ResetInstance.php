@@ -22,7 +22,7 @@ use function get_instance;
 trait ResetInstance
 {
     /** @var string */
-    protected $controller_class = 'App\Controllers\MY_Controller';
+    protected $controllerClass = 'App\Controllers\MY_Controller';
 
     /** @var CI_Controller */
     protected $CI;
@@ -30,11 +30,11 @@ trait ResetInstance
     /**
      * Reset CodeIgniter instance and assign new CodeIgniter instance as $this->CI
      */
-    public function resetInstance(bool $use_my_controller = false): void
+    public function resetInstance(bool $useMyController = false): void
     {
         new CoreLoader();
 
-        $this->createCodeIgniterInstance($use_my_controller);
+        $this->createCodeIgniterInstance($useMyController);
         $this->CI =& get_instance();
     }
 
@@ -50,10 +50,10 @@ trait ResetInstance
     }
 
     public function createCodeIgniterInstance(
-        bool $use_my_controller = false
+        bool $useMyController = false
     ): CI_Controller {
-        if ($use_my_controller) {
-            return new $this->controller_class();
+        if ($useMyController) {
+            return new $this->controllerClass();
         }
 
         return new CI_Controller();

@@ -31,13 +31,13 @@ trait FeatureTest
     /**
      * Request to Controller
      *
-     * @param string       $http_method HTTP method
-     * @param array|string $argv        array of controller,method,arg|uri
-     * @param array        $params      POST parameters/Query string
+     * @param string       $httpMethod HTTP method
+     * @param array|string $argv       array of controller,method,arg|uri
+     * @param array        $params     POST parameters/Query string
      */
-    public function request(string $http_method, $argv, array $params = [])
+    public function request(string $httpMethod, $argv, array $params = [])
     {
-        return $this->request->request($http_method, $argv, $params);
+        return $this->request->request($httpMethod, $argv, $params);
     }
 
     /**

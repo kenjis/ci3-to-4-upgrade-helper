@@ -56,14 +56,14 @@ class TestRequest
     /**
      * Request to Controller
      *
-     * @param string       $http_method HTTP method
-     * @param array|string $argv        array of controller,method,arg|uri
-     * @param array|string $params      POST params/GET params|raw_input_stream
+     * @param string       $httpMethod HTTP method
+     * @param array|string $argv       array of controller,method,arg|uri
+     * @param array|string $params     POST params/GET params|raw_input_stream
      */
-    public function request(string $http_method, $argv, $params = [])
+    public function request(string $httpMethod, $argv, $params = [])
     {
         $this->result = $this->testCase->withSession($_SESSION)->call(
-            strtolower($http_method),
+            strtolower($httpMethod),
             $argv,
             $params
         );
