@@ -51,7 +51,8 @@
             "App\\": [
                 "tests/App",
                 "vendor/codeigniter4/codeigniter4/app"
-            ]
+            ],
+            "Tests\\Support\\": "vendor/codeigniter4/codeigniter4/admin/starter/tests/_support"
         }
     },
     "scripts": {
