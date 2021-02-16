@@ -41,15 +41,15 @@ class ControllerPropertyInjectorTest extends TestCase
         $controller = new News();
         $injector = new ControllerPropertyInjector($controller);
 
-        $input = new CI_Input();
-        $output = new CI_Output();
+        $form_validation = new CI_Form_validation();
+        $email = new CI_Email();
         $instances = [
-            'input' => $input,
-            'output' => $output,
+            'form_validation' => $form_validation,
+            'email' => $email,
         ];
         $injector->injectMultiple($instances);
 
-        $this->assertSame($input, $controller->input);
-        $this->assertSame($output, $controller->output);
+        $this->assertSame($form_validation, $controller->form_validation);
+        $this->assertSame($email, $controller->email);
     }
 }
