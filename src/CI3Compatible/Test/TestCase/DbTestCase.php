@@ -21,4 +21,11 @@ class DbTestCase extends DatabaseTestCase
 {
     use ResetInstance;
     use TestDouble;
+
+    /**
+     * Should run db migration?
+     *
+     * @var bool
+     */
+    protected $migrate = false;
 }
