@@ -14,6 +14,10 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core\Loader;
 
 use Kenjis\CI3Compatible\Core\CI_Controller;
+use Kenjis\CI3Compatible\Internal\DebugLog;
+
+use function get_class;
+use function property_exists;
 
 class ControllerPropertyInjector
 {
@@ -27,6 +31,13 @@ class ControllerPropertyInjector
 
     public function inject(string $property, object $obj): void
     {
+        if (property_exists($this->controller, $property)) {
+            $message = get_class($this->controller) . '::$' . $property . ' already exists';
+            DebugLog::log(__METHOD__, $message);
+
+            return;
+        }
+
         $this->controller->$property = $obj;
     }
 
