@@ -19,7 +19,6 @@ use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
 use function is_array;
-use function session_destroy;
 
 class CI_Session
 {
@@ -162,6 +161,6 @@ class CI_Session
      */
     public function sess_destroy(): void
     {
-        session_destroy();
+        $this->session->destroy();
     }
 }
