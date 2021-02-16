@@ -114,6 +114,7 @@ class TestRequest
     public function assertRedirect(string $uri, ?int $code = null): void
     {
         // @TODO check URI
+        $uri;
         $this->result->assertRedirect();
 
         if ($code === null) {
