@@ -26,5 +26,10 @@ class FeatureTestCase extends CI4FeatureTestCase
     use SessionTest;
     use TestDouble;
 
+    /**
+     * Should run db migration?
+     *
+     * @var bool
+     */
     protected $migrate = false;
 }
