@@ -6,7 +6,7 @@ namespace CodeIgniter\HTTP\Files;
 
 use Config\Services;
 use Kenjis\CI3Compatible\Library\CI_Upload;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 

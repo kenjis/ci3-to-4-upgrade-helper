@@ -8,7 +8,7 @@ use App\Controllers\News;
 use Kenjis\CI3Compatible\Core\CI_Input;
 use Kenjis\CI3Compatible\Core\CI_Output;
 use Kenjis\CI3Compatible\Library\CI_Form_validation;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class ControllerPropertyInjectorTest extends TestCase
 {

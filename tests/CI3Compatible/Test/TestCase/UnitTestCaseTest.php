@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Test\TestCase;
 
 use App\Controllers\Test;
 use App\Models\News_model;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class UnitTestCaseTest extends TestCase
 {

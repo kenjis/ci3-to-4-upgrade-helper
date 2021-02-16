@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 
 use App\Controllers\News;
 use Kenjis\CI3Compatible\Database\CI_DB;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class DatabaseLoaderTest extends TestCase
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Library;
 
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class CI_ParserTest extends TestCase
 {

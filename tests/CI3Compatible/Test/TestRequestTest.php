@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Test;
 
 use App\Controllers\Test;
 use CodeIgniter\Test\FeatureTestCase;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 use function property_exists;
 

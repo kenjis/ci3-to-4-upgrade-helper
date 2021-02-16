@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core\Loader\ClassResolver;
 
 use Kenjis\CI3Compatible\Library\CI_Form_validation;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class LibaryResolverTest extends TestCase
 {

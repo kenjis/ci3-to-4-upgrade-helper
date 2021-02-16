@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Library;
 
 use App\Database\Seeds\CategorySeeder;
 use Config\Database;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class SeederTest extends TestCase
 {

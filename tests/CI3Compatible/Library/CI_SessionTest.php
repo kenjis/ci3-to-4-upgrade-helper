@@ -11,7 +11,7 @@ use CodeIgniter\Test\TestLogger;
 use Config\App as AppConfig;
 use Config\Logger;
 use Config\Services;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 use function array_merge;
 

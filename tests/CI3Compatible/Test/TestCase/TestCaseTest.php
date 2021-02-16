@@ -7,7 +7,7 @@ namespace Kenjis\CI3Compatible\Test\TestCase;
 use App\Controllers\MY_Controller;
 use Kenjis\CI3Compatible\Core\CI_Controller;
 use Kenjis\CI3Compatible\Test\TestCase\TestCase as CI3TestCase;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 use function get_instance;
 

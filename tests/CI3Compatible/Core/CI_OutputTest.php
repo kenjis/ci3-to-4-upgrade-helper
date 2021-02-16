@@ -8,7 +8,7 @@ use CodeIgniter\HTTP\Response;
 use Config\App;
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class CI_OutputTest extends TestCase
 {

@@ -7,7 +7,7 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 use App\Controllers\News;
 use CodeIgniter\Config\Factories;
 use CodeIgniter\Model;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class ModelLoaderTest extends TestCase
 {

@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Core\Loader;
 
 use App\Controllers\News;
 use Kenjis\CI3Compatible\Library\CI_Form_validation;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class LibraryLoaderTest extends TestCase
 {

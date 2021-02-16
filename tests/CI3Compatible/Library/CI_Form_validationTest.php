@@ -7,7 +7,7 @@ namespace Kenjis\CI3Compatible\Library;
 use CodeIgniter\HTTP\IncomingRequest;
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class CI_Form_validationTest extends TestCase
 {

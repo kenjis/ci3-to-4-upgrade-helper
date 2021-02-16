@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Test\Traits;
 
 use App\Controllers\MY_Controller;
 use Kenjis\CI3Compatible\Core\CI_Controller;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class ResetInstanceTest extends TestCase

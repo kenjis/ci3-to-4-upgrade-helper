@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core;
 
 use Kenjis\CI3Compatible\Exception\RuntimeException;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class CI_ConfigTest extends TestCase
 {

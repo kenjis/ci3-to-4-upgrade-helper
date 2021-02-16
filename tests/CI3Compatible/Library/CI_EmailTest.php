@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Library;
 
 use CodeIgniter\Email\Email;
 use Config\Services;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class CI_EmailTest extends TestCase
 {

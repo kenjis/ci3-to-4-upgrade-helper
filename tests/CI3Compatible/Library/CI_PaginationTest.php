@@ -6,7 +6,7 @@ namespace Kenjis\CI3Compatible\Library;
 
 use CodeIgniter\HTTP\URI;
 use Config\Services;
-use Kenjis\CI3Compatible\TestCase;
+use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 class CI_PaginationTest extends TestCase
 {
