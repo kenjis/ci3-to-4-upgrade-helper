@@ -45,8 +45,9 @@ trait UnitTest
         $this->CI->load->model($classname);
 
         // Is the model in a sub-folder?
-        if (($last_slash = strrpos($classname, '/')) !== false) {
-            $classname = substr($classname, ++$last_slash);
+        $lastSlash = strrpos($classname, '/');
+        if ($lastSlash !== false) {
+            $classname = substr($classname, ++$lastSlash);
         }
 
         return $this->CI->$classname;
