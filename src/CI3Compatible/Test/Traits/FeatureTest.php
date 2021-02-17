@@ -15,6 +15,9 @@ namespace Kenjis\CI3Compatible\Test\Traits;
 
 use Kenjis\CI3Compatible\Test\TestRequest;
 
+/**
+ * @internal
+ */
 trait FeatureTest
 {
     /** @var TestRequest */

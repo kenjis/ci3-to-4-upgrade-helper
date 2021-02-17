@@ -19,6 +19,9 @@ use Kenjis\CI3Compatible\Core\CoreLoader;
 
 use function get_instance;
 
+/**
+ * @internal
+ */
 trait ResetInstance
 {
     /** @var string */
