@@ -160,6 +160,8 @@ class News_model extends CI_Model
 
 See [How to Upgrade from CI3 to CI4](docs/HowToUpgradeFromCI3ToCI4.md).
 
+If you have test code with [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test), see [How to Upgrade Test Code from CI3 to CI4](docs/HowToUpgradeTestCodeFromCI3ToCI4.md).
+
 ## For Development
 
 ### Installation

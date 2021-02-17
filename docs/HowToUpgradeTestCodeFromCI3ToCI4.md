@@ -1,0 +1,107 @@
+# How to Upgrade Test Code from CI3 to CI4
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Premise](#premise)
+- [TestCase classes](#testcase-classes)
+  - [FeatureTestCase](#featuretestcase)
+  - [Test Traits](#test-traits)
+- [Service Locator Config\Services](#service-locator-config%5Cservices)
+- [reset_instance()](#reset_instance)
+- [Controllers](#controllers)
+  - [Send Request and Use Mocks](#send-request-and-use-mocks)
+- [Create Mocks](#create-mocks)
+  - [$this->getDouble()](#this-getdouble)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Premise
+
+- You have test code with [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test) for your CodeIgniter3 application.
+- You have upgraded the CodeIgniter3 application with *ci3-to-4-upgrade-helper*.
+
+## TestCase classes
+
+*ci3-to-4-upgrade-helper* provides TestCase classes. 
+
+The TestCase classes of *ci-phpunit-test* correspond to the following classes:
+- `TestCase` → `Kenjis\CI3Compatible\Test\TestCase\TestCase`
+- `DbTestCase` → `Kenjis\CI3Compatible\Test\TestCase\DbTestCase`
+- `UnitTestCase` → `Kenjis\CI3Compatible\Test\TestCase\UnitTestCase`
+
+### FeatureTestCase
+
+*ci3-to-4-upgrade-helper* introduces a new TestCase that corresponds to CI4's [FeatureTestCase](https://codeigniter4.github.io/CodeIgniter4/testing/feature.html#the-test-class).
+
+- `Kenjis\CI3Compatible\Test\TestCase\FeatureTestCase`
+
+If you use `$this->request`, use it instead of `TestCase`.
+
+### Test Traits
+
+*ci3-to-4-upgrade-helper* also provides Traits for testing.
+
+- `Kenjis\CI3Compatible\Test\Traits\SessionTest`
+  - Provides the mock session
+- `Kenjis\CI3Compatible\Test\Traits\UnitTest`
+  - Provides `$this->newController()`, `$this->newModel()`
+
+## Service Locator Config\Services
+
+CI4's [`Config\Services`](https://codeigniter4.github.io/CodeIgniter4/concepts/services.html) is a service locator which provides instances of the CI4 framework class. It keeps shared instances including core classes.
+
+The state of `Config\Services` may change test results. If you think you must reset the state, use `$this->resetServices()` that *ci3-to-4-upgrade-helper* provides.
+
+## reset_instance()
+
+`reset_instance()` is not needed now. If you need to reset, just use `$this->resetInstance()`.
+
+## Controllers
+
+### Send Request and Use Mocks
+
+If you use `$this->request->setCallable()` or `$this->request->addCallable()`, add the `post_controller_constructor` *Event* in `app/Config/Events.php`.
+
+```php
+use Kenjis\CI3Compatible\Test\TestRequest;
+
+Events::on('post_controller_constructor', function () {
+    if (ENVIRONMENT === 'testing') {
+        $testRequest = TestRequest::getInstance();
+
+        $testRequest->runCallables();
+    }
+});
+```
+
+## Create Mocks
+
+### $this->getDouble()
+
+1. Install <https://github.com/kenjis/phpunit-helper>.
+2. Update to namespaced classnames.
+
+Example:
+```php
+$email = $this->getDouble('CI_Email', ['send' => true]);
+```
+↓
+```php
+use Kenjis\CI3Compatible\Library\CI_Email;
+
+$email = $this->getDouble(CI_Email::class, ['send' => true]);
+```
+
+3. Disabling constructor may cause errors. If you get an error, try to set `true` in the third argument.
+
+Example:
+```php
+$email = $this->getDouble(CI_Email::class, ['send' => true]);
+```
+↓
+```php
+$email = $this->getDouble(CI_Email::class, ['send' => true], true);
+```
