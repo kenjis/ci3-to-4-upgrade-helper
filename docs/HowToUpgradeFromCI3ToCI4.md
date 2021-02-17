@@ -126,7 +126,9 @@ See <https://codeigniter4.github.io/CodeIgniter4/general/configuration.html#crea
 Example:
 ```php
 $this->config->load('config_shop');
+```
 ↓
+```php
 $this->config->load('ConfigShop');
 ```
 
