@@ -58,7 +58,7 @@ class CI_Input
             throw new NotSupportedException(
                 '$xss_clean is not supported.'
                 . ' Preventing XSS should be performed on output, not input!'
-                . 'Use esc() <https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html#esc> instead.'
+                . ' Use esc() <https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html#esc> instead.'
             );
         }
     }
