@@ -6,6 +6,8 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Premise](#premise)
+- [Setup](#setup)
+  - [phpunit.xml](#phpunitxml)
 - [TestCase classes](#testcase-classes)
   - [FeatureTestCase](#featuretestcase)
   - [Test Traits](#test-traits)
@@ -22,6 +24,35 @@
 
 - You have test code with [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test) for your CodeIgniter3 application.
 - You have upgraded the CodeIgniter3 application with *ci3-to-4-upgrade-helper*.
+
+## Setup
+
+### phpunit.xml
+
+- Use the bootstrap file provided by *ci3-to-4-upgrade-helper*.
+- If your test case file name suffixed `_test.php`, change the testsuite settings.
+
+Example:
+```diff
+--- a/phpunit.xml.dist
++++ b/phpunit.xml.dist
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-       bootstrap="vendor/codeigniter4/framework/system/Test/bootstrap.php"
++       bootstrap="vendor/kenjis/ci3-to-4-upgrade-helper/src/CI3Compatible/Test/bootstrap.php"
+        backupGlobals="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+@@ -29,6 +29,7 @@
+    <testsuites>
+        <testsuite name="App">
+            <directory>./tests</directory>
++           <directory suffix="_test.php">./tests/app</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+```
 
 ## TestCase classes
 
