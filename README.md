@@ -4,6 +4,7 @@ This project helps you upgrade your CodeIgniter3 apps to CodeIgniter4.
 
 - The goal is to reduce upgrade costs.
 - It provides compatible interfaces for common use cases in CodeIgniter3 apps.
+- It also provides compatible interfaces to test code using [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test).
 - It does not aim to be 100% compatible.
 - **This project is under early development.**
 - **This project is under early development.**
