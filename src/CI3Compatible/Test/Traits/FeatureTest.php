@@ -38,7 +38,7 @@ trait FeatureTest
      * @param array|string $argv       array of controller,method,arg|uri
      * @param array        $params     POST parameters/Query string
      */
-    public function request(string $httpMethod, $argv, array $params = [])
+    public function request(string $httpMethod, $argv, array $params = []): string
     {
         return $this->request->request($httpMethod, $argv, $params);
     }
