@@ -23,6 +23,29 @@ class DbTestCase extends DatabaseTestCase
     use TestDouble;
 
     /**
+     * Should run seeding only once?
+     *
+     * @var bool
+     */
+    protected $seedOnce = false;
+
+    /**
+     * The seed file(s) used for all tests within this test case.
+     * Should be fully-namespaced or relative to $basePath
+     *
+     * @var string|array
+     */
+    protected $seed = [];
+
+    /**
+     * The path to the seeds directory.
+     * Allows overriding the default application directories.
+     *
+     * @var string
+     */
+    protected $basePath = SUPPORTPATH . 'Database/';
+
+    /**
      * Should run db migration?
      *
      * @var bool

@@ -63,6 +63,10 @@ The TestCase classes of *ci-phpunit-test* correspond to the following classes:
 - `DbTestCase` → `Kenjis\CI3Compatible\Test\TestCase\DbTestCase`
 - `UnitTestCase` → `Kenjis\CI3Compatible\Test\TestCase\UnitTestCase`
 
+### DbTestCase
+
+If you want to use database seeding, use `DbTestCase`. And define the property `$seed`, `$seedOnce` and `$basePath` that you need. See <https://codeigniter4.github.io/CodeIgniter4/testing/database.html#migrations-and-seeds>.
+
 ### FeatureTestCase
 
 *ci3-to-4-upgrade-helper* introduces a new TestCase that corresponds to CI4's [FeatureTestCase](https://codeigniter4.github.io/CodeIgniter4/testing/feature.html#the-test-class).
