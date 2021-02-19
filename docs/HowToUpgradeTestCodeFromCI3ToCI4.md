@@ -84,6 +84,19 @@ If you use `$this->request`, use it instead of `TestCase`.
 - `Kenjis\CI3Compatible\Test\Traits\UnitTest`
   - Provides `$this->newController()`, `$this->newModel()`
 
+### setUp()
+
+If you call `setUp()` of PHPUnit, make sure to call `parent::setUp()`.
+
+```php
+     public function setUp(): void
+     {
+        parent::setUp();
+
+        ...
+     }
+```
+
 ## Service Locator Config\Services
 
 CI4's [`Config\Services`](https://codeigniter4.github.io/CodeIgniter4/concepts/services.html) is a service locator which provides instances of the CI4 framework class. It keeps shared instances including core classes.
