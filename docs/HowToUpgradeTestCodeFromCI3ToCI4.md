@@ -19,6 +19,8 @@
   - [Send Request and Use Mocks](#send-request-and-use-mocks)
 - [Create Mocks](#create-mocks)
   - [$this->getDouble()](#this-getdouble)
+- [Test Failures](#test-failures)
+  - [Verify Method Invocation](#verify-method-invocation)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -154,4 +156,29 @@ $email = $this->getDouble(CI_Email::class, ['send' => true]);
 ↓
 ```php
 $email = $this->getDouble(CI_Email::class, ['send' => true], true);
+```
+
+## Test Failures
+
+### Verify Method Invocation
+
+Verification of whether a method has been executed may fail as the default value of the parameter has been changed.
+
+Example:
+```diff
+--- a/tests/app/models/News_model_with_mocks_test.php
++++ b/tests/app/models/News_model_with_mocks_test.php
+@@ -128,9 +128,9 @@ class News_model_with_mocks_test extends TestCase
+         $input->expects($this->any())->method('post')
+             ->willReturnMap(
+                 [
+-                    // post($index = NULL, $xss_clean = NULL)
+-                    ['title', null, 'News Title'],
+-                    ['text',  null, 'News Text'],
++                    // post($index = NULL, $xss_clean = FALSE)
++                    ['title', false, 'News Title'],
++                    ['text',  false, 'News Text'],
+                 ]
+             );
+ 
 ```
