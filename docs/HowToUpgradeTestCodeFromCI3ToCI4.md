@@ -6,11 +6,13 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Premise](#premise)
-- [Setup](#setup)
+- [Setup PHPUnit](#setup-phpunit)
   - [phpunit.xml](#phpunitxml)
 - [TestCase classes](#testcase-classes)
+  - [DbTestCase](#dbtestcase)
   - [FeatureTestCase](#featuretestcase)
   - [Test Traits](#test-traits)
+  - [setUp()](#setup)
 - [Service Locator Config\Services](#service-locator-config%5Cservices)
 - [reset_instance()](#reset_instance)
 - [Controllers](#controllers)
@@ -25,7 +27,7 @@
 - You have test code with [ci-phpunit-test](https://github.com/kenjis/ci-phpunit-test) for your CodeIgniter3 application.
 - You have upgraded the CodeIgniter3 application with *ci3-to-4-upgrade-helper*.
 
-## Setup
+## Setup PHPUnit
 
 ### phpunit.xml
 
