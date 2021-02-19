@@ -53,4 +53,14 @@ trait FeatureTest
     {
         $this->request->assertRedirect($uri, $code);
     }
+
+    /**
+     * Asserts HTTP response code
+     *
+     * @param int $code
+     */
+    public function assertResponseCode(int $code)
+    {
+        $this->request->assertStatus($code);
+    }
 }

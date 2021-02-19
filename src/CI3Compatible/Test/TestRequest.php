@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Test;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\HTTP\Response;
 use CodeIgniter\Test\FeatureResponse;
 use CodeIgniter\Test\FeatureTestCase;
+use Config\App;
 use Kenjis\CI3Compatible\Test\TestCase\TestCase;
 
 use function get_instance;
@@ -62,11 +65,19 @@ class TestRequest
      */
     public function request(string $httpMethod, $argv, $params = []): string
     {
-        $this->result = $this->testCase->withSession($_SESSION)->call(
-            strtolower($httpMethod),
-            $argv,
-            $params
-        );
+        try {
+            $this->result = $this->testCase->withSession($_SESSION)->call(
+                strtolower($httpMethod),
+                $argv,
+                $params
+            );
+        } catch (PageNotFoundException $e) {
+            $response = new Response(new App());
+            $response->setStatusCode(404);
+            $response->setBody('');
+
+            $this->result = new FeatureResponse($response);
+        }
 
         return $this->result->response->getBody();
     }
@@ -121,6 +132,14 @@ class TestRequest
             return;
         }
 
+        $this->result->assertStatus($code);
+    }
+
+    /**
+     * Asserts that the status is a specific value.
+     */
+    public function assertStatus(int $code): void
+    {
         $this->result->assertStatus($code);
     }
 }
