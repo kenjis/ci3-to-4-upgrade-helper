@@ -23,6 +23,9 @@ use Kenjis\CI3Compatible\Database\CI_DB;
 use Kenjis\CI3Compatible\Database\CI_DB_forge;
 use Kenjis\CI3Compatible\Exception\NotImplementedException;
 
+use function assert;
+use function is_object;
+
 class CI_Loader
 {
     /** @var CoreLoader */
@@ -52,6 +55,12 @@ class CI_Loader
 
     public function setController(CI_Controller $controller): void
     {
+        assert(
+            is_object($this->coreLoader),
+            '$coreLoader is not set.'
+            . ' Please call CI_Loader::__construct().'
+        );
+
         $injector = new ControllerPropertyInjector($controller);
 
         $this->coreLoader->injectToController($injector);
@@ -121,6 +130,12 @@ class CI_Loader
         string $name = '',
         $db_conn = false
     ): self {
+        assert(
+            is_object($this->modelLoader),
+            'Controller is not set.'
+            . ' Please call CI_Loader::setController() before calling database().'
+        );
+
         if ($db_conn !== false) {
             if ($db_conn === true) {
                 $db_conn = '';
@@ -141,6 +156,12 @@ class CI_Loader
      */
     public function helper($helpers = []): self
     {
+        assert(
+            is_object($this->helperLoader),
+            'Controller is not set.'
+            . ' Please call CI_Loader::setController() before calling helper().'
+        );
+
         $this->helperLoader->load($helpers);
 
         return $this;
@@ -162,6 +183,12 @@ class CI_Loader
         bool $return = false,
         ?bool $query_builder = null
     ) {
+        assert(
+            is_object($this->databaseLoader),
+            'Controller is not set.'
+            . ' Please call CI_Loader::setController() before calling database().'
+        );
+
         $ret = $this->databaseLoader->load($params, $return, $query_builder);
 
         if ($ret === false) {
@@ -185,6 +212,12 @@ class CI_Loader
      */
     public function dbforge(?object $db = null, bool $return = false)
     {
+        assert(
+            is_object($this->databaseLoader),
+            'Controller is not set.'
+            . ' Please call CI_Loader::setController() before calling database().'
+        );
+
         if ($db !== null) {
             throw new NotImplementedException(
                 '$db is not implemented yet.'
@@ -217,6 +250,12 @@ class CI_Loader
         ?array $params = null,
         ?string $object_name = null
     ): self {
+        assert(
+            is_object($this->libraryLoader),
+            'Controller is not set.'
+            . ' Please call CI_Loader::setController() before calling database().'
+        );
+
         $this->libraryLoader->load($library, $params, $object_name);
 
         return $this;
