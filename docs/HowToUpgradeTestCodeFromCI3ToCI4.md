@@ -158,6 +158,26 @@ $email = $this->getDouble(CI_Email::class, ['send' => true]);
 $email = $this->getDouble(CI_Email::class, ['send' => true], true);
 ```
 
+## Monkey Patching
+
+1. Install <https://github.com/kenjis/monkey-patch>.
+2. Copy `vendor/kenjis/ci3-to-4-upgrade-helper/src/CI3Compatible/Test/bootstrap.php` to `tests/bootstrap.php`
+3. Configure Monkey Patch in `tests/bootstrap.php`.
+4. Change the PHPUnit `bootstrap` file.
+
+```diff
+--- a/phpunit.xml.dist
++++ b/phpunit.xml.dist
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-  bootstrap="vendor/kenjis/ci3-to-4-upgrade-helper/src/CI3Compatible/Test/bootstrap.php"
++  bootstrap="tests/bootstrap.php"
+   backupGlobals="false" colors="true"
+   convertErrorsToExceptions="true"
+   convertNoticesToExceptions="true"
+```
+
 ## Test Failures
 
 ### Verify Method Invocation
