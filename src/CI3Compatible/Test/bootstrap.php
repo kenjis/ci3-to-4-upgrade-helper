@@ -13,15 +13,19 @@ declare(strict_types=1);
 
 use Kenjis\CI3Compatible\Core\CI_Controller;
 
-if (loadTestBootstrap() === false) {
-    throw new RuntimeException(
-        'Cannot find "system/Test/bootstrap.php" of CI4 in ' . __FILE__
-    );
-}
-
+loadTestBootstrap();
 new CI_Controller();
 
 function loadTestBootstrap()
+{
+    if (requireTestBootstrap() === false) {
+        throw new RuntimeException(
+            'Cannot find "system/Test/bootstrap.php" of CI4 in ' . __FILE__
+        );
+    }
+}
+
+function requireTestBootstrap()
 {
     $testBootstraps = [
         __DIR__ . '/../../../../../codeigniter4/framework/system/Test/bootstrap.php',
