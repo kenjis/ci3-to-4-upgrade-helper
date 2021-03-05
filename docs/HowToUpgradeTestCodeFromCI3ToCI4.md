@@ -179,6 +179,31 @@ $email = $this->getDouble(CI_Email::class, ['send' => true], true);
    convertNoticesToExceptions="true"
 ```
 
+5. To verify invocations, add `use MonkeyPatchTrait;` in your TestCase class.
+
+Example:
+```diff
+--- a/tests/app/controllers/News_test.php
++++ b/tests/app/controllers/News_test.php
+@@ -2,6 +2,7 @@
+ 
+ use App\Database\Seeds\NewsSeeder;
+ use Kenjis\CI3Compatible\Test\TestCase\FeatureTestCase;
++use Kenjis\MonkeyPatch\Traits\MonkeyPatchTrait;
+ 
+ /**
+  * @group controller
+@@ -9,6 +10,8 @@ use Kenjis\CI3Compatible\Test\TestCase\FeatureTestCase;
+  */
+ class News_test extends FeatureTestCase
+ {
++    use MonkeyPatchTrait;
++
+     /**
+      * Should run seeding only once?
+      *
+```
+
 ## Test Failures
 
 ### Verify Method Invocation
