@@ -19,6 +19,7 @@
   - [Send Request and Use Mocks](#send-request-and-use-mocks)
 - [Create Mocks](#create-mocks)
   - [$this->getDouble()](#this-getdouble)
+- [Monkey Patching](#monkey-patching)
 - [Test Failures](#test-failures)
   - [Verify Method Invocation](#verify-method-invocation)
 
