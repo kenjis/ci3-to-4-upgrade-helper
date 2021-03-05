@@ -23,12 +23,12 @@ new CI_Controller();
 
 function loadTestBootstrap()
 {
-    $testBootsraps = [
+    $testBootstraps = [
         __DIR__ . '/../../../../../codeigniter4/framework/system/Test/bootstrap.php',
         __DIR__ . '/../../../../../codeigniter4/codeigniter4/system/Test/bootstrap.php',
     ];
 
-    foreach ($testBootsraps as $bootstrap) {
+    foreach ($testBootstraps as $bootstrap) {
         if (file_exists($bootstrap)) {
             require $bootstrap;
 
