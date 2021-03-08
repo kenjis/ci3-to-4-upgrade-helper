@@ -22,7 +22,7 @@ if (! function_exists('create_captcha')) {
      * @param   string       $img_url   URL to the CAPTCHA image folder (deprecated)
      * @param   string       $font_path Server path to font (deprecated)
      *
-     * @return  array
+     * @return  array{word: string, time: float, image: string, filename: string}
      */
     function create_captcha(
         $data = '',
