@@ -38,7 +38,6 @@
         <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
         <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint"/>
         <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint"/>
-        <!--        <exclude name=""/>-->
 
         <!-- Exclude Rules -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSame"/>
@@ -80,6 +79,7 @@
     </rule>
     <rule ref="Squiz.Commenting.FunctionComment.WrongStyle">
         <exclude-pattern>*/tests/CI3Compatible/*</exclude-pattern>
+        <exclude-pattern>src/CI3Compatible/Test/bootstrap.php</exclude-pattern>
     </rule>
 
     <!-- Exclude rules for CodeIgniter3 coding style -->
