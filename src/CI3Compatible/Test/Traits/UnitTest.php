@@ -24,6 +24,8 @@ trait UnitTest
 {
     /**
      * Create a controller instance
+     *
+     * @param class-string $classname
      */
     public function newController(string $classname): CI_Controller
     {
@@ -37,6 +39,8 @@ trait UnitTest
 
     /**
      * Create a model instance
+     *
+     * @param class-string $classname
      */
     public function newModel(string $classname): CI_Model
     {
