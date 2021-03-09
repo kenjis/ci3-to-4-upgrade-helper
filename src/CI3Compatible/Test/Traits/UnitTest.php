@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Test\Traits;
 
+use Config\Services;
 use Kenjis\CI3Compatible\Core\CI_Controller;
 use Kenjis\CI3Compatible\Core\CI_Model;
 
@@ -32,6 +33,12 @@ trait UnitTest
         $this->resetInstance();
 
         $controller = new $classname();
+        $controller->initController(
+            Services::request(),
+            Services::response(),
+            Services::logger()
+        );
+
         $this->CI =& get_instance();
 
         return $controller;
