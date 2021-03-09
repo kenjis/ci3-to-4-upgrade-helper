@@ -341,6 +341,8 @@ Examples:
 3. `set_message()`
 - If you create a custom rule, use the second param `&$error` and set the error message. See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#creating-custom-rules>.
 - Otherwise use `CI_Form_validation::setError(string $field, string $error)` that *ci3-to-4-upgrade-helper* provides. 
+4. CI4's `Validation` never changes your data.
+- If you set the rule `trim|required`, the value during validation is trimmed, but the value after validation is not trimmed. You must trim it by yourself.
 
 #### Validation Rules
 
