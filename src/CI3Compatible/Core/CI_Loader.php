@@ -87,7 +87,7 @@ class CI_Loader
      * @param bool   $return Whether to return the view output
      *                  or leave it to the Output class
      *
-     * @return    object|string
+     * @return string
      */
     public function view(string $view, array $vars = [], bool $return = false)
     {
