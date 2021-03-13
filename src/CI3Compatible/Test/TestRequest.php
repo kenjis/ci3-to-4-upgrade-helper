@@ -15,8 +15,8 @@ namespace Kenjis\CI3Compatible\Test;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\Response;
+use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\FeatureResponse;
-use CodeIgniter\Test\FeatureTestCase;
 use Config\App;
 use Kenjis\CI3Compatible\Test\TestCase\TestCase;
 
@@ -37,7 +37,7 @@ class TestRequest
     /** @var callable[] callable called post controller constructor */
     private $callables = [];
 
-    public function __construct(FeatureTestCase $testCase)
+    public function __construct(CIUnitTestCase $testCase)
     {
         self::$instance = $this;
 
