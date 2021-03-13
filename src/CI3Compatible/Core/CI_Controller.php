@@ -73,6 +73,11 @@ class CI_Controller extends BaseController
 
     public static function &get_instance(): CI_Controller
     {
+        // In case when called without instantiation
+        if (self::$instance === null) {
+            new CI_Controller();
+        }
+
         return self::$instance;
     }
 }
