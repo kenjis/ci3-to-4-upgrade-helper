@@ -153,9 +153,11 @@ class CI_DB_query_builder extends CI_DB_driver
     {
         $this->ensureQueryBuilder($table);
 
+        $ret = $this->builder->insertBatch($set, $escape, $batch_size);
+
         $this->_reset_write();
 
-        return $this->builder->insertBatch($set, $escape, $batch_size);
+        return $ret;
     }
 
     /**
