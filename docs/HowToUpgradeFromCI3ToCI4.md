@@ -20,6 +20,7 @@
   - [Copy Migration files](#copy-migration-files)
   - [Add Namespace and Use statement](#add-namespace-and-use-statement)
   - [$this->db](#this-db)
+  - [Table migrations](#table-migrations)
 - [Database Seeding](#database-seeding)
   - [Copy Seeder files](#copy-seeder-files)
   - [Add Namespace and Use statement](#add-namespace-and-use-statement-1)
@@ -195,6 +196,28 @@ class CreateBbs extends CI_Migration
 ### $this->db
 
 `$this->db` in migration files is CI4's Database connection. If you want to use CI3 compatible `$this->db`, replace it with `$this->db_` which *ci3-to-4-upgrade-helper* provides.
+
+### Table migrations
+
+The table `migrations` in CI3 is incompatible. The definition of the table for CI4 MySQL is:
+```mysql
+create table migrations
+(
+    id        bigint unsigned auto_increment primary key,
+    version   varchar(255)     not null,
+    class     varchar(255)     not null,
+    `group`   varchar(255)     not null,
+    namespace varchar(255)     not null,
+    time      int              not null,
+    batch     int(11) unsigned not null
+)
+    charset = utf8;
+```
+
+If you use the database for CI3:
+1. You must drop the table `migrations`.
+2. Create the table `migrations` for CI4.
+3. And import new migration data of CI4.
 
 ## Database Seeding
 
