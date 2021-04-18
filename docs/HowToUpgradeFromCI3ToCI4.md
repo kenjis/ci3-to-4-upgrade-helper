@@ -214,10 +214,11 @@ create table migrations
     charset = utf8;
 ```
 
-If you use the database for CI3:
-1. You must drop the table `migrations`.
+If you want to use the database you have used in CI3:
+1. You must drop (or rename) the table `migrations`.
 2. Create the table `migrations` for CI4.
-3. And import new migration data of CI4.
+3. Run the CI4 migration in the development environment or so, to create the migration data.
+4. Import the new migration data of CI4 into your production `migrations` table.
 
 ## Database Seeding
 
