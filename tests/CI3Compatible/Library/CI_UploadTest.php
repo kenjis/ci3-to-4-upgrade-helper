@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+// This namespace `CodeIgniter\HTTP\Files` is for overriding
+// `is_uploaded_file()` and `move_uploaded_file()`
+
 namespace CodeIgniter\HTTP\Files;
 
 use Config\Services;
