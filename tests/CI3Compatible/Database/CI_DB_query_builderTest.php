@@ -205,7 +205,7 @@ WHERE `id` = 1";
         $this->queryBuilder->where('slug', $slug);
         $ret = $this->queryBuilder->delete('news');
 
-        $this->assertInstanceOf(CI_DB_result::class, $ret);
+        $this->assertTrue($ret);
         $this->dontSeeInDatabase('news', ['slug' => $slug]);
     }
 
