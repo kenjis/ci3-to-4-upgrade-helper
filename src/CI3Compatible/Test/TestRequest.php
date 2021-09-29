@@ -79,7 +79,7 @@ class TestRequest
             $this->result = new FeatureResponse($response);
         }
 
-        return $this->result->response->getBody();
+        return $this->result->response()->getBody();
     }
 
     /**
