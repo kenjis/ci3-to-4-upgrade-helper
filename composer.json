@@ -11,6 +11,12 @@
             "homepage": "https://github.com/kenjis"
         }
     ],
+    "config": {
+        "preferred-install": {
+            "codeigniter4/codeigniter4": "source",
+            "*": "dist"
+        }
+    },
     "require": {
         "php": "^7.3",
         "kenjis/ci3-like-captcha": "^1.0"
