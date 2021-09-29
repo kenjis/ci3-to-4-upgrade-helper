@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/codeigniter4/codeigniter4/system/Test/bootstrap.php">
-    <testsuites>
-        <testsuite name="all">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <php>
-        <ini name="error_reporting" value="-1" />
-
-        <env name="database.tests.database" value=":memory:"/>
-        <env name="database.tests.DBDriver" value="SQLite3"/>
-    </php>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-            <exclude>
-                <file>src/CI3Compatible/Test/bootstrap.php</file>
-                <directory>src/CI3Compatible/Views</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="vendor/codeigniter4/codeigniter4/system/Test/bootstrap.php">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <exclude>
+      <file>src/CI3Compatible/Test/bootstrap.php</file>
+      <directory>src/CI3Compatible/Views</directory>
+    </exclude>
+  </coverage>
+  <testsuites>
+    <testsuite name="all">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <env name="database.tests.database" value=":memory:"/>
+    <env name="database.tests.DBDriver" value="SQLite3"/>
+  </php>
 </phpunit>
