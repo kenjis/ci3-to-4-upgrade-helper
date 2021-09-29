@@ -27,6 +27,7 @@ class ControllerPropertyInjectorTest extends TestCase
     {
         $controller = new News();
         $injector = new ControllerPropertyInjector($controller);
+        // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
         $controller->form_validation = new CI_Form_validation();
 
         $property = 'form_validation';
@@ -49,6 +50,7 @@ class ControllerPropertyInjectorTest extends TestCase
         ];
         $injector->injectMultiple($instances);
 
+        // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
         $this->assertSame($form_validation, $controller->form_validation);
         $this->assertSame($email, $controller->email);
     }
