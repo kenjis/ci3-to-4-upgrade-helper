@@ -102,7 +102,7 @@ class CI_UploadTest extends TestCase
 
         $destinationDir = $this->root->getChild('destination')->getChildren();
         $this->assertCount(1, $destinationDir);
-        $this->assertRegExp('/\.jpg\z/', $destinationDir[0]->getName());
+        $this->assertMatchesRegularExpression('/\.jpg\z/', $destinationDir[0]->getName());
     }
 
     public function test_do_upload_file_ext_tolower(): void
