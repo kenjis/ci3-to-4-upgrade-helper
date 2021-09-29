@@ -18,7 +18,7 @@
         }
     },
     "require": {
-        "php": "^7.3",
+        "php": "^7.3||^8.0",
         "kenjis/ci3-like-captcha": "^1.0"
     },
     "require-dev": {
