@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Test;
 
 use App\Controllers\Test;
-use CodeIgniter\Test\FeatureTestCase;
+use Kenjis\CI3Compatible\Test\TestCase\FeatureTestCase;
 use Kenjis\CI3Compatible\TestSupport\TestCase;
 
 use function property_exists;

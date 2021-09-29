@@ -17,6 +17,8 @@ use CodeIgniter\Database\BaseConnection;
 use Kenjis\CI3Compatible\Exception\NotImplementedException;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
 
+use function is_bool;
+
 class CI_DB_driver
 {
     /** @var BaseConnection */
@@ -78,6 +80,10 @@ class CI_DB_driver
         }
 
         $query = $this->db->query($sql, $binds);
+
+        if (is_bool($query)) {
+            return $query;
+        }
 
         return new CI_DB_result($query);
     }

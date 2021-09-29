@@ -14,11 +14,16 @@ class CI_PaginationTest extends TestCase
     {
         Services::reset(true);
 
+        $configApp = config('App');
+        $configApp->indexPage = '';
+
+        $_SERVER['REQUEST_URI'] = '/test/page/1';
         $uri = new URI('http://example.com/test/page/1');
         $request = Services::request();
         $request->uri = $uri;
 
         $pagination = new CI_Pagination();
+        // 'base_url' does not work, because CI4 Pager uses `current_url()`
         $config['base_url'] = 'http://example.com/test/page/';
         $config['total_rows'] = 200;
         $config['per_page'] = 20;

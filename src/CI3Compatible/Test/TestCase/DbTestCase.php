@@ -13,14 +13,16 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Test\TestCase;
 
+use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\DatabaseTestTrait;
 use Kenjis\CI3Compatible\Test\Traits\ResetInstance;
 use Kenjis\PhpUnitHelper\TestDouble;
-use Tests\Support\DatabaseTestCase;
 
-class DbTestCase extends DatabaseTestCase
+class DbTestCase extends CIUnitTestCase
 {
     use ResetInstance;
     use TestDouble;
+    use DatabaseTestTrait;
 
     /**
      * Should run seeding only once?
