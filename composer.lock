@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69272577ff32127b62e8a6a3d3709bd4",
+    "content-hash": "560615defc0873bc79ee169f5aaf55b8",
     "packages": [
         {
             "name": "gregwar/captcha",
@@ -432,12 +432,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/CodeIgniter4.git",
-                "reference": "b911627475da8ce0a8adf8d92ec54646de81f0c7"
+                "reference": "aff1f3af17919e06e5cec264a4c83043ea619ab4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/CodeIgniter4/zipball/b911627475da8ce0a8adf8d92ec54646de81f0c7",
-                "reference": "b911627475da8ce0a8adf8d92ec54646de81f0c7",
+                "url": "https://api.github.com/repos/codeigniter4/CodeIgniter4/zipball/aff1f3af17919e06e5cec264a4c83043ea619ab4",
+                "reference": "aff1f3af17919e06e5cec264a4c83043ea619ab4",
                 "shasum": ""
             },
             "require": {
@@ -460,7 +460,7 @@
                 "phpstan/phpstan": "^0.12.91",
                 "phpunit/phpunit": "^9.1",
                 "predis/predis": "^1.1",
-                "rector/rector": "0.11.55",
+                "rector/rector": "0.11.56",
                 "symplify/package-builder": "^9.3"
             },
             "suggest": {
@@ -518,7 +518,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "issues": "https://github.com/codeigniter4/CodeIgniter4/issues"
             },
-            "time": "2021-09-29T05:12:23+00:00"
+            "time": "2021-09-30T06:00:26+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -1333,16 +1333,16 @@
         },
         {
             "name": "kenjis/phpunit-helper",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kenjis/phpunit-helper.git",
-                "reference": "1bdd278d3322161ce4caab76a3666381c53eb442"
+                "reference": "d79bfffa8bc48254992b030780872791164188e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kenjis/phpunit-helper/zipball/1bdd278d3322161ce4caab76a3666381c53eb442",
-                "reference": "1bdd278d3322161ce4caab76a3666381c53eb442",
+                "url": "https://api.github.com/repos/kenjis/phpunit-helper/zipball/d79bfffa8bc48254992b030780872791164188e3",
+                "reference": "d79bfffa8bc48254992b030780872791164188e3",
                 "shasum": ""
             },
             "require": {
@@ -1376,9 +1376,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kenjis/phpunit-helper/issues",
-                "source": "https://github.com/kenjis/phpunit-helper/tree/v1.1.1"
+                "source": "https://github.com/kenjis/phpunit-helper/tree/v1.1.2"
             },
-            "time": "2021-09-29T02:02:43+00:00"
+            "time": "2021-09-30T04:10:16+00:00"
         },
         {
             "name": "kint-php/kint",
