@@ -46,6 +46,8 @@ jobs:
           php-version: ${{ matrix.php-version }}
           coverage: pcov
           ini-values: zend.assertions=1
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get composer cache directory
         id: composer-cache
