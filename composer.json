@@ -31,7 +31,7 @@
         "phpmetrics/phpmetrics": "^2.7",
         "doctrine/coding-standard": "^9.0",
         "friendsofphp/php-cs-fixer": "^3.4",
-        "codeigniter4/codeigniter4": "^4.1",
+        "codeigniter4/codeigniter4": "^4.1.2",
         "mikey179/vfsstream": "^1.6.10"
     },
     "repositories": [
