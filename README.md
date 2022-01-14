@@ -13,7 +13,7 @@ This project helps you upgrade your CodeIgniter3 apps to CodeIgniter4.
 
 ## Requirements
 
-- CodeIgniter 4.1.2 or later
+- CodeIgniter 4.1.3 or later
   - [ci4-app-template](https://github.com/kenjis/ci4-app-template) can be used
 - PHP 7.3 or later
 
