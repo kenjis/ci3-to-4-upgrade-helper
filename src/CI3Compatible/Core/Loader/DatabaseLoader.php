@@ -59,7 +59,7 @@ class DatabaseLoader
         return false;
     }
 
-    public function loadDbForge(?object $db = null, bool $return): CI_DB_forge
+    public function loadDbForge(?object $db, bool $return): CI_DB_forge
     {
         if ($return) {
             return new CI_DB_forge($db);
