@@ -4,5 +4,5 @@
 /phpunit.xml
 /.phpunit.result.cache
 /.phpcs-cache
-/.php_cs.cache
+/.php-cs-fixer.cache
 /.idea/
