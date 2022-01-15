@@ -156,6 +156,7 @@ class CI_Lang
         }
 
         $found = false;
+        $lang = [];
 
         foreach ($this->langPaths as $path) {
             $path .= '/' . $idiom . '/' . $langfile;
@@ -173,7 +174,7 @@ class CI_Lang
             );
         }
 
-        if (! isset($lang) || ! is_array($lang)) {
+        if ($lang === []) {
             log_message(
                 'error',
                 'Language file contains no data: ' . $idiom . '/' . $langfile
