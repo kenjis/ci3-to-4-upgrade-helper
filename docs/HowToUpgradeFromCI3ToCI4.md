@@ -50,6 +50,7 @@
     - [url_title()](#url_title)
 - [Common Functions](#common-functions)
   - [show_error()](#show_error)
+- [Language files](#language-files)
 - [Writable Paths](#writable-paths)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
