@@ -155,18 +155,7 @@ class CI_Lang
             return;
         }
 
-        $found = false;
-        $lang = [];
-
-        foreach ($this->langPaths as $path) {
-            $path .= '/' . $idiom . '/' . $langfile;
-
-            if (file_exists($path)) {
-                include $path;
-                $found = true;
-                break;
-            }
-        }
+        [$lang, $found] = $this->loadLangFile($idiom, $langfile);
 
         if ($found !== true) {
             throw new LogicException(
@@ -220,6 +209,24 @@ class CI_Lang
         }
 
         return $idiom;
+    }
+
+    private function loadLangFile(string $idiom, string $langfile): array
+    {
+        $lang = [];
+        $found = false;
+
+        foreach ($this->langPaths as $path) {
+            $path .= '/' . $idiom . '/' . $langfile;
+
+            if (file_exists($path)) {
+                include $path;
+                $found = true;
+                break;
+            }
+        }
+
+        return [$lang, $found];
     }
 
     /**
