@@ -212,7 +212,7 @@ class CI_Lang
 
     private function getIdiom(string $idiom): string
     {
-        if (empty($idiom) or ! preg_match('/^[a-z_-]+$/i', $idiom)) {
+        if (empty($idiom) || ! preg_match('/^[a-z_-]+$/i', $idiom)) {
             $config = config('App');
             $defaultLocale = $config->defaultLocale;
 
