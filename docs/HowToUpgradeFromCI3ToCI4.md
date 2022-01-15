@@ -439,6 +439,10 @@ $offset = max(($page - 1), 0) * $per_page;
 - If you want to show error page like CI3, you have to create error templates like `app/Views/errors/html/error_500.php` where `500` is the status code.
 - In error templates, you can use `$message` which has the Exception message.
 
+## Language files
+
+1. Copy language folders (`application/language/*`) to `app/Language/`.
+
 ## Writable Paths
 
 1. CI4 has new `writable` directory and the constant `WRITEPATH`. Adjust the paths when you write files.
