@@ -189,6 +189,10 @@ class CI_Loader
             . ' Please call CI_Loader::setController() before calling database().'
         );
 
+        if ($params === '') {
+            $params = null;
+        }
+
         $ret = $this->databaseLoader->load($params, $return, $query_builder);
 
         if ($ret === false) {
