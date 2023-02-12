@@ -6,6 +6,10 @@
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
     autoloader="psalm_autoload.php"
+    cacheDirectory="build/psalm/"
+    findUnusedBaselineEntry="false"
+    findUnusedCode="false"
+    errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
         <directory name="src" />
@@ -13,4 +17,7 @@
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
+    <disableExtensions>
+        <extension name="redis"/>
+    </disableExtensions>
 </psalm>

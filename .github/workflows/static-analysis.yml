@@ -37,17 +37,16 @@ jobs:
           tools: cs2pr
           coverage: none
         env:
-          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "COMPOSER_CACHE_FILES_DIR=$(composer config cache-files-dir)" >> $GITHUB_ENV
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          path: ${{ env.COMPOSER_CACHE_FILES_DIR }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
@@ -70,17 +69,16 @@ jobs:
           tools: cs2pr
           coverage: none
         env:
-          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "COMPOSER_CACHE_FILES_DIR=$(composer config cache-files-dir)" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: composer update --no-interaction --no-progress --prefer-dist
 
       - name: Run Psalm
-        run: ./vendor/bin/psalm --show-info=false --output-format=checkstyle --shepherd | cs2pr
+        run: ./vendor/bin/psalm --show-info=false --shepherd
 
   static-analysis-phpmd:
     name: Static Analysis with PHPMD
@@ -94,17 +92,16 @@ jobs:
         with:
           php-version: 7.4
         env:
-          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "COMPOSER_CACHE_FILES_DIR=$(composer config cache-files-dir)" >> $GITHUB_ENV
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          path: ${{ env.COMPOSER_CACHE_FILES_DIR }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
@@ -126,11 +123,10 @@ jobs:
           php-version: 8.0
           coverage: none
         env:
-          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "COMPOSER_CACHE_FILES_DIR=$(composer config cache-files-dir)" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: composer update --no-interaction --no-progress --prefer-dist

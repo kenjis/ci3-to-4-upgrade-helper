@@ -42,6 +42,10 @@ class DatabaseLoader
             return false;
         }
 
+        if ($params === '') {
+            $params = null;
+        }
+
         if ($return) {
             $connection = Database::connect($params, false);
 

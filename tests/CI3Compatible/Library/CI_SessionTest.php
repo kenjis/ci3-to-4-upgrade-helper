@@ -58,7 +58,7 @@ class CI_SessionTest extends TestCase
             'sessionDriver'            => 'CodeIgniter\Session\Handlers\FileHandler',
             'sessionCookieName'        => 'ci_session',
             'sessionExpiration'        => 7200,
-            'sessionSavePath'          => null,
+            'sessionSavePath'          => WRITEPATH . 'session',
             'sessionMatchIP'           => false,
             'sessionTimeToUpdate'      => 300,
             'sessionRegenerateDestroy' => false,
