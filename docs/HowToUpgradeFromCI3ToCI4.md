@@ -67,7 +67,7 @@ CodeIgniter 4 is a rewrite of the framework. It is not an exaggeration to say th
 
 See <https://codeigniter4.github.io/CodeIgniter4/installation/index.html>.
 
-**Note:** Use 4.1.0 or later. [ci4-app-template](https://github.com/kenjis/ci4-app-template) can be used.
+**Note:** Use 4.3.1 or later. [ci4-app-template](https://github.com/kenjis/ci4-app-template) can be used.
 
 ## Install ci3-to-4-upgrade-helper
 
