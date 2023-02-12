@@ -13,6 +13,8 @@ use Kenjis\CI3Compatible\Library\CI_Form_validation;
 use Kenjis\CI3Compatible\Library\CI_User_agent;
 use Kenjis\CI3Compatible\TestSupport\TestCase;
 
+use function property_exists;
+
 class CI_LoaderTest extends TestCase
 {
     /** @var CI_Controller */
@@ -115,10 +117,7 @@ class CI_LoaderTest extends TestCase
     {
         $ret = $this->loader->database('', true);
 
-        $this->assertObjectNotHasAttribute(
-            'db',
-            $this->controller
-        );
+        $this->assertFalse(property_exists($this->controller, 'db'));
         $this->assertInstanceOf(CI_DB::class, $ret);
     }
 
@@ -137,10 +136,7 @@ class CI_LoaderTest extends TestCase
     {
         $ret = $this->loader->dbforge(null, true);
 
-        $this->assertObjectNotHasAttribute(
-            'dbforge',
-            $this->controller
-        );
+        $this->assertFalse(property_exists($this->controller, 'dbforge'));
         $this->assertInstanceOf(CI_DB_forge::class, $ret);
     }
 

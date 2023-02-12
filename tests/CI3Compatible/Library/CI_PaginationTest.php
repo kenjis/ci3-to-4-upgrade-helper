@@ -19,6 +19,7 @@ class CI_PaginationTest extends TestCase
 
         $_SERVER['REQUEST_URI'] = '/test/page/1';
         $uri = new URI('http://example.com/test/page/1');
+        $uri->setBaseURL('http://example.com/');
         $request = Services::request();
         $request->uri = $uri;
 
