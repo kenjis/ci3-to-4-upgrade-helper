@@ -47,7 +47,7 @@ jobs:
           coverage: pcov
           ini-values: zend.assertions=1
         env:
-          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get composer cache directory
         id: composer-cache
