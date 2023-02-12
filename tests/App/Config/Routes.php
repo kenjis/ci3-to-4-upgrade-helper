@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Config;
+
+use function is_file;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
