@@ -78,7 +78,7 @@ jobs:
         run: composer update --no-interaction --no-progress --prefer-dist
 
       - name: Run Psalm
-        run: ./vendor/bin/psalm --show-info=false --output-format=checkstyle --shepherd | cs2pr
+        run: ./vendor/bin/psalm --show-info=false --shepherd
 
   static-analysis-phpmd:
     name: Static Analysis with PHPMD
