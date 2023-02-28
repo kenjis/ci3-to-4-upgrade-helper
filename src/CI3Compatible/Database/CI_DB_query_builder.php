@@ -21,6 +21,9 @@ use function array_shift;
 use function is_bool;
 use function is_string;
 
+/**
+ * @SuppressWarnings(PHPMD.TooManyMethods)
+ */
 class CI_DB_query_builder extends CI_DB_driver
 {
     /** @var ?BaseBuilder */
