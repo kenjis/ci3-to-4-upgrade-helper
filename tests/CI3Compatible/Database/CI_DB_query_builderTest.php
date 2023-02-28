@@ -73,10 +73,22 @@ class CI_DB_query_builderTest extends DatabaseTestCase
         $this->assertSame($slug, $row['slug']);
     }
 
-    public function test_or_where(): void
+    public function test_where_in_two_records(): void
     {
         $slugs = ['caffeination-yes', 'elvis-sighted'];
         $this->queryBuilder->where_in('slug', $slugs);
+        $query = $this->queryBuilder->get('news');
+        $result = $query->result_array();
+
+        $this->assertCount(2, $result);
+    }
+
+    public function test_or_where(): void
+    {
+        $slug1 = 'caffeination-yes';
+        $this->queryBuilder->where('slug', $slug1);
+        $slug2 = 'elvis-sighted';
+        $this->queryBuilder->or_where('slug', $slug2);
         $query = $this->queryBuilder->get('news');
         $result = $query->result_array();
 
