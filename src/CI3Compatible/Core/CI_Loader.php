@@ -46,6 +46,11 @@ class CI_Loader
     /** @var bool */
     private $coreClassesInjectedToView = false;
 
+    /**
+     * View Proxy
+     */
+    private ?View $view = null;
+
     public function __construct()
     {
         $this->coreLoader = CoreLoader::getInstance();
@@ -87,29 +92,43 @@ class CI_Loader
      * @param bool   $return Whether to return the view output
      *                  or leave it to the Output class
      *
-     * @return string
+     * @return string|void
      */
     public function view(string $view, array $vars = [], bool $return = false)
     {
         $this->injectLoadedClassesToView();
 
         if ($return) {
-            return view($view, $vars);
+            return $this->viewRender($view, $vars);
         }
 
-        echo view($view, $vars);
+        echo $this->viewRender($view, $vars);
+    }
+
+    /**
+     * Equivalent to CI4's view() function.
+     */
+    private function viewRender(string $name, array $data = []): string
+    {
+        $config   = config(View::class);
+        $saveData = $config->saveData;
+
+        return $this->view->setData($data, 'raw')->render($name, null, $saveData);
     }
 
     private function injectLoadedClassesToView(): void
     {
-        $view = Services::renderer();
-
-        if ($this->coreClassesInjectedToView === false) {
-            $this->coreLoader->injectTo($view);
+        if ($this->view === null) {
+            $ci4view = Services::renderer();
+            $this->view = new View($ci4view);
         }
 
-        $this->libraryLoader->injectTo($view);
-        $this->modelLoader->injectTo($view);
+        if ($this->coreClassesInjectedToView === false) {
+            $this->coreLoader->injectTo($this->view);
+        }
+
+        $this->libraryLoader->injectTo($this->view);
+        $this->modelLoader->injectTo($this->view);
 
         $this->coreClassesInjectedToView = true;
     }
