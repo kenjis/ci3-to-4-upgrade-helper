@@ -17,13 +17,10 @@ use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\BaseResult;
 use Kenjis\CI3Compatible\Exception\LogicException;
 
-use function array_shift;
+use function is_array;
 use function is_bool;
 use function is_string;
 
-/**
- * @SuppressWarnings(PHPMD.TooManyMethods)
- */
 class CI_DB_query_builder extends CI_DB_driver
 {
     /** @var ?BaseBuilder */
@@ -53,6 +50,8 @@ class CI_DB_query_builder extends CI_DB_driver
     /** @var array */
     private $select_sum = [];
 
+    /** @var array */
+    private $group_by = [];
     /**
      * Get
      *
@@ -220,102 +219,7 @@ class CI_DB_query_builder extends CI_DB_driver
      */
     public function where($key, $value = null, $escape = null): self
     {
-        $this->where[] = ['where', $key, $value, $escape];
-
-        return $this;
-    }
-
-    /**
-     * OR WHERE
-     *
-     * Generates the WHERE portion of the query.
-     * Separates multiple calls with 'OR'.
-     *
-     * @param   mixed
-     * @param   mixed
-     * @param   bool
-     *
-     * @return  CI_DB_query_builder
-     */
-    public function or_where($key, $value = null, $escape = null)
-    {
-        $this->where[] = ['orWhere', $key, $value, $escape];
-
-        return $this;
-    }
-
-    /**
-     * WHERE IN
-     *
-     * Generates a WHERE field IN('item', 'item') SQL query,
-     * joined with 'AND' if appropriate.
-     *
-     * @param   string $key    The field to search
-     * @param   array  $values The values searched on
-     * @param   bool   $escape
-     *
-     * @return  CI_DB_query_builder
-     */
-    public function where_in(?string $key = null, ?array $values = null, ?bool $escape = null)
-    {
-        $this->where[] = ['whereIn', $key, $values, $escape];
-
-        return $this;
-    }
-
-    /**
-     * OR WHERE IN
-     *
-     * Generates a WHERE field IN('item', 'item') SQL query,
-     * joined with 'OR' if appropriate.
-     *
-     * @param   string $key    The field to search
-     * @param   array  $values The values searched on
-     * @param   bool   $escape
-     *
-     * @return  CI_DB_query_builder
-     */
-    public function or_where_in(?string $key = null, ?array $values = null, ?bool $escape = null)
-    {
-        $this->where[] = ['orWhereIn', $key, $values, $escape];
-
-        return $this;
-    }
-
-    /**
-     * WHERE NOT IN
-     *
-     * Generates a WHERE field NOT IN('item', 'item') SQL query,
-     * joined with 'AND' if appropriate.
-     *
-     * @param   string $key    The field to search
-     * @param   array  $values The values searched on
-     * @param   bool   $escape
-     *
-     * @return  CI_DB_query_builder
-     */
-    public function where_not_in(?string $key = null, ?array $values = null, ?bool $escape = null)
-    {
-        $this->where[] = ['whereNotIn', $key, $values, $escape];
-
-        return $this;
-    }
-
-    /**
-     * OR WHERE NOT IN
-     *
-     * Generates a WHERE field NOT IN('item', 'item') SQL query,
-     * joined with 'OR' if appropriate.
-     *
-     * @param   string $key    The field to search
-     * @param   array  $values The values searched on
-     * @param   bool   $escape
-     *
-     * @return  CI_DB_query_builder
-     */
-    public function or_where_not_in(?string $key = null, ?array $values = null, ?bool $escape = null)
-    {
-        $this->where[] = ['orWhereNotIn', $key, $values, $escape];
+        $this->where[] = [$key, $value, $escape];
 
         return $this;
     }
@@ -358,6 +262,18 @@ class CI_DB_query_builder extends CI_DB_driver
         return $this;
     }
 
+    public function group_by(mixed $group_by): self
+    {
+        if (is_array($group_by))
+        {
+            $this->group_by = $group_by;
+        } else {
+            $this->group_by = [$group_by];
+        }
+
+        return $this;
+    }
+
     private function prepareSelectQuery(): void
     {
         $this->existsBuilder();
@@ -377,6 +293,8 @@ class CI_DB_query_builder extends CI_DB_driver
         foreach ($this->order_by as $params) {
             $this->builder->orderBy(...$params);
         }
+
+        $this->builder->groupBy($this->group_by);
     }
 
     private function prepareUpdateQuery(): void
@@ -585,8 +503,7 @@ class CI_DB_query_builder extends CI_DB_driver
     private function execWhere(): void
     {
         foreach ($this->where as $params) {
-            $method = array_shift($params);
-            $this->builder->$method(...$params);
+            $this->builder->where(...$params);
         }
     }
 
