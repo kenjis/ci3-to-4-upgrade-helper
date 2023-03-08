@@ -18,7 +18,7 @@ use CodeIgniter\Database\BaseResult;
 use Kenjis\CI3Compatible\Exception\LogicException;
 
 use function array_shift;
-use function is_array;
+use function explode;
 use function is_bool;
 use function is_string;
 
@@ -365,18 +365,20 @@ class CI_DB_query_builder extends CI_DB_driver
     /**
      * GROUP BY
      *
-     * @param mixed $group_by what field or fields to group_by
+     * @param mixed $by     what field or fields to group_by
+     * @param bool  $escape
      *
      * @return CI_DB_query_builder
      */
-    public function group_by(mixed $group_by): self
+    public function group_by(mixed $by, ?bool $escape = null): self
     {
-        if (is_array($group_by))
+        if (is_string($by))
         {
-            $this->group_by = $group_by;
-        } else {
-            $this->group_by = [$group_by];
+            $by = $escape === true
+                ? explode(',', $by)
+                : [$by];
         }
+        $this->group_by = $by;
 
         return $this;
     }
