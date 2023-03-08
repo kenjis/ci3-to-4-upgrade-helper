@@ -17,9 +17,7 @@ use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\BaseResult;
 use Kenjis\CI3Compatible\Exception\LogicException;
 
-use function array_merge;
 use function array_shift;
-use function explode;
 use function is_bool;
 use function is_string;
 
@@ -374,12 +372,10 @@ class CI_DB_query_builder extends CI_DB_driver
     public function group_by($by, ?bool $escape = null): self
     {
         if (is_string($by)) {
-            $by = $escape === true
-                ? explode(',', $by)
-                : [$by];
+            $by = [$by];
         }
 
-        $this->group_by = array_merge($this->group_by, $by);
+        $this->group_by[] = [$by, $escape];
 
         return $this;
     }
@@ -404,7 +400,9 @@ class CI_DB_query_builder extends CI_DB_driver
             $this->builder->orderBy(...$params);
         }
 
-        $this->builder->groupBy($this->group_by);
+        foreach ($this->group_by as $params) {
+            $this->builder->groupBy(...$params);
+        }
     }
 
     private function prepareUpdateQuery(): void
