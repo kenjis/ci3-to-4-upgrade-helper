@@ -108,6 +108,45 @@ ORDER BY `title` ASC';
         $this->assertSame($expected, $sql);
     }
 
+    public function test_group_by(): void
+    {
+        $this->queryBuilder->group_by('title');
+        $this->queryBuilder->get('news');
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = 'SELECT *
+FROM `db_news`
+GROUP BY `title`';
+        $this->assertSame($expected, $sql);
+    }
+
+    public function test_group_by_multiple_fields(): void
+    {
+        $this->queryBuilder->group_by(['title', 'slug']);
+        $this->queryBuilder->get('news');
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = 'SELECT *
+FROM `db_news`
+GROUP BY `title`, `slug`';
+        $this->assertSame($expected, $sql);
+    }
+
+    public function test_group_by_multiple_calls(): void
+    {
+        $this->queryBuilder->group_by('title')->group_by('slug');
+        $this->queryBuilder->get('news');
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = 'SELECT *
+FROM `db_news`
+GROUP BY `title`, `slug`';
+        $this->assertSame($expected, $sql);
+    }
+
     public function test_count_all(): void
     {
         $count = $this->queryBuilder->count_all('news');

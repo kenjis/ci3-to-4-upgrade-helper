@@ -53,6 +53,9 @@ class CI_DB_query_builder extends CI_DB_driver
     /** @var array */
     private $select_sum = [];
 
+    /** @var array */
+    private $group_by = [];
+
     /**
      * Get
      *
@@ -358,6 +361,25 @@ class CI_DB_query_builder extends CI_DB_driver
         return $this;
     }
 
+    /**
+     * GROUP BY
+     *
+     * @param mixed $by     what field or fields to group_by
+     * @param bool  $escape
+     *
+     * @return CI_DB_query_builder
+     */
+    public function group_by($by, ?bool $escape = null): self
+    {
+        if (is_string($by)) {
+            $by = [$by];
+        }
+
+        $this->group_by[] = [$by, $escape];
+
+        return $this;
+    }
+
     private function prepareSelectQuery(): void
     {
         $this->existsBuilder();
@@ -376,6 +398,10 @@ class CI_DB_query_builder extends CI_DB_driver
 
         foreach ($this->order_by as $params) {
             $this->builder->orderBy(...$params);
+        }
+
+        foreach ($this->group_by as $params) {
+            $this->builder->groupBy(...$params);
         }
     }
 
