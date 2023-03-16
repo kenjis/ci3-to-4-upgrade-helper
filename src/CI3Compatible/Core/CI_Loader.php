@@ -153,7 +153,11 @@ class CI_Loader
      */
     public function view(string $view, array $vars = [], bool $return = false)
     {
-        return $this->_ci_load(['_ci_view' => $view, '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return]);
+        return $this->_ci_load([
+            '_ci_view' => $view,
+            '_ci_vars' => $this->_ci_prepare_view_vars($vars),
+            '_ci_return' => $return,
+        ]);
     }
 
     /**
@@ -289,9 +293,7 @@ class CI_Loader
     protected function _ci_prepare_view_vars($vars)
     {
         if (! is_array($vars)) {
-            $vars = is_object($vars)
-                ? get_object_vars($vars)
-                : [];
+            $vars = is_object($vars) ? get_object_vars($vars) : [];
         }
 
         foreach (array_keys($vars) as $key) {
