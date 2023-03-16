@@ -31,10 +31,8 @@ use function end;
 use function explode;
 use function extract;
 use function file_exists;
-use function file_get_contents;
 use function get_instance;
 use function get_object_vars;
-use function ini_get;
 use function is_array;
 use function is_object;
 use function is_string;
@@ -44,9 +42,7 @@ use function ob_get_contents;
 use function ob_get_level;
 use function ob_start;
 use function pathinfo;
-use function preg_replace;
 use function show_error;
-use function str_replace;
 use function strncmp;
 
 use const PATHINFO_EXTENSION;
@@ -205,9 +201,10 @@ class CI_Loader
     protected function _ci_load(array $_ci_data)
     {
         // Set the default data variables
-        foreach (['_ci_view', '_ci_vars', '_ci_path', '_ci_return'] as $_ci_val) {
-            $$_ci_val = $_ci_data[$_ci_val] ?? false;
-        }
+        $_ci_view = $_ci_data['_ci_view'] ?? false;
+        $_ci_vars = $_ci_data['_ci_vars'] ?? false;
+        $_ci_path = $_ci_data['_ci_path'] ?? false;
+        $_ci_return = $_ci_data['_ci_return'] ?? false;
 
         $file_exists = false;
 
@@ -269,14 +266,7 @@ class CI_Loader
          */
         ob_start();
 
-        // If the PHP installation does not support short tags we'll
-        // do a little string replacement, changing the short tags
-        // to standard PHP echo statements.
-        if (! is_php('5.4') && ! ini_get('short_open_tag') && config_item('rewrite_short_tags') === true) {
-            echo eval('?>' . preg_replace('/;*\s*\?>/', '; ?>', str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
-        } else {
-            include $_ci_path; // include() vs include_once() allows for multiple views with the same name
-        }
+        include $_ci_path; // include() vs include_once() allows for multiple views with the same name
 
         log_message('info', 'File loaded: ' . $_ci_path);
 
@@ -298,10 +288,11 @@ class CI_Loader
          * template and any subsequent ones. Oy!
          */
         if (ob_get_level() > $this->_ci_ob_level + 1) {
+            // Nested view.
             ob_end_flush();
         } else {
-            $_ci_CI->output->append_output(ob_get_contents());
-            @ob_end_clean();
+            // CodeIgniter::gatherOutput() gets the output buffer.
+            ob_end_flush();
         }
 
         return $this;
