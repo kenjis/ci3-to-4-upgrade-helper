@@ -67,7 +67,8 @@ CodeIgniter 4 is a rewrite of the framework. It is not an exaggeration to say th
 
 See <https://codeigniter4.github.io/CodeIgniter4/installation/index.html>.
 
-**Note:** Use 4.3.1 or later. [ci4-app-template](https://github.com/kenjis/ci4-app-template) can be used.
+> **Note** 
+> Use 4.3.1 or later. [ci4-app-template](https://github.com/kenjis/ci4-app-template) can be used.
 
 ## Install ci3-to-4-upgrade-helper
 
@@ -90,8 +91,8 @@ See <https://codeigniter4.github.io/CodeIgniter4/incoming/routing.html#setting-y
 ### autoload.php
 
 1. CI4 does not have CI3's “Auto-load” feature, except helper autoloading.
-2. To autoload helpers, add your `autoload.php` config in the property `$helpers` in `app/Controllers/BaseController.php`. This is CI4's feature.
-2. To autoload libraries, add your `autoload.php` config in the property `$libraries` in `app/Controllers/BaseController.php`. This feature is provided by *ci3-to-4-upgrade-helper*.
+2. To autoload helpers, add your `$autoload['helper']` value in `autoload.php` config to the property `$helpers` in `app/Config/Autoload.php`. This is CI4's feature.
+3. To autoload libraries, add your `autoload.php` config in the property `$libraries` in `app/Controllers/BaseController.php`. This feature is provided by *ci3-to-4-upgrade-helper*.
 
 Example:
 ```diff
@@ -361,11 +362,11 @@ Examples:
 ```
 
 2. CI4 has no [Callbacks](https://codeigniter.com/userguide3/libraries/form_validation.html#callbacks-your-own-validation-methods) nor [Callable](https://codeigniter.com/userguide3/libraries/form_validation.html#callable-use-anything-as-a-rule).
-- Create your own Rule classes, and configure it in `app/Config/Validation.php`.
-- See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#creating-custom-rules>.
+- But you can create a validation rule with [Closure](https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#using-closure-rule).
+- Or Create your own Rule classes, and configure it in `app/Config/Validation.php`. See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#creating-custom-rules>.
 3. `set_message()`
 - If you create a custom rule, use the second param `&$error` and set the error message. See <https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#creating-custom-rules>.
-- Otherwise use `CI_Form_validation::setError(string $field, string $error)` that *ci3-to-4-upgrade-helper* provides. 
+- Otherwise, use `CI_Form_validation::setError(string $field, string $error)` that *ci3-to-4-upgrade-helper* provides. 
 4. CI4's `Validation` never changes your data.
 - If you set the rule `trim|required`, the value during validation is trimmed, but the value after validation is not trimmed. You must trim it by yourself.
 
@@ -418,14 +419,13 @@ $offset = max(($page - 1), 0) * $per_page;
 
 1. CI4 changed `redirect()` API.
 - See <https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html#redirect>.
-- Replace `redirect($uri)` with `return redirect()->to(site_url($uri))`, when you can return Response object.
+- Replace `redirect($uri)` with `return redirect()->to($uri)`, when you can return Response object.
 - Replace it with`throw new \CodeIgniter\Router\Exceptions\RedirectException($uri)`, when you cannot return Response object.
 - Or you could use `redirect_()` that *ci3-to-4-upgrade-helper* provides after `$this->load->helper('url')`.
 
 #### base_url()
 
-1. CI4's `base_url()` removes the last `/`.
-- If you don't want it, use `base_url_()` that *ci3-to-4-upgrade-helper* provides after `$this->load->helper('url')`.
+1. Up to version 4.3.1, CI4 `base_url()` removed the trailing slash. But the bug was fixed in v4.3.2.
 
 #### url_title()
 
