@@ -17,6 +17,7 @@ use CodeIgniter\Pager\Pager;
 use Config\Pager as PagerConfig;
 use Config\Services;
 use Kenjis\CI3Compatible\Exception\NotSupportedException;
+use stdClass;
 
 use function array_keys;
 use function implode;
@@ -32,6 +33,11 @@ class CI_Pagination
     private $pagerConfig;
 
     /**
+     * CI3's Config
+     */
+    private stdClass $config;
+
+    /**
      * Constructor
      *
      * @param   PagerConfig|array|null $params Initialization parameters
@@ -43,6 +49,7 @@ class CI_Pagination
         helper('url');
 
         $this->pagerConfig = new PagerConfig();
+        $this->config = new stdClass();
 
         if (is_array($params)) {
             $this->initialize($params);
@@ -71,7 +78,7 @@ class CI_Pagination
         $this->checkUnsupportedConfigs($params);
 
         foreach ($params as $property => $value) {
-            $this->pagerConfig->$property = $value;
+            $this->config->$property = $value;
         }
 
         $this->pager = Services::pager($this->pagerConfig);
@@ -130,12 +137,12 @@ class CI_Pagination
      */
     public function create_links(): string
     {
-        $this->pager->setSegment($this->pagerConfig->uri_segment ?? 3);
+        $this->pager->setSegment($this->config->uri_segment ?? 3);
 
         return $this->pager->makeLinks(
             $this->pager->getCurrentPage(),
             $this->pagerConfig->perPage,
-            $this->pagerConfig->total_rows
+            $this->config->total_rows
         );
     }
 }
