@@ -124,5 +124,14 @@
     </rule>
     <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
         <exclude-pattern>*/src/CI3Compatible/Database/*</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Core/CI_Loader.php</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName">
+        <exclude-pattern>*/src/CI3Compatible/Core/CI_Controller.php</exclude-pattern>
+        <exclude-pattern>*/src/CI3Compatible/Core/CI_Loader.php</exclude-pattern>
+    </rule>
+    <rule ref="Generic.PHP.ForbiddenFunctions.Found">
+        <exclude-pattern>*/src/CI3Compatible/Core/CI_Loader.php</exclude-pattern>
     </rule>
 </ruleset>

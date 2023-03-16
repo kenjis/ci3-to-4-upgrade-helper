@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core;
 
-use Config\Services;
+use Config\Paths;
 use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
 use Kenjis\CI3Compatible\Core\Loader\DatabaseLoader;
 use Kenjis\CI3Compatible\Core\Loader\HelperLoader;
@@ -23,9 +23,30 @@ use Kenjis\CI3Compatible\Database\CI_DB;
 use Kenjis\CI3Compatible\Database\CI_DB_forge;
 use Kenjis\CI3Compatible\Exception\NotImplementedException;
 
+use function array_keys;
+use function array_merge;
 use function assert;
+use function end;
+use function explode;
+use function extract;
+use function file_exists;
+use function get_instance;
+use function get_object_vars;
+use function is_array;
 use function is_object;
+use function is_string;
+use function ob_end_clean;
+use function ob_end_flush;
+use function ob_get_contents;
+use function ob_get_level;
+use function ob_start;
+use function pathinfo;
+use function show_error;
+use function strncmp;
 
+use const PATHINFO_EXTENSION;
+
+#[\AllowDynamicProperties]
 class CI_Loader
 {
     /** @var CoreLoader */
@@ -43,14 +64,37 @@ class CI_Loader
     /** @var LibraryLoader */
     private $libraryLoader;
 
-    /** @var bool */
-    private $coreClassesInjectedToView = false;
+    /**
+     * Nesting level of the output buffering mechanism
+     *
+     * @var int
+     */
+    private $_ci_ob_level;
+
+    /**
+     * List of paths to load views from
+     *
+     * @var array
+     */
+    private $_ci_view_paths = [];
+
+    /**
+     * List of cached variables
+     *
+     * @var array
+     */
+    private $_ci_cached_vars =  [];
 
     public function __construct()
     {
         $this->coreLoader = CoreLoader::getInstance();
 
         $this->coreLoader->setLoader($this);
+
+        $this->_ci_ob_level = ob_get_level();
+
+        $viewDir = config(Paths::class)->viewDirectory . '/';
+        $this->_ci_view_paths = [$viewDir => true];
     }
 
     public function setController(CI_Controller $controller): void
@@ -81,37 +125,163 @@ class CI_Loader
      *
      * Loads "view" files.
      *
-     * @param string $view   View name
-     * @param array  $vars   An associative array of data
-     *                   to be extracted for use in the view
-     * @param bool   $return Whether to return the view output
-     *                  or leave it to the Output class
+     * @param   string $view   View name
+     * @param   array  $vars   An associative array of data
+     *             to be extracted for use in the view
+     * @param   bool   $return Whether to return the view output
+     *             or leave it to the Output class
      *
-     * @return string
+     * @return  object|string
      */
     public function view(string $view, array $vars = [], bool $return = false)
     {
-        $this->injectLoadedClassesToView();
-
-        if ($return) {
-            return view($view, $vars);
-        }
-
-        echo view($view, $vars);
+        return $this->_ci_load([
+            '_ci_view' => $view,
+            '_ci_vars' => $this->_ci_prepare_view_vars($vars),
+            '_ci_return' => $return,
+        ]);
     }
 
-    private function injectLoadedClassesToView(): void
+    /**
+     * Internal CI Data Loader
+     *
+     * Used to load views and files.
+     *
+     * Variables are prefixed with _ci_ to avoid symbol collision with
+     * variables made available to view files.
+     *
+     * @param   array $_ci_data Data to load
+     *
+     * @return  object|string
+     *
+     * @used-by CI_Loader::view()
+     * @used-by CI_Loader::file()
+     *
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     */
+    protected function _ci_load(array $_ci_data)
     {
-        $view = Services::renderer();
+        // Set the default data variables
+        $_ci_view = $_ci_data['_ci_view'] ?? false;
+        $_ci_vars = $_ci_data['_ci_vars'] ?? false;
+        $_ci_path = $_ci_data['_ci_path'] ?? false;
+        $_ci_return = $_ci_data['_ci_return'] ?? false;
 
-        if ($this->coreClassesInjectedToView === false) {
-            $this->coreLoader->injectTo($view);
+        $file_exists = false;
+
+        // Set the path to the requested file
+        if (is_string($_ci_path) && $_ci_path !== '') {
+            $_ci_x = explode('/', $_ci_path);
+            $_ci_file = end($_ci_x);
+        } else {
+            $_ci_ext = pathinfo($_ci_view, PATHINFO_EXTENSION);
+            $_ci_file = $_ci_ext === '' ? $_ci_view . '.php' : $_ci_view;
+
+            foreach ($this->_ci_view_paths as $_ci_view_file => $cascade) {
+                if (file_exists($_ci_view_file . $_ci_file)) {
+                    $_ci_path = $_ci_view_file . $_ci_file;
+                    $file_exists = true;
+                    break;
+                }
+
+                if (! $cascade) {
+                    break;
+                }
+            }
         }
 
-        $this->libraryLoader->injectTo($view);
-        $this->modelLoader->injectTo($view);
+        if (! $file_exists && ! file_exists($_ci_path)) {
+            show_error('Unable to load the requested file: ' . $_ci_file);
+        }
 
-        $this->coreClassesInjectedToView = true;
+        // This allows anything loaded using $this->load (views, files, etc.)
+        // to become accessible from within the Controller and Model functions.
+        $_ci_CI =& get_instance();
+        foreach (array_keys(get_object_vars($_ci_CI)) as $_ci_key) {
+            if (! isset($this->$_ci_key)) {
+                $this->$_ci_key =& $_ci_CI->$_ci_key;
+            }
+        }
+
+        /*
+         * Extract and cache variables
+         *
+         * You can either set variables using the dedicated $this->load->vars()
+         * function or via the second parameter of this function. We'll merge
+         * the two types and cache them so that views that are embedded within
+         * other views can have access to these variables.
+         */
+        empty($_ci_vars) || $this->_ci_cached_vars = array_merge($this->_ci_cached_vars, $_ci_vars);
+        extract($this->_ci_cached_vars);
+
+        /*
+         * Buffer the output
+         *
+         * We buffer the output for two reasons:
+         * 1. Speed. You get a significant speed boost.
+         * 2. So that the final rendered template can be post-processed by
+         *  the output class. Why do we need post processing? For one thing,
+         *  in order to show the elapsed page load time. Unless we can
+         *  intercept the content right before it's sent to the browser and
+         *  then stop the timer it won't be accurate.
+         */
+        ob_start();
+
+        include $_ci_path; // include() vs include_once() allows for multiple views with the same name
+
+        log_message('info', 'File loaded: ' . $_ci_path);
+
+        // Return the file data if requested
+        if ($_ci_return === true) {
+            $buffer = ob_get_contents();
+            @ob_end_clean();
+
+            return $buffer;
+        }
+
+        /*
+         * Flush the buffer... or buff the flusher?
+         *
+         * In order to permit views to be nested within
+         * other views, we need to flush the content back out whenever
+         * we are beyond the first level of output buffering so that
+         * it can be seen and included properly by the first included
+         * template and any subsequent ones. Oy!
+         */
+        if (ob_get_level() > $this->_ci_ob_level + 1) {
+            // Nested view.
+            ob_end_flush();
+        } else {
+            // CodeIgniter::gatherOutput() gets the output buffer.
+            ob_end_flush();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Prepare variables for _ci_vars, to be later extract()-ed inside views
+     *
+     * Converts objects to associative arrays and filters-out internal
+     * variable names (i.e. keys prefixed with '_ci_').
+     *
+     * @param   mixed $vars
+     *
+     * @return  array
+     */
+    protected function _ci_prepare_view_vars($vars)
+    {
+        if (! is_array($vars)) {
+            $vars = is_object($vars) ? get_object_vars($vars) : [];
+        }
+
+        foreach (array_keys($vars) as $key) {
+            if (strncmp($key, '_ci_', 4) === 0) {
+                unset($vars[$key]);
+            }
+        }
+
+        return $vars;
     }
 
     /**
