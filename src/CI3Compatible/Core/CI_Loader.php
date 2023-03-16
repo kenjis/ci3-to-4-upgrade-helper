@@ -209,7 +209,7 @@ class CI_Loader
          * the two types and cache them so that views that are embedded within
          * other views can have access to these variables.
          */
-        empty($_ci_vars) or $this->_ci_cached_vars = array_merge($this->_ci_cached_vars, $_ci_vars);
+        empty($_ci_vars) || $this->_ci_cached_vars = array_merge($this->_ci_cached_vars, $_ci_vars);
         extract($this->_ci_cached_vars);
 
         /*
