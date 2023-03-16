@@ -156,6 +156,8 @@ class CI_Loader
      *
      * @used-by CI_Loader::view()
      * @used-by CI_Loader::file()
+     *
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     protected function _ci_load(array $_ci_data)
     {
@@ -195,7 +197,7 @@ class CI_Loader
         // This allows anything loaded using $this->load (views, files, etc.)
         // to become accessible from within the Controller and Model functions.
         $_ci_CI =& get_instance();
-        foreach (get_object_vars($_ci_CI) as $_ci_key => $_ci_var) {
+        foreach (array_keys(get_object_vars($_ci_CI)) as $_ci_key) {
             if (! isset($this->$_ci_key)) {
                 $this->$_ci_key =& $_ci_CI->$_ci_key;
             }
