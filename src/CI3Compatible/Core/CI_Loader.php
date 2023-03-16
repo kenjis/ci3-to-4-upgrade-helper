@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Core;
 
+use Config\Paths;
 use Config\Services;
 use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
 use Kenjis\CI3Compatible\Core\Loader\DatabaseLoader;
@@ -70,11 +71,37 @@ class CI_Loader
     /** @var bool */
     private $coreClassesInjectedToView = false;
 
+    /**
+     * Nesting level of the output buffering mechanism
+     *
+     * @var int
+     */
+    private $_ci_ob_level;
+
+    /**
+     * List of paths to load views from
+     *
+     * @var array
+     */
+    private $_ci_view_paths = [];
+
+    /**
+     * List of cached variables
+     *
+     * @var array
+     */
+    private $_ci_cached_vars =  [];
+
     public function __construct()
     {
         $this->coreLoader = CoreLoader::getInstance();
 
         $this->coreLoader->setLoader($this);
+
+        $this->_ci_ob_level = ob_get_level();
+
+        $viewDir = config(Paths::class)->viewDirectory . '/';
+        $this->_ci_view_paths = [$viewDir => true];
     }
 
     public function setController(CI_Controller $controller): void
@@ -170,7 +197,7 @@ class CI_Loader
      *
      * @param   array $_ci_data Data to load
      *
-     * @return  object
+     * @return  object|string
      *
      * @used-by CI_Loader::view()
      * @used-by CI_Loader::file()
