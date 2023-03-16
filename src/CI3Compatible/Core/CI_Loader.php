@@ -64,9 +64,6 @@ class CI_Loader
     /** @var LibraryLoader */
     private $libraryLoader;
 
-    /** @var bool */
-    private $coreClassesInjectedToView = false;
-
     /**
      * Nesting level of the output buffering mechanism
      *
