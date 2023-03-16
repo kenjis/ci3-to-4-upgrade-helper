@@ -13,6 +13,8 @@ use Kenjis\CI3Compatible\Library\CI_Form_validation;
 use Kenjis\CI3Compatible\Library\CI_User_agent;
 use Kenjis\CI3Compatible\TestSupport\TestCase;
 
+use function ob_get_clean;
+use function ob_start;
 use function property_exists;
 
 class CI_LoaderTest extends TestCase
@@ -48,6 +50,18 @@ class CI_LoaderTest extends TestCase
     public function test_view_returns_output(): void
     {
         $output = $this->loader->view('welcome_message', [], true);
+
+        $this->assertStringContainsString(
+            '<title>Welcome to CodeIgniter 4!</title>',
+            $output
+        );
+    }
+
+    public function test_view_output_return_false(): void
+    {
+        ob_start();
+        $this->loader->view('welcome_message', []);
+        $output = ob_get_clean();
 
         $this->assertStringContainsString(
             '<title>Welcome to CodeIgniter 4!</title>',
