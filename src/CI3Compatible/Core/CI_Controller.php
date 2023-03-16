@@ -19,6 +19,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Kenjis\CI3Compatible\Internal\DebugLog;
 use Psr\Log\LoggerInterface;
 
+#[\AllowDynamicProperties]
 class CI_Controller extends BaseController
 {
     /** @var CI_Controller */

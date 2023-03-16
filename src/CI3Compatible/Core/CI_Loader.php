@@ -46,6 +46,7 @@ use function strncmp;
 
 use const PATHINFO_EXTENSION;
 
+#[\AllowDynamicProperties]
 class CI_Loader
 {
     /** @var CoreLoader */
