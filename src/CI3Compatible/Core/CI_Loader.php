@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Kenjis\CI3Compatible\Core;
 
 use Config\Paths;
-use Config\Services;
 use Kenjis\CI3Compatible\Core\Loader\ControllerPropertyInjector;
 use Kenjis\CI3Compatible\Core\Loader\DatabaseLoader;
 use Kenjis\CI3Compatible\Core\Loader\HelperLoader;
@@ -121,44 +120,6 @@ class CI_Loader
         $this->databaseLoader = new DatabaseLoader($injector);
         $this->helperLoader = new HelperLoader();
         $this->libraryLoader = new LibraryLoader($injector);
-    }
-
-    /**
-     * View Loader
-     *
-     * Loads "view" files.
-     *
-     * @param string $view   View name
-     * @param array  $vars   An associative array of data
-     *                   to be extracted for use in the view
-     * @param bool   $return Whether to return the view output
-     *                  or leave it to the Output class
-     *
-     * @return string
-     */
-    public function view_(string $view, array $vars = [], bool $return = false)
-    {
-        $this->injectLoadedClassesToView();
-
-        if ($return) {
-            return view($view, $vars);
-        }
-
-        echo view($view, $vars);
-    }
-
-    private function injectLoadedClassesToView(): void
-    {
-        $view = Services::renderer();
-
-        if ($this->coreClassesInjectedToView === false) {
-            $this->coreLoader->injectTo($view);
-        }
-
-        $this->libraryLoader->injectTo($view);
-        $this->modelLoader->injectTo($view);
-
-        $this->coreClassesInjectedToView = true;
     }
 
     /**
