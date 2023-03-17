@@ -7,6 +7,8 @@ namespace Kenjis\CI3Compatible\Core;
 use App\Libraries\Validation\Field_validation;
 use App\Models\News_model;
 use App\Models\Shop\Shop_model;
+use CodeIgniter\Config\Factories;
+use Config\Paths;
 use Kenjis\CI3Compatible\Database\CI_DB;
 use Kenjis\CI3Compatible\Database\CI_DB_forge;
 use Kenjis\CI3Compatible\Library\CI_Form_validation;
@@ -65,6 +67,25 @@ class CI_LoaderTest extends TestCase
 
         $this->assertStringContainsString(
             '<title>Welcome to CodeIgniter 4!</title>',
+            $output
+        );
+    }
+
+    public function test_view_nested(): void
+    {
+        $pathConfig = config(Paths::class);
+        $pathConfig->viewDirectory = __DIR__ . '/../../App/Views/';
+        Factories::injectMock('config', 'Paths', $pathConfig);
+        $this->loader = new CI_Loader();
+        $this->controller = new CI_Controller();
+        $this->loader->setController($this->controller);
+
+        $output = $this->loader->view('layout', [], true);
+
+        $this->assertStringContainsString(
+            '<p>This is layout header.</p>
+<p>This is body.</p>
+<p>This is layout footer.</p>',
             $output
         );
     }
