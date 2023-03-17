@@ -143,6 +143,11 @@ class CI_Loader
     }
 
     /**
+     * The following method was derived from code of CodeIgniter (v3.1.13 - 2022-03-03)
+     * https://github.com/bcit-ci/CodeIgniter/blob/3.1.13/system/core/Loader.php#L883
+     * Code subject to the MIT license (https://github.com/bcit-ci/CodeIgniter/blob/3.1.13/license.txt).
+     * Copyright (c) 2019 - 2022, CodeIgniter Foundation
+     *
      * Internal CI Data Loader
      *
      * Used to load views and files.
@@ -260,6 +265,11 @@ class CI_Loader
     }
 
     /**
+     * The following method was derived from code of CodeIgniter (v3.1.13 - 2022-03-03)
+     * https://github.com/bcit-ci/CodeIgniter/blob/3.1.13/system/core/Loader.php#L1381
+     * Code subject to the MIT license (https://github.com/bcit-ci/CodeIgniter/blob/3.1.13/license.txt).
+     * Copyright (c) 2019 - 2022, CodeIgniter Foundation
+     *
      * Prepare variables for _ci_vars, to be later extract()-ed inside views
      *
      * Converts objects to associative arrays and filters-out internal
