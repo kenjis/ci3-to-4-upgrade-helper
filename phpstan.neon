@@ -11,3 +11,5 @@ parameters:
   scanDirectories:
     - vendor/codeigniter4/codeigniter4/system/Helpers
     - src/CI3Compatible/Helper
+  excludePaths:
+    - tests/App/Views/*
