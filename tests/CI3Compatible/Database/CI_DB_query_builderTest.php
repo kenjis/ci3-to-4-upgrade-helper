@@ -147,6 +147,20 @@ GROUP BY `title`, `slug`';
         $this->assertSame($expected, $sql);
     }
 
+    public function test_group_by_multiple_queries(): void
+    {
+        $this->queryBuilder->group_by('title');
+        $this->queryBuilder->get('news');
+
+        $this->queryBuilder->get('news');
+
+        $db = $this->queryBuilder->getBaseConnection();
+        $sql = (string) $db->getLastQuery();
+        $expected = 'SELECT *
+FROM `db_news`';
+        $this->assertSame($expected, $sql);
+    }
+
     public function test_count_all(): void
     {
         $count = $this->queryBuilder->count_all('news');

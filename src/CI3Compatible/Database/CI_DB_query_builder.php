@@ -694,6 +694,7 @@ class CI_DB_query_builder extends CI_DB_driver
         $this->from = [];
         $this->join = [];
         $this->where = [];
+        $this->group_by = [];
         $this->like = [];
         $this->order_by = [];
     }
