@@ -169,7 +169,7 @@ class CI_Loader
         // Set the default data variables
         $_ci_view = $_ci_data['_ci_view'] ?? false;
         $_ci_vars = $_ci_data['_ci_vars'] ?? false;
-        $_ci_path = $_ci_data['_ci_path'] ?? false;
+        $_ci_path = $_ci_data['_ci_path'] ?? '';
         $_ci_return = $_ci_data['_ci_return'] ?? false;
 
         $file_exists = false;
