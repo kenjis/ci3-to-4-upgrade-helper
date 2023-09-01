@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kenjis\CI3Compatible\Library;
 
+use CodeIgniter\CodeIgniter;
 use CodeIgniter\Session\Handlers\FileHandler;
 use CodeIgniter\Session\Session;
 use CodeIgniter\Test\Mock\MockSession;
@@ -13,7 +14,7 @@ use Config\Logger;
 use Config\Services;
 use Kenjis\CI3Compatible\TestSupport\TestCase;
 
-use function array_merge;
+use function version_compare;
 
 /**
  * @runTestsInSeparateProcesses
@@ -52,30 +53,15 @@ class CI_SessionTest extends TestCase
         Services::reset(true);
     }
 
-    private function createCI4Session($options = []): Session
+    private function createCI4Session(): Session
     {
-        $defaults = [
-            'sessionDriver'            => 'CodeIgniter\Session\Handlers\FileHandler',
-            'sessionCookieName'        => 'ci_session',
-            'sessionExpiration'        => 7200,
-            'sessionSavePath'          => WRITEPATH . 'session',
-            'sessionMatchIP'           => false,
-            'sessionTimeToUpdate'      => 300,
-            'sessionRegenerateDestroy' => false,
-            'cookieDomain'             => '',
-            'cookiePrefix'             => '',
-            'cookiePath'               => '/',
-            'cookieSecure'             => false,
-            'cookieSameSite'           => 'Lax',
-        ];
+        $configObj = new \Config\Session();
 
-        $config    = array_merge($defaults, $options);
-        $appConfig = new AppConfig();
-        foreach ($config as $key => $c) {
-            $appConfig->$key = $c;
+        if (version_compare(CodeIgniter::CI_VERSION, '4.4.0', '<')) {
+            $configObj = new AppConfig();
         }
 
-        $session = new MockSession(new FileHandler($appConfig, '127.0.0.1'), $appConfig);
+        $session = new MockSession(new FileHandler($configObj, '127.0.0.1'), $configObj);
         $session->setLogger(new TestLogger(new Logger()));
 
         return $session;
