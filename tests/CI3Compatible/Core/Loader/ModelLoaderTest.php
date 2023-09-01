@@ -37,6 +37,20 @@ class ModelLoaderTest extends TestCase
         );
     }
 
+    public function test_load_two_models(): void
+    {
+        $this->loader->load(['news_model', 'shop/shop_model']);
+
+        $this->assertInstanceOf(
+            'App\Models\News_model',
+            $this->controller->news_model
+        );
+        $this->assertInstanceOf(
+            'App\Models\Shop\Shop_model',
+            $this->controller->shop_model
+        );
+    }
+
     public function test_load_one_model_twice(): void
     {
         $this->loader->load('news_model');
