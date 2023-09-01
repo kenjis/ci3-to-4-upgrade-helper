@@ -247,6 +247,27 @@ JOIN `db_comments` ON `db_comments`.`id` = `db_blogs`.`id`';
         $this->seeInDatabase('news', ['slug' => 'news-title']);
     }
 
+    public function test_insert_batch(): void
+    {
+        $data = [
+            [
+                'title' => 'News Title insert_batch 1',
+                'slug'  => 'news-title-insert-batch-1',
+                'body'  => 'News body',
+            ],
+            [
+                'title' => 'News Title insert_batch 2',
+                'slug'  => 'news-title-insert-batch-2',
+                'body'  => 'News body',
+            ],
+        ];
+        $ret = $this->queryBuilder->insert_batch('news', $data);
+
+        $this->assertSame(2, $ret);
+        $this->seeInDatabase('news', ['slug' => 'news-title-insert-batch-1']);
+        $this->seeInDatabase('news', ['slug' => 'news-title-insert-batch-2']);
+    }
+
     public function test_get_compiled_insert(): void
     {
         $data = [
