@@ -16,4 +16,9 @@ namespace Kenjis\CI3Compatible\Core;
 class CI_URI
 {
     // @TODO
+    
+    public function segment($segmentId, $no_result = ''){
+        $uri = service('uri');
+        return $uri->getSegment($segmentId, $no_result);
+    }
 }
